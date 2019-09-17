@@ -1,7 +1,7 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main.component';
 import { MatTreeModule } from '@angular/material/tree';
@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UsuarioModule } from '../pedilandia/usuario/usuario.module';
+import { ConsultaModule } from '../pedilandia/consulta/consulta.module';
+import { MainRoutingModule } from './main-routing.module';
  
 @NgModule({
     imports: [
@@ -20,7 +22,9 @@ import { UsuarioModule } from '../pedilandia/usuario/usuario.module';
         MatSidenavModule,
         MatToolbarModule,
         UsuarioModule,
+        ConsultaModule,
         MatTreeModule,
+        RouterModule,
         MatListModule,
         MatIconModule,
         MatButtonModule,
