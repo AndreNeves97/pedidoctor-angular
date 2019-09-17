@@ -8,18 +8,18 @@ import { Usuario } from '../usuario.model';
 })
 export class CadastroUsuarioComponent implements OnInit {
 
-  usuario: Usuario;
+  private usuario: Usuario;
 
-  public telefone_mask_9dig = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
-  public telefone_mask_8dig = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  public telefone_mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
   constructor() { 
-    // this.usuario = new Usuario("Leonam", "leonam@gmail.com", "senha", "32165498")
-    this.usuario = new Usuario()
-
+    this.usuario = new Usuario("Leonam", "leonam@gmail.com", "senha", "(31)32165-4098")
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  public limpar() {
+    this.usuario = new Usuario();
   }
 
 }

@@ -11,14 +11,14 @@
         </mat-form-field> <br>
 
         <mat-form-field class="senha-full-width">
-          <input matInput placeholder="Senha" value="" [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone: true}">
+          <input matInput placeholder="Senha" value="" [(ngModel)]="usuario.senha" type="password" [ngModelOptions]="{standalone: true}">
         </mat-form-field> 
 
         <mat-form-field class="telefone-full-width">
-          <input matInput placeholder="Telefone" value="" [textMask]="{mask: telefone_mask_9dig || telefone_mask_8dig}"  [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
+          <input matInput placeholder="Telefone" value="" [textMask]="{ mask: telefone_mask }"  [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
         </mat-form-field><br>
 
-        <button mat-raised-button isRoundButton color="warn" class="left-button">Limpar</button>
+        <button mat-raised-button isRoundButton color="warn" (click)="limpar()" class="left-button">Limpar</button>
 
         <button mat-raised-button isRoundButton color="primary" class="right-button">Cadastrar</button>
       </form>
