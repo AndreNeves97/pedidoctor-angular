@@ -10,7 +10,9 @@ export class CadastroUsuarioComponent implements OnInit {
 
   private usuario: Usuario;
 
-  public telefone_mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  private teste: boolean = true; 
+
+  private telefone_mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
   constructor() { 
     this.usuario = new Usuario("Leonam", "leonam@gmail.com", "senha", "(31)32165-4098")
