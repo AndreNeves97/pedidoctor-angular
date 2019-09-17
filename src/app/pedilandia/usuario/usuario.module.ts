@@ -5,15 +5,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
-  declarations: [CadastroUsuarioComponent],
+  declarations: [
+    CadastroUsuarioComponent,
+  ],
   imports: [
     CommonModule,
     MatInputModule,
     FormsModule,
     MatTabsModule,
     MatButtonModule,
+    TextMaskModule
   ], exports: [
     CadastroUsuarioComponent
   ]
