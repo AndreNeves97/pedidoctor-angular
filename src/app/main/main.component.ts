@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -58,29 +59,37 @@ export class MainComponent implements OnInit {
             shareReplay()
         );
 
-    constructor(private breakpointObserver: BreakpointObserver) {
-    this.dataSource.data = TREE_DATA;
-     }
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private router: Router    
+    ) {
+        this.dataSource.data = TREE_DATA;
+    }
 
     ngOnInit() {
     }
 
-     private _transformer = (node: FoodNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-    };
-  }
+    private _transformer = (node: FoodNode, level: number) => {
+        return {
+            expandable: !!node.children && node.children.length > 0,
+            name: node.name,
+            level: level,
+        };
+    }
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
-      node => node.level, node => node.expandable);
+    treeControl = new FlatTreeControl<ExampleFlatNode>(node => node.level, node => node.expandable);
 
-  treeFlattener = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable, node => node.children);
+    treeFlattener = new MatTreeFlattener(this._transformer, node => node.level, node => node.expandable, node => node.children);
 
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+    click(component: any) {
+        if(component.name == "Usuario")
+            this.router.navigate(['pedilandia/usuario'])
+        else if (component.name == "Consulta")
+            this.router.navigate(['pedilandia/consulta'])
+    }
 
 }
