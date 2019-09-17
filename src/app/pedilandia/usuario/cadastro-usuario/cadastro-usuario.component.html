@@ -1,23 +1,29 @@
-<div class="user-cadastro-container">
-  <form class="user-form">
-    <mat-form-field class="usuario-full-width">
-      <input matInput placeholder="Nome" value="" [(ngModel)]="usuario.nome" [ngModelOptions]="{standalone: true}">
-    </mat-form-field> 
+<mat-tab-group>
+  <mat-tab label="Cadastro"> 
+    <div class="user-cadastro-container">
+      <form class="user-form">
+        <mat-form-field class="usuario-full-width">
+          <input matInput placeholder="Nome" value="" [(ngModel)]="usuario.nome" [ngModelOptions]="{standalone: true}">
+        </mat-form-field> 
 
-    <mat-form-field class="email-full-width">
-      <input matInput placeholder="Email" type="email" value="" [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}">
-    </mat-form-field> <br>
+        <mat-form-field class="email-full-width">
+          <input matInput placeholder="Email" type="email" value="" [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}">
+        </mat-form-field> <br>
 
-    <mat-form-field class="senha-full-width">
-      <input matInput placeholder="Senha" value="" [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone: true}">
-    </mat-form-field> 
+        <mat-form-field class="senha-full-width">
+          <input matInput placeholder="Senha" value="" [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone: true}">
+        </mat-form-field> 
 
-    <mat-form-field class="telefone-full-width">
-      <input matInput placeholder="Telefone" value="" [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
-    </mat-form-field><br>
+        <mat-form-field class="telefone-full-width">
+          <input matInput placeholder="Telefone" value="" [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
+        </mat-form-field><br>
 
-    <button mat-raised-button isRoundButton color="warn" class="left-button">Limpar</button>
+        <button mat-raised-button isRoundButton color="warn" class="left-button">Limpar</button>
 
-    <button mat-raised-button isRoundButton color="primary" class="right-button">Cadastrar</button>
-  </form>
-</div>
+        <button mat-raised-button isRoundButton color="primary" class="right-button">Cadastrar</button>
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="Listagem"> 
+  </mat-tab>
+</mat-tab-group>
