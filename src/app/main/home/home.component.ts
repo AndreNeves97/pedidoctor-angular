@@ -9,16 +9,16 @@ import { auth } from 'firebase/app';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(public afAuth: AngularFireAuth) {
-    }
+    constructor(public afAuth: AngularFireAuth) { }
+
     login() {
         this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     }
+    
     logout() {
         this.afAuth.auth.signOut();
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
 }
