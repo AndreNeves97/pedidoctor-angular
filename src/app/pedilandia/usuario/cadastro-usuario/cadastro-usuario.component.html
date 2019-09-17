@@ -15,7 +15,7 @@
         </mat-form-field> 
 
         <mat-form-field class="telefone-full-width">
-          <input matInput placeholder="Telefone" value="" [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
+          <input matInput placeholder="Telefone" value="" [textMask]="{mask: telefone_mask_9dig || telefone_mask_8dig}"  [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
         </mat-form-field><br>
 
         <button mat-raised-button isRoundButton color="warn" class="left-button">Limpar</button>
