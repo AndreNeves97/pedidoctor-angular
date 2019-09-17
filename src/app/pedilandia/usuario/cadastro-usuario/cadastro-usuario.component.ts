@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from '../usuario.model';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastroUsuarioComponent implements OnInit {
 
-  constructor() { }
+  usuario: Usuario;
+
+
+  constructor() { 
+    // this.usuario = new Usuario("Leonam", "leonam@gmail.com", "senha", "32165498")
+    this.usuario = new Usuario()
+
+  }
 
   ngOnInit() {
   }
