@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { UsuarioModule } from './pedilandia/usuario/usuario.module';
+import { ConsultaModule } from './pedilandia/consulta/consulta.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from 'src/environments/environment';
@@ -28,6 +29,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
         AppRoutingModule,
 
         UsuarioModule,
+        ConsultaModule,
 
         BrowserAnimationsModule,
 
