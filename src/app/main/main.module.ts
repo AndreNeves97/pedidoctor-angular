@@ -11,13 +11,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { UsuarioModule } from '../pedilandia/usuario/usuario.module';
+ 
 @NgModule({
     imports: [
         CommonModule,
         MainRoutingModule,
         MatSidenavModule,
         MatToolbarModule,
+        UsuarioModule,
         MatTreeModule,
         MatListModule,
         MatIconModule,
