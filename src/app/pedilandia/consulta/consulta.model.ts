@@ -12,7 +12,7 @@ export class Consulta {
     doencasRecentes: string;
     informacoesAdicionais: string;
     
-    constructor (
+    constructor(
         dataConsulta: Date = new Date(),
         dataRegistro: Date = new Date(),
         paciente: Usuario = new Usuario(),
