@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase/app';
+import { AuthService } from 'src/app/common/security/auth.service';
 
 @Component({
     selector: 'app-home',
@@ -9,14 +8,17 @@ import { auth } from 'firebase/app';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(public afAuth: AngularFireAuth) { }
+    constructor(
+        private auth : AuthService
+    ) { 
+    }
 
-    login() {
-        this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    async login() {
+        this.auth.signInWithGoogle();
     }
     
     logout() {
-        this.afAuth.auth.signOut();
+        this.auth.signOut();
     }
 
     ngOnInit() { }

@@ -1,4 +1,4 @@
-import { Usuario } from '../usuario/usuario.model';
+import { Usuario } from '../../common/security/usuario.model';
 
 export class Consulta {
 
@@ -15,7 +15,13 @@ export class Consulta {
     constructor(
         dataConsulta: Date = new Date(),
         dataRegistro: Date = new Date(),
-        paciente: Usuario = new Usuario(),
+        paciente: Usuario = new Usuario({
+            email: null,
+            fotoUrl: null,
+            jwt: null,
+            nome: null,
+            telefone: null
+        }),
         tipoConsulta: string = "",
         sintomasObservados: string = "",
         medicamentosQueToma: string = "",

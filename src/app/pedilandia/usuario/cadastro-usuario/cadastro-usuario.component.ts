@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../usuario.model';
+import { Usuario } from '../../../common/security/usuario.model';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -15,13 +15,25 @@ export class CadastroUsuarioComponent implements OnInit {
   private telefone_mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
   constructor() { 
-    this.usuario = new Usuario("Leonam", "leonam@gmail.com", "senha", "(31)32165-4098")
+    this.usuario = new Usuario({
+        email: null,
+        fotoUrl: null,
+        jwt: null,
+        nome: null,
+        telefone: null
+    })
   }
 
   ngOnInit() {}
 
   public limpar() {
-    this.usuario = new Usuario();
+    this.usuario = new Usuario({
+        email: null,
+        fotoUrl: null,
+        jwt: null,
+        nome: null,
+        telefone: null
+    });
   }
 
 }
