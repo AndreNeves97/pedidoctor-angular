@@ -10,11 +10,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UsuarioModule } from '../pedilandia/usuario/usuario.module';
 import { ConsultaModule } from '../pedilandia/consulta/consulta.module';
 import { MainRoutingModule } from './main-routing.module';
- 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -28,6 +29,9 @@ import { MainRoutingModule } from './main-routing.module';
         MatListModule,
         MatIconModule,
         MatButtonModule,
+        
+        MatTooltipModule,
+
     ],
     declarations: [HomeComponent, MainComponent],
     exports: [HomeComponent]

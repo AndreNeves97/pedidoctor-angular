@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { AuthService } from '../common/security/auth.service';
 
 interface FoodNode {
   name: string;
@@ -68,7 +69,8 @@ export class MainComponent implements OnInit {
 
     constructor(
         private breakpointObserver: BreakpointObserver,
-        private router: Router    
+        private router: Router,
+        private auth : AuthService
     ) {
         this.dataSource.data = TREE_DATA;
     }
@@ -95,6 +97,15 @@ export class MainComponent implements OnInit {
 
     click(component: any) {
         this.router.navigate([component.route]);
+    }
+
+
+    async login() {
+        this.auth.signInWithGoogle();
+    }
+    
+    logout() {
+        this.auth.signOut();
     }
 
 }

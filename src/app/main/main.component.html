@@ -42,6 +42,23 @@
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>DALPHAM</span>
+            
+
+            <span class="example-spacer"></span>
+
+            <img *ngIf="auth.usuarioLogado | async as user; else showLogin"
+                class="user-avatar"
+                [matTooltip]="user.nome + '. E-mail: ' + user.email"
+                [src]="user.fotoUrl"
+                (click)="openUserDialog()"
+            />
+            
+            <ng-template #showLogin>                       
+                <button mat-raised-button class="google-sign-in-wrapper"  (click)="login()">
+                    <img width="20px" alt="Google Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                    Login
+                </button>
+            </ng-template>
         </mat-toolbar>
         
         <div [style.margin-left]="(isHandset$ | async)? 'initial' : '200px'">
