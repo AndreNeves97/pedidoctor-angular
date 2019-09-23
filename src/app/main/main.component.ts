@@ -9,6 +9,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 interface FoodNode {
   name: string;
   id: string;
+  route: string;
   children?: FoodNode[];
 }
 
@@ -16,25 +17,31 @@ const TREE_DATA: FoodNode[] = [
     {
         name: 'Home',
         id: '0',
+        route: '',
         children: [ ]
     }, {
         name: 'Feast',
         id: '1',
+        route: '',
         children: []
     }, {
         name: 'Supper',
         id: '2',
+        route: '',
         children: []
     },{
         name: 'Pedilandia',
         id: '3',
+        route: null,
         children: [
             { 
                 name: 'Usuario',
-                id: '3A' 
+                id: '3A',
+                route: 'pedilandia/usuario'
             },
             { 
                 name: 'Consulta',
+                route: 'pedilandia/consulta',
                 id: '3A' 
             }
         ]
@@ -73,6 +80,7 @@ export class MainComponent implements OnInit {
         return {
             expandable: !!node.children && node.children.length > 0,
             name: node.name,
+            route: node.route,
             level: level,
         };
     }
@@ -86,10 +94,7 @@ export class MainComponent implements OnInit {
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     click(component: any) {
-        if(component.name == "Usuario")
-            this.router.navigate(['pedilandia/usuario'])
-        else if (component.name == "Consulta")
-            this.router.navigate(['pedilandia/consulta'])
+        this.router.navigate([component.route]);
     }
 
 }

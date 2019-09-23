@@ -13,12 +13,12 @@
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                <button mat-icon-button (click) = "click(node)"></button>
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click) = "click(node)" style="cursor: pointer">
+                <button mat-icon-button ></button>
                 {{node.name}}
             </mat-tree-node>
-            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                <button mat-icon-button matTreeNodeToggle
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle style="cursor: pointer">
+                <button mat-icon-button 
                         [attr.aria-label]="'toggle ' + node.name" (click) = "click(node)">
                 <mat-icon class="mat-icon-rtl-mirror">
                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
