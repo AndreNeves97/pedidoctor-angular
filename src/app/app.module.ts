@@ -49,6 +49,7 @@ import { HomeComponent } from './main/home/home.component';
         MainComponent,
         MainPedilandiaComponent,
         DashboardComponent,
+        MainSupperComponent,
 
         AppComponent,
         DialogUserInfoComponent,
