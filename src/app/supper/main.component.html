@@ -8,9 +8,6 @@
         [opened]="(isHandset$ | async) === false"
 
         [style.margin-top]="(isHandset$ | async)? 'initial' : '64px'"
-        
-        (openedChange)="menuOpenedChange($event)"
-        (openedStart)="menuOpenedStart($event)"
     >
 
         <mat-toolbar>Menu</mat-toolbar>
@@ -44,7 +41,7 @@
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>DALPHAM</span>
+            <span>Supper</span>
             
 
             <span class="example-spacer"></span>
@@ -64,8 +61,18 @@
             </ng-template>
         </mat-toolbar>
         
-        <div [style.margin-left]="(isHandset$ | async) || !menuOpened? 'initial' : '200px'">
+        <div [style.margin-left]="(isHandset$ | async)? 'initial' : '200px'">
             <router-outlet></router-outlet>
+
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Favorite food" value="Sushi">
+                </mat-form-field>
+              
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Leave a comment"></textarea>
+                </mat-form-field>
+              </form>
         </div>
             
     </mat-sidenav-content>

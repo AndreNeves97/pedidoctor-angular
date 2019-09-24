@@ -1,55 +1,52 @@
 import { Component, OnInit } from '@angular/core';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { AuthService } from '../common/security/auth.service';
+import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import { AuthService } from '../common/security/auth.service';
+
+
 
 interface FoodNode {
-  name: string;
-  id: string;
-  route: string;
-  children?: FoodNode[];
+    name: string;
+    id: string;
+    route: string;
+    children?: FoodNode[];
 }
 
 const TREE_DATA: FoodNode[] = [
     {
-        name: 'Home',
-        id: '0',
-        route: '',
-        children: [ ]
-    }, {
-        name: 'Feast',
-        id: '1',
-        route: '',
-        children: []
-    }, {
-        name: 'Supper',
-        id: '2',
-        route: 'supper',
-        children: []
-    },{
-        name: 'Pedilandia',
-        id: '3',
-        route: 'pedilandia',
-        children: []
+        name: 'Dashboard',
+        id: '3A',
+        route: 'pedilandia'
+    },
+    {
+        name: 'Usuario',
+        id: '3A',
+        route: 'pedilandia/usuario'
+    },
+    {
+        name: 'Consulta',
+        route: 'pedilandia/consulta',
+        id: '3A'
     }
 ];
 
 interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
+    expandable: boolean;
+    name: string;
+    level: number;
 }
+
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainPedilandiaComponent implements OnInit {
     menuOpened;
 
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -61,7 +58,7 @@ export class MainComponent implements OnInit {
     constructor(
         private breakpointObserver: BreakpointObserver,
         private router: Router,
-        private auth : AuthService
+        private auth: AuthService
     ) {
         this.dataSource.data = TREE_DATA;
     }
@@ -94,7 +91,7 @@ export class MainComponent implements OnInit {
     async login() {
         this.auth.signInWithGoogle();
     }
-    
+
     logout() {
         this.auth.signOut();
     }
@@ -104,8 +101,8 @@ export class MainComponent implements OnInit {
         this.menuOpened = opened;
     }
 
+
     menuOpenedStart() {
         this.menuOpened = !this.menuOpened;
     }
-
 }

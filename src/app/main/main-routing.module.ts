@@ -6,8 +6,6 @@ import { CadastroConsultaComponent } from './../pedilandia/consulta/cadastro-con
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'pedilandia/usuario', component: CadastroUsuarioComponent},
-    {path: 'pedilandia/consulta', component: CadastroConsultaComponent}
 ]
 
 @NgModule({
@@ -16,4 +14,4 @@ const routes: Routes = [
 })
 export class MainRoutingModule { }
 
-export const  mainRoutes = routes;
+export const mainRoutes = routes;

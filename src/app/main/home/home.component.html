@@ -6,7 +6,8 @@
         <h1>Hello {{ user.nome }}! </h1>
         Email: {{ user.email }}<br><br>
         <button (click)="logout()">Logout</button>
-      </div>
+    </div>
+
       <ng-template #showLogin>
         <p>Please login.</p>
         <button (click)="login()">Login with Google</button>
