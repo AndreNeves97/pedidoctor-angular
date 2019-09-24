@@ -10,7 +10,7 @@ import { ConsultaService } from '../consulta.service';
     templateUrl: './cadastro-consulta.component.html',
     styleUrls: ['./cadastro-consulta.component.scss']
 })
-export class CadastroConsultaComponent implements OnInit, BeforeIn {
+export class CadastroConsultaComponent implements OnInit{
 
     private consulta: Consulta;
 
@@ -18,24 +18,11 @@ export class CadastroConsultaComponent implements OnInit, BeforeIn {
 
     constructor(
         private service: ConsultaService,
-        private authService: AuthService
-    ) {
-        
-        
+        private authService: AuthService,
+        private consultaService: ConsultaService
+    ) { }
 
-    }
-
-            async consultaGet() {        
-        const res = await this.service.get();
-        console.log(res);
-    }
-
-    public async cadastrar() {
-        const usuarioLogado = await this.authService.usuarioLogado.value;
-        console.log(JSON.stringify(this.consulta));
-
-    }
-
+    
     ngOnInit() {
         this.tipoConsultaOptions = Object.keys(TipoConsulta).map((tipoConsulta) => {
             return {
@@ -59,12 +46,25 @@ export class CadastroConsultaComponent implements OnInit, BeforeIn {
                             telefone: user.phoneNumber
                         }
                         ), "", "", "", "", "");
-            } 
-        });
+                    } 
+                });
     }
-
+            
     public limpar() {
         this.consulta = new Consulta();
     }
-
+            
+    async consultaGet() {        
+        const res = await this.service.get();
+        console.log(res);
+    }
+        
+    public async cadastrar() {
+        this.consultaService.insert(this.consulta).then((dado) => {
+            if (dado) {
+                console.log(dado);
+                this.consulta = new Consulta();
+            }
+        });
+    }
 }
