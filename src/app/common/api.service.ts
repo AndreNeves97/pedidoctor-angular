@@ -57,7 +57,7 @@ export class ApiService {
 
     async graphqlMutation (mutationString: string) {
 
-        const usuarioLogado = this.authService.usuarioLogado.value;
+        const usuarioLogado = await this.authService.usuarioLogado.value;
 
         let headers;
 
