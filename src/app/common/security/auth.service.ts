@@ -54,7 +54,6 @@ export class AuthService {
         return this.afAuth.user;
     }
 
-
     async validateFirebaseLogin(idToken : string) : Promise<Usuario> {
         const res : any = await this.http.post(
             `${this.apiUrl}/login`, 

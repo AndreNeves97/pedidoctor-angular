@@ -54,4 +54,28 @@ export class ApiService {
             headers
         );
     }
+
+    async graphqlMutation (mutationString: string) {
+
+        const usuarioLogado = this.authService.usuarioLogado.value;
+
+        let headers;
+
+        if(usuarioLogado == null) {
+            headers = {}
+        } else {
+            headers = {
+                "Authorization": `Bearer ${usuarioLogado.jwt}`
+            }
+        }
+
+        return await this.post(
+            this.graphEndpoint, 
+            {
+                query: mutationString,
+            },
+            headers
+        );
+
+    }
 }
