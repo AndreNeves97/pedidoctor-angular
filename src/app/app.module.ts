@@ -25,22 +25,41 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DashboardComponent as PedilandiaDashBoardComponent } from './pedilandia/dashboard/dashboard.component';
+import { DashboardComponent as PedilandiaDashBoardComponent, DashboardComponent } from './pedilandia/dashboard/dashboard.component';
 import { MainSupperComponent } from './supper/main.component';
+import { DialogUserInfoComponent } from './common/utils/components/dialog-user-info/dialog-user-info.component';
+import { ToolbarUserAvatarComponent } from './common/utils/components/toolbar-user-avatar/toolbar-user-avatar.component';
+
+import { PedilandiaModule } from './pedilandia/pedilandia.module';
+import { SupperModule } from './supper/supper.module';
+import { FeastModule } from './feast/feast.module';
+import { MainComponent } from './main/main.component';
+import { HomeComponent } from './main/home/home.component';
 
 
 
 @NgModule({
     declarations: [
-        AppComponent,
+        HomeComponent,
+        MainComponent,
         MainPedilandiaComponent,
-        PedilandiaDashBoardComponent,
-        MainSupperComponent
+        DashboardComponent,
+
+        AppComponent,
+        DialogUserInfoComponent,
+        ToolbarUserAvatarComponent
     ],
     imports: [
+        // PedilandiaModule,
+        // SupperModule,
+        // MainModule,
+        // FeastModule,
+
         BrowserModule,
         AppRoutingModule,
 
@@ -49,7 +68,7 @@ import { MainSupperComponent } from './supper/main.component';
 
         BrowserAnimationsModule,
 
-        MainModule,
+        // MainModule,
         
         MatInputModule,
 
@@ -77,7 +96,13 @@ import { MainSupperComponent } from './supper/main.component';
         MatButtonModule,
         MatCardModule,
         MatMenuModule,
+        MatDialogModule,
         LayoutModule,
+    ],
+    exports : [
+    ],
+    entryComponents: [
+        DialogUserInfoComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

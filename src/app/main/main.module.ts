@@ -15,11 +15,29 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UsuarioModule } from '../pedilandia/usuario/usuario.module';
 import { ConsultaModule } from '../pedilandia/consulta/consulta.module';
 import { MainRoutingModule } from './main-routing.module';
+import { ToolbarUserAvatarComponent } from '../common/utils/components/toolbar-user-avatar/toolbar-user-avatar.component';
+import { DialogUserInfoComponent } from '../common/utils/components/dialog-user-info/dialog-user-info.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
+    declarations: [
+        HomeComponent, 
+        MainComponent
+    ],
     imports: [
         CommonModule,
         MainRoutingModule,
+  
+
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        LayoutModule,
+        
         MatSidenavModule,
         MatToolbarModule,
         UsuarioModule,
@@ -29,11 +47,12 @@ import { MainRoutingModule } from './main-routing.module';
         MatListModule,
         MatIconModule,
         MatButtonModule,
+        MatCardModule,
+        MatDialogModule,
         
         MatTooltipModule,
 
     ],
-    declarations: [HomeComponent, MainComponent],
     exports: [HomeComponent]
 })
 export class MainModule { }

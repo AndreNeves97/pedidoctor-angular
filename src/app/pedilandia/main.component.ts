@@ -42,7 +42,7 @@ interface ExampleFlatNode {
 
 
 @Component({
-    selector: 'app-main',
+    selector: 'app-pedilandia-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss']
 })
@@ -87,14 +87,6 @@ export class MainPedilandiaComponent implements OnInit {
         this.router.navigate([component.route]);
     }
 
-
-    async login() {
-        this.auth.signInWithGoogle();
-    }
-
-    logout() {
-        this.auth.signOut();
-    }
 
 
     menuOpenedChange(opened) {

@@ -10,18 +10,62 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     declarations: [MainSupperComponent],
     imports: [
         CommonModule,
-        SupperRoutingModule,
+
         LayoutModule,
         MatToolbarModule,
         MatButtonModule,
         MatSidenavModule,
         MatIconModule,
-        MatListModule
+        MatListModule,
+
+        MatButtonModule,
+        LayoutModule,
+
+
+        MatInputModule,
+
+        CommonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTreeModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+
+        
+        MatTooltipModule,
+
+
+
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        LayoutModule,
+
+
+        CommonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTreeModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+
+        
+        MatTooltipModule,
     ],
     exports: [
         MainSupperComponent
@@ -29,6 +73,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class SupperModule {
     constructor(overlayContainer: OverlayContainer) {
+        console.log('supper module');
         overlayContainer.getContainerElement().classList.add('candy-theme');
     }
 }

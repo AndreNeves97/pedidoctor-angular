@@ -31,7 +31,7 @@ interface ExampleFlatNode {
 }
 
 @Component({
-    selector: 'app-main',
+    selector: 'app-supper-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss']
 })

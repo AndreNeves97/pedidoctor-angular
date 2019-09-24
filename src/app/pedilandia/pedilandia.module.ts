@@ -12,26 +12,43 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ToolbarUserAvatarComponent } from '../common/utils/components/toolbar-user-avatar/toolbar-user-avatar.component';
+import { DialogUserInfoComponent } from '../common/utils/components/dialog-user-info/dialog-user-info.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-    declarations: [
+    declarations: [ 
         MainPedilandiaComponent,
-        DashboardComponent
+        DashboardComponent,
     ],
     imports: [
+        UsuarioModule,
+        ConsultaModule,
+
         CommonModule,
-        PedilandiaRoutingModule,
         MatGridListModule,
         MatCardModule,
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
         LayoutModule,
+
+
+        CommonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTreeModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+
+        
+        MatTooltipModule,
     ], exports: [
-        UsuarioModule,
-        ConsultaModule,
-        MainPedilandiaComponent,
-        DashboardComponent
     ]
 })
 export class PedilandiaModule { }
