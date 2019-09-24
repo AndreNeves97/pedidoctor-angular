@@ -1,3 +1,4 @@
+import { Consulta } from './consulta.model';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/common/api.service';
 
@@ -39,5 +40,13 @@ export class ConsultaService {
         }
         
         return null;
+    }
+
+    async insert ( consulta: Consulta ) {
+        return new Promise((resolve, reject) => {
+            
+            resolve(consulta);
+
+        })
     }
 }
