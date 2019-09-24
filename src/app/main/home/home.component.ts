@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
     }
 
     async login() {
-        this.auth.signInWithGoogle();
+        let a = await this.auth.signInWithGoogle();
+        console.log(a);
     }
     
     logout() {
