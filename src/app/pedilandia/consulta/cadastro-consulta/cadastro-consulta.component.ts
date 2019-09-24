@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/common/security/auth.service';
 import { TipoConsulta } from './../../util/tipo-consulta.enum';
 import { Consulta } from './../consulta.model';
 import { Component, OnInit } from '@angular/core';
@@ -9,33 +10,30 @@ import { ConsultaService } from '../consulta.service';
     templateUrl: './cadastro-consulta.component.html',
     styleUrls: ['./cadastro-consulta.component.scss']
 })
-export class CadastroConsultaComponent implements OnInit {
+export class CadastroConsultaComponent implements OnInit, BeforeIn {
 
     private consulta: Consulta;
 
     private tipoConsultaOptions: any[];
 
     constructor(
-        private service: ConsultaService
+        private service: ConsultaService,
+        private authService: AuthService
     ) {
-        this.consulta = new Consulta(
-            new Date(),
-            new Date(),
-            new Usuario(
-                {
-                    nome: 'Leonam',
-                    email: 'leonam@gmail.com',
-                    fotoUrl: null,
-                    jwt: null,
-                    telefone: "(31)32165-4098"
-                }
-            ), "Diagnóstico", "Dor de cabeça", "Gadernal", "Gordo", "Sedentário");
+        
+        
 
     }
 
-    async consultaGet() {        
+            async consultaGet() {        
         const res = await this.service.get();
         console.log(res);
+    }
+
+    public async cadastrar() {
+        const usuarioLogado = await this.authService.usuarioLogado.value;
+        console.log(JSON.stringify(this.consulta));
+
     }
 
     ngOnInit() {
@@ -44,6 +42,24 @@ export class CadastroConsultaComponent implements OnInit {
                 label: tipoConsulta,
                 value: tipoConsulta
             }
+        });
+        this.consulta = new Consulta();
+        this.authService.getFirebaseUser().subscribe((user) => {
+            if ( user ) {
+                console.log(user);
+                this.consulta = new Consulta(
+                    new Date(),
+                    new Date(),
+                    new Usuario(
+                        {
+                            nome: user.displayName,
+                            email: user.email,
+                            fotoUrl: user.photoURL,
+                            jwt: null,
+                            telefone: user.phoneNumber
+                        }
+                        ), "", "", "", "", "");
+            } 
         });
     }
 
