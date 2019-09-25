@@ -16,11 +16,17 @@ export class CadastroConsultaComponent implements OnInit{
 
     private tipoConsultaOptions: any[];
 
+    private horaconsulta: any;
+
     constructor(
         private service: ConsultaService,
         private authService: AuthService,
         private consultaService: ConsultaService
-    ) { }
+    ) { 
+
+        this.horaconsulta = new Date();
+
+    }
 
     
     ngOnInit() {
@@ -31,7 +37,7 @@ export class CadastroConsultaComponent implements OnInit{
             }
         });
         this.consulta = new Consulta();
-        this.authService.getFirebaseUser().subscribe((user) => {
+        this.authService.usuarioLogado.subscribe((user) => {
             if ( user ) {
                 console.log(user);
                 this.consulta = new Consulta(
@@ -39,11 +45,12 @@ export class CadastroConsultaComponent implements OnInit{
                     new Date(),
                     new Usuario(
                         {
-                            nome: user.displayName,
+                            _id : user._id,
+                            nome: user.nome,
                             email: user.email,
-                            fotoUrl: user.photoURL,
+                            fotoUrl: user.fotoUrl,
                             jwt: null,
-                            telefone: user.phoneNumber
+                            telefone: user.telefone
                         }
                         ), "", "", "", "", "");
                     } 
@@ -60,11 +67,16 @@ export class CadastroConsultaComponent implements OnInit{
     }
         
     public async cadastrar() {
-        this.consultaService.insert(this.consulta).then((dado) => {
-            if (dado) {
-                console.log(dado);
-                this.consulta = new Consulta();
-            }
-        });
+        console.log(typeof(this.horaconsulta));
+        // this.consulta.dataConsulta.setHours(Number(this.horaconsulta.getHours()), Number(this.horaconsulta.getMinutes()));
+
+        // this.consultaService.insert(this.consulta).then((dado) => {
+        //     console.log(dado);
+        //     if (dado) {
+        //         this.consulta = new Consulta();
+        //     }
+        // });
+        // console.log(this.consulta)
+        console.log(this.horaconsulta);
     }
 }
