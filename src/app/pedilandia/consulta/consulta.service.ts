@@ -43,8 +43,7 @@ export class ConsultaService {
     }
 
     async insert ( consulta: Consulta ) {
-        return new Promise((resolve, reject) => {
-            const response = this.api.graphqlMutation(`
+            const response = await this.api.graphqlMutation(`
                 mutation {
                     createConsulta (obj: {
                         dataConsulta: "${consulta.dataConsulta}",
@@ -58,13 +57,16 @@ export class ConsultaService {
                         informacoesAdicionais : "${consulta.informacoesAdicionais}"
                       }) {
                         dataConsulta,
-                            _id
-                      }
+                        _id
+                    }
                 }
             `);
             
-            resolve(response);
-
-        })
+            // if(response.data) {
+                return(response);
+            // }
+            
+            // return(null);
+// 
     }
 }
