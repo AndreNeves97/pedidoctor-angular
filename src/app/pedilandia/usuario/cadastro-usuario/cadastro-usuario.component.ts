@@ -16,6 +16,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
   constructor() { 
     this.usuario = new Usuario({
+        _id : null,
         email: null,
         fotoUrl: null,
         jwt: null,
@@ -28,6 +29,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
   public limpar() {
     this.usuario = new Usuario({
+        _id : null,
         email: null,
         fotoUrl: null,
         jwt: null,
