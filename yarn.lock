@@ -629,11 +629,6 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
   integrity sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==
 
-"@types/luxon@^1.11.1":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.15.2.tgz#528f11f7d6dc08cec0445d4bea8065a5bb6989b2"
-  integrity sha512-zHPoyVrLvNaiMRYdhmh88Rn489ZgAgbc6iLxR5Yi0VCNfeNYHcszbhJV2vDHLNrVGy35BPtWBRn4OP2F9BBvFw==
-
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -4806,12 +4801,11 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-ngx-material-timepicker@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-5.1.1.tgz#63ae5f9aa218ee4680229b3152c74324565a5d8e"
-  integrity sha512-KHX6sKydr0mzGMUUQMCzmNY/tFTt9RhrhowFkK2Z1aWGsZ8b1qMATRSDA/19xS+NrsI0Hlto6hLwp3dhUtGweA==
+ngx-material-timepicker@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-4.0.2.tgz#30e5835b1ce24f8d83debcee719eb46277862eea"
+  integrity sha512-Sei3LhA2/54GPJaPFyuD4zQ5/mptffNCOu16zcUogQzHc/B1iLM2YqzjK+eUBRoTtiBnWjzJD9GRg0fbmK/9yw==
   dependencies:
-    "@types/luxon" "^1.11.1"
     luxon "^1.11.3"
     tslib "^1.9.0"
 
