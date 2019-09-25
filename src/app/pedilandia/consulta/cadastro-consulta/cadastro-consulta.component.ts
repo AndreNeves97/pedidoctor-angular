@@ -38,44 +38,60 @@ export class CadastroConsultaComponent implements OnInit{
             }
         });
         this.consulta = new Consulta();
-        this.authService.usuarioLogado.subscribe((user) => {
-            if ( user ) {
-                console.log(user);
-                this.consulta = new Consulta(
-                    new Date(),
-                    new Date(),
-                    new Usuario(
-                        {
-                            _id : user._id,
-                            nome: user.nome,
-                            email: user.email,
-                            fotoUrl: user.fotoUrl,
-                            jwt: null,
-                            telefone: user.telefone
-                        }
-                        ), "", "", "", "", "");
-                    } 
-                });
+        const user = this.authService.usuarioLogado.value;
+        if ( user ) {
+            console.log(user);
+            this.consulta = new Consulta(
+                new Date(),
+                new Date(),
+                new Usuario(
+                    {
+                        _id : user._id,
+                        nome: user.nome,
+                        email: user.email,
+                        fotoUrl: user.fotoUrl,
+                        jwt: null,
+                        telefone: user.telefone
+                    }
+                ), "", "", "", "", "");
+        } 
     }
             
     public limpar() {
-        this.consulta = new Consulta();
+        this.init_consulta();
     }
             
     async consultaGet() {        
         const res = await this.service.get();
-        console.log(res);
     }
-        
+
+    private init_consulta () {
+        const user = this.authService.usuarioLogado.value;
+        if ( user ) {
+            this.consulta = new Consulta(
+                new Date(),
+                new Date(),
+                new Usuario(
+                    {
+                        _id : user._id,
+                        nome: user.nome,
+                        email: user.email,
+                        fotoUrl: user.fotoUrl,
+                        jwt: null,
+                        telefone: user.telefone
+                    }
+                ), "", "", "", "", "");
+        }
+    }
+
     public async cadastrar() {
         if (this.horaConsulta ) {
             let h = /([0-9]+(?=:))/g.exec(this.horaConsulta);
             let m = /(?<=:)([0-9]+)/g.exec(this.horaConsulta);
             this.consulta.dataConsulta.setHours(Number(h[0]), Number(m[0]));
             this.consultaService.insert(this.consulta).then((dado) => {
-                console.log(dado);
                 if (dado) {
-                    this.consulta = new Consulta();
+                    this.init_consulta();
                 }
             });
         }
