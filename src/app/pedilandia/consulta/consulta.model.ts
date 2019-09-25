@@ -16,6 +16,7 @@ export class Consulta {
         dataConsulta: Date = new Date(),
         dataRegistro: Date = new Date(),
         paciente: Usuario = new Usuario({
+            _id: null,
             email: null,
             fotoUrl: null,
             jwt: null,
