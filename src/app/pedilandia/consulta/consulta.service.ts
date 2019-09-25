@@ -42,6 +42,30 @@ export class ConsultaService {
         return null;
     }
 
+    async getResumoForListing () {
+        const res = await this.api.graphqlQuery(`
+            query {
+                consultas {
+                    _id
+                    dataConsulta
+                    paciente {
+                        nome
+                    }
+                    tipoConsulta
+                }
+            }
+        `);
+        
+
+        if(res.data && res.data.consultas) {
+            return res.data.consultas;
+        }
+
+        return res.data;
+        
+        // return null;
+    }
+
     async insert ( consulta: Consulta ) {
             const response = await this.api.graphqlMutation(`
                 mutation {
