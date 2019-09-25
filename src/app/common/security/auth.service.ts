@@ -63,6 +63,7 @@ export class AuthService {
         ).toPromise();
 
         const user = new Usuario({
+            _id: res.user._id,
             nome: res.user.nome,
             email: res.user.email,
             fotoUrl: res.user.fotoUrl,
