@@ -18,7 +18,10 @@
                 ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field> <br>
-
+            
+            <div class="ngx-timepicker-field-example">
+                <ngx-timepicker-field [buttonAlign]="'left'"  [(ngModel)]="horaconsulta" [ngModelOptions]="{standalone: true}"></ngx-timepicker-field>
+            </div><br>
             <mat-form-field class="tipoConsulta-full-width">
                 <mat-label>Tipo de consulta</mat-label>
                 <mat-select [(ngModel)]="consulta.tipoConsulta" [ngModelOptions]="{standalone: true}">
