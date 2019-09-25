@@ -629,6 +629,11 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
   integrity sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==
 
+"@types/luxon@^1.11.1":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.15.2.tgz#528f11f7d6dc08cec0445d4bea8065a5bb6989b2"
+  integrity sha512-zHPoyVrLvNaiMRYdhmh88Rn489ZgAgbc6iLxR5Yi0VCNfeNYHcszbhJV2vDHLNrVGy35BPtWBRn4OP2F9BBvFw==
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -4441,6 +4446,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+luxon@^1.11.3:
+  version "1.19.3"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.19.3.tgz#86c04a1395529b4386ae235a8fe16d0a82a0695b"
+  integrity sha512-YwTDjGRQC0QC9Iya2g2eKZfgEFqRId4ZoLHORQcfTMB/5xrTx427V7ZPjQJ1vzvhA2vJfG2bh1Kv8V8IFMWCUA==
+
 magic-string@0.25.2:
   version "0.25.2"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.2.tgz#139c3a729515ec55e96e69e82a11fe890a293ad9"
@@ -4795,6 +4805,15 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ngx-material-timepicker@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-5.1.1.tgz#63ae5f9aa218ee4680229b3152c74324565a5d8e"
+  integrity sha512-KHX6sKydr0mzGMUUQMCzmNY/tFTt9RhrhowFkK2Z1aWGsZ8b1qMATRSDA/19xS+NrsI0Hlto6hLwp3dhUtGweA==
+  dependencies:
+    "@types/luxon" "^1.11.1"
+    luxon "^1.11.3"
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
