@@ -4,6 +4,7 @@ import { Consulta } from './../consulta.model';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../common/security/usuario.model';
 import { ConsultaService } from '../consulta.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-cadastro-consulta',
@@ -16,16 +17,16 @@ export class CadastroConsultaComponent implements OnInit{
 
     private tipoConsultaOptions: any[];
 
-    private horaconsulta: any;
+    private options: string[];
+
+    private horaConsulta: string;
 
     constructor(
         private service: ConsultaService,
         private authService: AuthService,
         private consultaService: ConsultaService
     ) { 
-
-        this.horaconsulta = new Date();
-
+        this.options = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'];
     }
 
     
@@ -67,16 +68,16 @@ export class CadastroConsultaComponent implements OnInit{
     }
         
     public async cadastrar() {
-        console.log(typeof(this.horaconsulta));
-        // this.consulta.dataConsulta.setHours(Number(this.horaconsulta.getHours()), Number(this.horaconsulta.getMinutes()));
-
-        // this.consultaService.insert(this.consulta).then((dado) => {
-        //     console.log(dado);
-        //     if (dado) {
-        //         this.consulta = new Consulta();
-        //     }
-        // });
-        // console.log(this.consulta)
-        console.log(this.horaconsulta);
+        if (this.horaConsulta ) {
+            let h = /([0-9]+(?=:))/g.exec(this.horaConsulta);
+            let m = /(?<=:)([0-9]+)/g.exec(this.horaConsulta);
+            this.consulta.dataConsulta.setHours(Number(h[0]), Number(m[0]));
+            this.consultaService.insert(this.consulta).then((dado) => {
+                console.log(dado);
+                if (dado) {
+                    this.consulta = new Consulta();
+                }
+            });
+        }
     }
 }
