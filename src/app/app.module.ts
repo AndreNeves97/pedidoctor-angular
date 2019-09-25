@@ -12,8 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UsuarioModule } from './pedilandia/usuario/usuario.module';
 import { ConsultaModule } from './pedilandia/consulta/consulta.module';
 import { AngularFireModule } from 'angularfire2';
@@ -69,8 +68,7 @@ import { HomeComponent } from './main/home/home.component';
         ConsultaModule,
 
         BrowserAnimationsModule,
-        NgxMaterialTimepickerModule,
-
+        MatAutocompleteModule,
         // MainModule,
         
         MatInputModule,

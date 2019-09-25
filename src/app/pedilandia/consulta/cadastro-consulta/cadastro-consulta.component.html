@@ -1,61 +1,108 @@
 <mat-tab-group>
   <mat-tab label="Agendamento de consultas">
+    <div class="consulta-cadastro-container">
+      <form class="consulta-form">
+        <mat-form-field class="dataConsulta-full-width">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Escolha uma data para a consulta"
+            [(ngModel)]="consulta.dataConsulta"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="horaConsulta-full-width">
+          <mat-label>Escolha um horário para a consulta</mat-label>
+          <mat-select
+            [(ngModel)]="horaConsulta"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="tipoConsulta-full-width">
+          <mat-label>Tipo de consulta</mat-label>
+          <mat-select
+            [(ngModel)]="consulta.tipoConsulta"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <mat-option
+              *ngFor="let tipoConsulta of tipoConsultaOptions"
+              [value]="tipoConsulta.value"
+            >
+              {{ tipoConsulta.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      
-      <div class="consulta-cadastro-container">
-        <form class="consulta-form">
-            <mat-form-field class="dataConsulta-full-width">
-                <input
-                    matInput
-                    [matDatepicker]="picker"
-                    placeholder="Escolha uma data para a consulta"
-                    [(ngModel)]="consulta.dataConsulta"
-                    [ngModelOptions]="{standalone: true}"
-                />
-                <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field> <br>
-            
-            <div class="ngx-timepicker-field-example">
-                <ngx-timepicker-field [buttonAlign]="'left'"  [(ngModel)]="horaconsulta" [ngModelOptions]="{standalone: true}"></ngx-timepicker-field>
-            </div><br>
-            <mat-form-field class="tipoConsulta-full-width">
-                <mat-label>Tipo de consulta</mat-label>
-                <mat-select [(ngModel)]="consulta.tipoConsulta" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let tipoConsulta of tipoConsultaOptions" [value]="tipoConsulta.value">
-                        {{tipoConsulta.label}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <mat-form-field class="sintomas-full-width">
+          <textarea
+            matInput
+            placeholder="Descreva os sintomas observados"
+            [(ngModel)]="consulta.sintomasObservados"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </mat-form-field>
 
-            <mat-form-field class="sintomas-full-width">
-                <textarea matInput placeholder="Descreva os sintomas observados" [(ngModel)]="consulta.sintomasObservados" [ngModelOptions]="{standalone: true}"></textarea>
-            </mat-form-field>
+        <mat-form-field class="medicamentos-full-width">
+          <textarea
+            matInput
+            placeholder="Medicamentos que utiliza"
+            [(ngModel)]="consulta.medicamentosQueToma"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </mat-form-field>
 
-            <mat-form-field class="medicamentos-full-width">
-                <textarea matInput placeholder="Medicamentos que utiliza" [(ngModel)]="consulta.medicamentosQueToma" [ngModelOptions]="{standalone: true}"></textarea>
-            </mat-form-field>
+        <mat-form-field class="doencas-full-width">
+          <textarea
+            matInput
+            placeholder="Doenças ou enfermidades recentes"
+            [(ngModel)]="consulta.doencasRecentes"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </mat-form-field>
 
-            <mat-form-field class="doencas-full-width">
-                <textarea matInput placeholder="Doenças ou enfermidades recentes" [(ngModel)]="consulta.doencasRecentes" [ngModelOptions]="{standalone: true}"></textarea>
-            </mat-form-field>
+        <mat-form-field class="info-full-width">
+          <textarea
+            matInput
+            placeholder="Informações adicionais que julgar importantes"
+            [(ngModel)]="consulta.informacoesAdicionais"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </mat-form-field>
 
-            <mat-form-field class="info-full-width">
-                <textarea matInput placeholder="Informações adicionais que julgar importantes" [(ngModel)]="consulta.informacoesAdicionais" [ngModelOptions]="{standalone: true}"></textarea>
-            </mat-form-field>
+        <button
+          mat-raised-button
+          isRoundButton
+          color="warn"
+          (click)="limpar()"
+          class="left-button"
+        >
+          Limpar
+        </button>
 
-            <button mat-raised-button isRoundButton color="warn" (click)="limpar()" class="left-button">Limpar</button>
-
-            <button mat-raised-button isRoundButton color="primary" (click)="cadastrar()" class="right-button">Cadastrar</button>
-
-        </form>
+        <button
+          mat-raised-button
+          isRoundButton
+          color="primary"
+          (click)="cadastrar()"
+          class="right-button"
+        >
+          Cadastrar
+        </button>
+      </form>
     </div>
   </mat-tab>
   <mat-tab label="Listagem">
-
     <button mat-raised-button (click)="consultaGet()">Basic</button>
   </mat-tab>
 </mat-tab-group>
