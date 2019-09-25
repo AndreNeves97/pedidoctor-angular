@@ -9,6 +9,7 @@ import { CadastroConsultaComponent } from './cadastro-consulta/cadastro-consulta
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
   ],
   imports: [
     CommonModule,
+    NgxMaterialTimepickerModule,
     MatInputModule,
     FormsModule,
     MatSelectModule,
