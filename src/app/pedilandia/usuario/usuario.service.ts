@@ -112,4 +112,20 @@ export class UsuarioService {
     return(response);
   } 
 
+  async insert ( usuario: Usuario ) {
+    const response = await this.api.graphqlMutation(`
+            mutation {
+              createCliente(obj:{
+                nome: "${usuario.nome}"
+                email: "${usuario.email}"
+              }) {
+                _id
+                nome
+                email
+              }
+            }
+        `);
+    return(response);
+  }
+
 }
