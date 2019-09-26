@@ -63,34 +63,30 @@ export class ConsultaService {
 
         return res.data;
         
-        // return null;
     }
 
     async insert ( consulta: Consulta ) {
-            const response = await this.api.graphqlMutation(`
-                mutation {
-                    createConsulta (obj: {
-                        dataConsulta: "${consulta.dataConsulta}",
-                        paciente: {
-                          _id: "${consulta.paciente._id}"
-                        },
-                        tipoConsulta : "${consulta.tipoConsulta}",
-                        sintomasObservados : "${consulta.sintomasObservados}",
-                        medicamentosQueToma : "${consulta.medicamentosQueToma}",
-                        doencasRecentes : "${consulta.doencasRecentes}",
-                        informacoesAdicionais : "${consulta.informacoesAdicionais}"
-                      }) {
-                        dataConsulta,
-                        _id
-                    }
+        const response = await this.api.graphqlMutation(`
+            mutation {
+                createConsulta (obj: {
+                    dataConsulta: "${consulta.dataConsulta}",
+                    paciente: {
+                        _id: "${consulta.paciente._id}"
+                    },
+                    tipoConsulta : "${consulta.tipoConsulta}",
+                    sintomasObservados : "${consulta.sintomasObservados}",
+                    medicamentosQueToma : "${consulta.medicamentosQueToma}",
+                    doencasRecentes : "${consulta.doencasRecentes}",
+                    informacoesAdicionais : "${consulta.informacoesAdicionais}"
+                    }) {
+                    dataConsulta,
+                    _id
                 }
-            `);
+            }
+        `);
             
-            // if(response.data) {
-                return(response);
-            // }
-            
-            // return(null);
-// 
+        return(response);
     }
+
+    
 }
