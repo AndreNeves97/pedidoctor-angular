@@ -1,3 +1,4 @@
+import { UsuarioService } from './../usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../common/security/usuario.model';
 
@@ -14,7 +15,9 @@ export class CadastroUsuarioComponent implements OnInit {
 
   private telefone_mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
-  constructor() { 
+  constructor(
+    private usuarioService: UsuarioService
+  ) { 
     this.usuario = new Usuario({
         _id : null,
         email: null,
@@ -35,6 +38,14 @@ export class CadastroUsuarioComponent implements OnInit {
         jwt: null,
         nome: null,
         telefone: null
+    });
+  }
+
+  private cadastrar() {
+    this.usuarioService.insert(this.usuario).then((dado)=>{
+      if ( dado ) {
+        console.log(dado);
+      }
     });
   }
 
