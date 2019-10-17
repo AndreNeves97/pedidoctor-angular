@@ -40,6 +40,9 @@ import { SupperModule } from './supper/supper.module';
 import { FeastModule } from './feast/feast.module';
 import { MainComponent } from './main/main.component';
 import { HomeComponent } from './main/home/home.component';
+import { ClinicaModule } from './pedilandia/clinica/clinica.module';
+import { EnfermeiroModule } from './pedilandia/enfermeiro/enfermeiro.module';
+import { MedicoModule } from './pedilandia/medico/medico.module';
 
 
 
@@ -66,6 +69,9 @@ import { HomeComponent } from './main/home/home.component';
 
         UsuarioModule,
         ConsultaModule,
+        ClinicaModule,
+        EnfermeiroModule,
+        MedicoModule,
 
         BrowserAnimationsModule,
         MatAutocompleteModule,

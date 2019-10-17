@@ -31,6 +31,21 @@ const TREE_DATA: FoodNode[] = [
         name: 'Consulta',
         route: 'pedilandia/consulta',
         id: '3A'
+    },
+    {
+        name: 'Clinica',
+        route: 'pedilandia/clinica',
+        id: '3A'
+    },    
+    {
+        name: 'Medico',
+        route: 'pedilandia/medico',
+        id: '3A'
+    },
+    {
+        name: 'Enfermeiro(a)',
+        route: 'pedilandia/enfermeiro',
+        id: '3A'
     }
 ];
 

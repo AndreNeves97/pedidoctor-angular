@@ -52,6 +52,7 @@ export class ConsultaService {
                         nome
                     }
                     tipoConsulta
+                    realizada
                 }
             }
         `);

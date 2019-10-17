@@ -19,6 +19,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ClinicaModule } from './clinica/clinica.module';
+import { EnfermeiroModule } from './enfermeiro/enfermeiro.module';
+import { MedicoModule } from './medico/medico.module';
 
 @NgModule({
     declarations: [ 
@@ -28,6 +31,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     imports: [
         UsuarioModule,
         ConsultaModule,
+        ClinicaModule,
+        EnfermeiroModule,
+        MedicoModule,
 
         CommonModule,
         MatGridListModule,

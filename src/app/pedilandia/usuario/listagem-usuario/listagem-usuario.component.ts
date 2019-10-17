@@ -1,6 +1,6 @@
 import { UsuarioService } from './../usuario.service';
 import { Usuario } from './../../../common/security/usuario.model';
-import { Component, OnInit, Inject   } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef   } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; 
 
@@ -29,7 +29,9 @@ export class ListagemUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData();
+    setTimeout(()=>{
+      this.getData();
+    }, 3000);
   }
 
   private getData () {

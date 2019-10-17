@@ -1,4 +1,4 @@
-import { Consulta } from './../../../../../../backend/src/domain/pedilandia/consultas/consulta.model';
+import { Consulta } from './../consulta.model';
 import { ConsultaService } from './../consulta.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,9 +16,7 @@ export class ListagemConsultaComponent implements OnInit {
 
   constructor(
     private consultaService: ConsultaService
-  ) { 
-    this.getData()
-  }
+  ) { }
 
   private getData() {
     this.consultaService.getResumoForListing().then((dado) => {
@@ -27,7 +25,9 @@ export class ListagemConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    setTimeout(()=>{
+      this.getData();
+    }, 3000);
   }
 
 }
