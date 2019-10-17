@@ -21,7 +21,7 @@ export class ListagemUsuarioComponent implements OnInit {
   private message_show: boolean;
   private message_class: string;
 
-  displayedColumns: string[] = ['nome', 'email', 'options'];
+  displayedColumns: string[] = ['nome', 'email', 'qtConsultas','options'];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -37,6 +37,7 @@ export class ListagemUsuarioComponent implements OnInit {
   private getData () {
     this.usuarioService.getResumoForListing().then((dado: Usuario[])=>{
       this.usuarios_listagem = dado;
+      console.log(dado);
     });
   }
 

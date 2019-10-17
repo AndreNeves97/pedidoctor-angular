@@ -1,1 +1,134 @@
-<p>listagem-enfermeiro works!</p>
+<div *ngIf="message_show" [class]="message_class">
+{{ message_text }}
+</div>
+
+<table mat-table [dataSource]="enfermeiros_listagem" class="mat-elevation-z8">
+<ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef>Nome</th>
+    <td mat-cell *matCellDef="let enfermeiro">{{ enfermeiro.nome }}</td>
+</ng-container>
+<ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let enfermeiro">{{ enfermeiro.email }}</td>
+</ng-container>
+<ng-container matColumnDef="telefone">
+    <th mat-header-cell *matHeaderCellDef>Telefone</th>
+    <td mat-cell *matCellDef="let enfermeiro">{{ enfermeiro.telefone }}</td>
+</ng-container>
+<ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef>
+    Opções
+    <button mat-button color="primary" (click)="getData()">
+        <mat-icon>update</mat-icon>
+    </button>
+    </th>
+    <td mat-cell *matCellDef="let enfermeiro">
+    <button
+        mat-icon-button
+        matTooltip="Visualizar enfermeiro"
+        color="primary"
+        (click)="visualizar(enfermeiro._id)"
+        aria-label="Example icon-button with a heart icon"
+    >
+        <mat-icon>visibility</mat-icon>
+    </button>
+    <button
+        mat-icon-button
+        matTooltip="Editar enfermeiro"
+        (click)="editar(enfermeiro)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+    >
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button
+        mat-icon-button
+        matTooltip="Excluir enfermeiro"
+        (click)="excluir(enfermeiro)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+    >
+        <mat-icon>delete</mat-icon>
+    </button>
+    </td>
+</ng-container>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<div class="usuario-visualizing" *ngIf="visualizing">
+<b>Nome: </b> {{ enfermeiro_visualizing.nome }} <br />
+<br />
+<mat-divider></mat-divider> <br />
+<br />
+<b>Email: </b> {{ enfermeiro_visualizing.email }} <br />
+<br />
+<mat-divider></mat-divider> <br />
+<br />
+<b>Telefone: </b> {{ enfermeiro_visualizing.telefone }} <br />
+<br />
+<mat-divider></mat-divider> <br />
+<br />
+</div>
+<div class="usuario-edit" *ngIf="editing">
+<div class="user-cadastro-container">
+    <form class="user-form">
+    <mat-form-field class="usuario-full-width">
+        <input
+        matInput
+        placeholder="Nome"
+        value=""
+        [(ngModel)]="enfermeiro_edit.nome"
+        [ngModelOptions]="{ standalone: true }"
+        />
+    </mat-form-field>
+
+    <mat-form-field class="email-full-width">
+        <input
+        matInput
+        placeholder="Email"
+        type="email"
+        value=""
+        [(ngModel)]="enfermeiro_edit.email"
+        [ngModelOptions]="{ standalone: true }"
+        />
+    </mat-form-field>
+
+    <mat-form-field class="email-full-width">
+        <input
+        matInput
+        placeholder="Telefone"
+        type="telefone"
+        value=""
+        [(ngModel)]="enfermeiro_edit.telefone"
+        [ngModelOptions]="{ standalone: true }"
+        />
+    </mat-form-field>
+
+    <br />
+
+    <button
+        mat-raised-button
+        isRoundButton
+        color="warn"
+        (click)="limpar()"
+        class="left-button"
+    >
+        Limpar
+    </button>
+
+    <button
+        mat-raised-button
+        isRoundButton
+        color="primary"
+        (click)="salvar()"
+        class="right-button"
+    >
+        Cadastrar
+    </button>
+    </form>
+</div>
+</div>
+
+<br />
+

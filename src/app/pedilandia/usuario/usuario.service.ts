@@ -33,59 +33,60 @@ export class UsuarioService {
 
   public async get () {
     const res = await this.api.graphqlQuery(`
-            query {
-              users {
-                _id, 
-                nome, 
-                email, 
-                telefone, 
-                fotoUrl, 
-                roles
-              }
-            }
-        `);
-
-        if(res.data && res.data.users) {
-            return res.data.users;
+      query {
+        users {
+          _id, 
+          nome, 
+          email, 
+          telefone
         }
+      }
+  ` );
+
+    console.log(res);
+
+    // if(res.data && res.data.usuarios) {
+    //   return res.data.usuarios;
+    // }
         
-        return null;
+    return res;
   }
 
   public async getResumoForListing () {
     const res = await this.api.graphqlQuery(`
-            query {
-              users {
-                _id, 
-                nome, 
-                email, 
-              }
-            }
-        `);
-
-      if(res.data && res.data.users) {
-        return res.data.users;
+      query {
+        usuarios {
+          _id, 
+          nome, 
+          email, 
+          qtConsultas
+        }
       }
+   `);
+
+    if(res.data && res.data.usuarios) {
+      return res.data.usuarios;
+    }
         
-      return null;
+    return null;
   }
 
   public async updateUsuario ( usuario: Usuario ) {
     const res = await this.api.graphqlMutation(`
-        mutation {
-          updateUser (
-            id: "${usuario._id}",
-            obj: {
-              nome: "${usuario.nome}",
-              email: "${usuario.email}"
-            }
-          ) {
-            nome,
-            email,
-            _id,
-            telefone
+      mutation {
+        updateUser (
+          id: "${usuario._id}",
+          obj: {
+            nome: "${usuario.nome}",
+            email: "${usuario.email}",
           }
+        ) {
+          nome,
+          email,
+          _id,
+          telefone
         }
+      }
     `);
 
     return res;
@@ -114,17 +115,25 @@ export class UsuarioService {
 
   async insert ( usuario: Usuario ) {
     const response = await this.api.graphqlMutation(`
-            mutation {
-              createCliente(obj:{
-                nome: "${usuario.nome}"
-                email: "${usuario.email}"
-              }) {
-                _id
-                nome
-                email
-              }
-            }
-        `);
+      mutation {
+        createUsuario(
+          obj:{
+            nome: "${usuario.nome}",
+            email: "${usuario.email}",
+            telefone: "${usuario.telefone}",
+            isPaciente: false,
+            responsavelPor: [],
+            usoMedicamentos: [],
+            acontecimentos: [],
+            tipo: 2
+          }) {
+            _id,
+            nome,
+            email,
+            telefone
+        }
+      }
+    `);
     return(response);
   }
 

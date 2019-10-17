@@ -1,1 +1,27 @@
-<p>cadastro-medico works!</p>
+<mat-tab-group>
+        <mat-tab label="Cadastro de médico(a)"> 
+            <div class="user-cadastro-container">
+            <form class="user-form">
+                <mat-form-field class="usuario-full-width">
+                    <input matInput placeholder="Nome" value="" [(ngModel)]="medico.nome" [ngModelOptions]="{standalone: true}">
+                </mat-form-field> 
+        
+                <mat-form-field class="email-full-width">
+                    <input matInput placeholder="Email" type="text" value="" [(ngModel)]="medico.email" [ngModelOptions]="{standalone: true}">
+                </mat-form-field> <br>
+        
+                <mat-form-field class="email-full-width">
+                    <input matInput placeholder="Telefone" type="phone" value="" [(ngModel)]="medico.telefone" [ngModelOptions]="{standalone: true}">
+                </mat-form-field> <br>
+    
+                <button mat-raised-button isRoundButton color="warn" (click)="limpar()" class="left-button">Limpar</button>
+        
+                <button mat-raised-button isRoundButton color="primary" (click)="cadastrar()"  class="right-button">Cadastrar</button>
+            </form>
+            </div>
+        </mat-tab>
+        <mat-tab label="Listagem de médicos(as)"> 
+            <app-listagem-medico></app-listagem-medico>
+        </mat-tab>
+    </mat-tab-group>
+          

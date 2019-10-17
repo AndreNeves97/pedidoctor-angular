@@ -22,13 +22,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClinicaModule } from './clinica/clinica.module';
 import { EnfermeiroModule } from './enfermeiro/enfermeiro.module';
 import { MedicoModule } from './medico/medico.module';
+import { DialogContent } from './usuario/listagem-usuario/listagem-usuario.component';
 
 @NgModule({
     declarations: [ 
         MainPedilandiaComponent,
         DashboardComponent,
+        // DialogContent
     ],
     imports: [
+        // DialogContent,
         UsuarioModule,
         ConsultaModule,
         ClinicaModule,
@@ -55,6 +58,9 @@ import { MedicoModule } from './medico/medico.module';
         
         MatTooltipModule,
     ], exports: [
+        // DialogContent
+    ], entryComponents: [
+        // DialogContent
     ]
 })
 export class PedilandiaModule { }

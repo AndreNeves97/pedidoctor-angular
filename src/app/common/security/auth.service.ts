@@ -66,6 +66,7 @@ export class AuthService {
             _id: res.user._id,
             nome: res.user.nome,
             email: res.user.email,
+            tipo: 0,
             fotoUrl: res.user.fotoUrl,
             jwt: res.jwt,
             telefone: null

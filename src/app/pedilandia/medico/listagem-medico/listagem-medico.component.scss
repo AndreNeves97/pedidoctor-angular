@@ -1,0 +1,51 @@
+table {
+    width: 100%;
+  }
+  
+  .usuario-edit {
+    padding: 4%;
+    width: 50%;
+  }
+  
+  .usuario-visualizing {
+    padding: 4%;
+    width: 80%;
+  }
+  
+  .user-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .user-cadastro-container {
+      padding: 5%;
+  }
+  
+  .usuario-full-width {
+    width: 100%;
+  }
+  .email-full-width {
+    width: 100%;
+  }
+  .senha-full-width {
+    width: 100%;
+  }
+  .telefone-full-width {
+    width: 100%;
+  }
+  
+  .left-button {
+      float:left;
+  }
+  
+  .right-button{
+      float:right;
+  }
+  
+  .success {
+    background: rgb(142, 214, 142);
+    margin: 1%;
+    padding: 1%;
+    color : rgb(24, 97, 24);
+  }

@@ -1,11 +1,9 @@
-export class Usuario {
+export class Medico {
 
     _id: string;
     nome: string;
     email: string;
-    tipo: number = 0;
     jwt: string;
-    qtConsultas: number;
     fotoUrl: string;
     telefone: string;
 
@@ -14,11 +12,10 @@ export class Usuario {
         nome: string,
         email: string,
         jwt: string,
-        qtConsultas: number,
         fotoUrl: string,
-        telefone: string,
-        tipo: number 
+        telefone: string
     }) {
         Object.assign(this, params);
     }
+
 }
