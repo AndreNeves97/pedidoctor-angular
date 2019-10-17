@@ -14,7 +14,7 @@ export class UsuarioService {
   public async getUser ( id: string ) {
     const res = await this.api.graphqlQuery(`
           query {
-            user(id: "${id}")  {
+            usuario(id: "${id}")  {
               _id,
               nome,
               email,
@@ -24,8 +24,8 @@ export class UsuarioService {
           }
         `);
 
-        if(res.data && res.data.user) {
-            return res.data.user;
+        if(res.data && res.data.usuario) {
+            return res.data.usuario;
         }
         
         return null;
@@ -34,7 +34,7 @@ export class UsuarioService {
   public async get () {
     const res = await this.api.graphqlQuery(`
       query {
-        users {
+        usuarios {
           _id, 
           nome, 
           email, 
@@ -74,11 +74,17 @@ export class UsuarioService {
   public async updateUsuario ( usuario: Usuario ) {
     const res = await this.api.graphqlMutation(`
       mutation {
-        updateUser (
+        updateUsuario (
           id: "${usuario._id}",
           obj: {
             nome: "${usuario.nome}",
             email: "${usuario.email}",
+            telefone: "${usuario.telefone}",
+            isPaciente: false,
+            responsavelPor: [],
+            usoMedicamentos: [],
+            acontecimentos: [],
+            tipo: 1
           }
         ) {
           nome,
@@ -102,7 +108,7 @@ export class UsuarioService {
   async delete ( id: string ) {
     const response = await this.api.graphqlMutation(`
         mutation {
-            deleteUser(id:"${id}"){
+          deleteUsuario(id:"${id}"){
                 nome,
                 email,
                 _id
