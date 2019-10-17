@@ -24,8 +24,10 @@ export class CadastroUsuarioComponent implements OnInit {
         fotoUrl: null,
         jwt: null,
         nome: null,
-        telefone: null
-    })
+        telefone: null,
+        qtConsultas: 0,
+        tipo: 0,
+      })
   }
 
   ngOnInit() {}
@@ -37,7 +39,9 @@ export class CadastroUsuarioComponent implements OnInit {
         fotoUrl: null,
         jwt: null,
         nome: null,
-        telefone: null
+        telefone: null,
+        qtConsultas: 0,
+        tipo: 0,
     });
   }
 
