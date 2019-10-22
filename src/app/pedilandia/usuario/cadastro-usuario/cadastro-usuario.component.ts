@@ -48,7 +48,19 @@ export class CadastroUsuarioComponent implements OnInit {
   private cadastrar() {
     this.usuarioService.insert(this.usuario).then((dado)=>{
       if ( dado ) {
-        console.log(dado);
+        setTimeout(() => {
+          this.usuario = new Usuario({
+            _id: "",
+            nome: "",
+            email: "",
+            telefone: "",
+            jwt: "",
+            fotoUrl: "",
+            qtConsultas: 0,
+            tipo: 0,
+          })
+        }
+        , 500)  
       }
     });
   }

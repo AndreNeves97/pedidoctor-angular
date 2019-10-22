@@ -51,7 +51,9 @@ export class CadastroConsultaComponent implements OnInit{
                         email: user.email,
                         fotoUrl: user.fotoUrl,
                         jwt: null,
-                        telefone: user.telefone
+                        telefone: user.telefone,
+                        tipo: 0,
+                        qtConsultas: 0
                     }
                 ), "", "", "", "", "");
         } 
@@ -78,7 +80,9 @@ export class CadastroConsultaComponent implements OnInit{
                         email: user.email,
                         fotoUrl: user.fotoUrl,
                         jwt: null,
-                        telefone: user.telefone
+                        telefone: user.telefone,
+                        tipo: 0,
+                        qtConsultas: 0
                     }
                 ), "", "", "", "", "");
         }

@@ -78,6 +78,7 @@ export class ClinicaService {
   }
 
   async updateClinica ( clinica: Clinica ) {
+
     const response = await this.api.graphqlMutation(`
       mutation {
         updateClinica (
@@ -103,8 +104,8 @@ export class ClinicaService {
       }
     `)
 
-    if ( response.data ) 
-      return response.data;
+    if ( response.data && response.data.updateClinica ) 
+      return response.data.updateClinica;
 
     return null;
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Clinica } from '../clinica.model';
 import { ClinicaService } from '../clinica.service';
+import { SnackComponent } from '../../../common/utils/snack/snack.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-cadastro-clinica',
@@ -10,13 +12,14 @@ import { ClinicaService } from '../clinica.service';
 })
 export class CadastroClinicaComponent implements OnInit {
 
-  cadastroForm: FormGroup;
+  private cadastroForm: FormGroup;
 
-  clinica: Clinica;
+  private clinica: Clinica;
 
   constructor(
     private fb: FormBuilder,
-    private service: ClinicaService
+    private service: ClinicaService,
+    private snack_bar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -26,16 +29,18 @@ export class CadastroClinicaComponent implements OnInit {
     this.cadastroForm = this.fb.group({
       nome: [ 
         this.clinica.nome, 
-      [
-        Validators.required,
-        Validators.minLength(4)
-      ]],
+        [
+          Validators.required,
+          Validators.minLength(4)
+        ]
+      ],
       endereco: [
         this.clinica.endereco,
-      [
-        Validators.required,
-        Validators.minLength(10)
-      ]]
+        [
+          Validators.required,
+          Validators.minLength(10)
+        ]
+      ]
     });
     
   }
@@ -55,12 +60,21 @@ export class CadastroClinicaComponent implements OnInit {
   cadastrar () {
     const form_value = this.cadastroForm.value;
     this.clinica = new Clinica(form_value.nome, form_value.endereco);
-    console.log(this.clinica);
     this.service.insert(this.clinica).then((data) =>{
-      console.log(data);
-      setTimeout(() => {
-        this.limpar();
-      }, 2500);
+      this.open_snack_bar( 'Clínica cadastrada!', 'success' );
+      this.limpar();
+    }).catch(error => {
+      this.open_snack_bar( 'Clínica não cadastrada. Algum erro ocorreu', 'danger' );
+    });
+  }
+
+  open_snack_bar ( message: string, gravidade: string ) {
+    this.snack_bar.openFromComponent( SnackComponent, {
+      data:  { 
+        message, 
+        style: gravidade,
+      }, 
+      duration: 5000
     });
   }
 

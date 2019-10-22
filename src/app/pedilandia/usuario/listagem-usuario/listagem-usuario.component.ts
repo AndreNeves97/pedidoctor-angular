@@ -37,7 +37,6 @@ export class ListagemUsuarioComponent implements OnInit {
   private getData () {
     this.usuarioService.getResumoForListing().then((dado: Usuario[])=>{
       this.usuarios_listagem = dado;
-      console.log(dado);
     });
   }
 

@@ -5,7 +5,7 @@ export class Usuario {
     email: string;
     tipo: number = 0;
     jwt: string;
-    qtConsultas: number;
+    qtConsultas: number = 0;
     fotoUrl: string;
     telefone: string;
 

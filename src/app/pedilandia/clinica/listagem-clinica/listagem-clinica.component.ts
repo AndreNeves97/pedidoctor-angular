@@ -3,6 +3,7 @@ import { Clinica } from '../clinica.model';
 import { ClinicaService } from '../clinica.service';
 import { MatDialog } from '@angular/material';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listagem-clinica',
@@ -26,7 +27,8 @@ export class ListagemClinicaComponent implements OnInit {
 
   constructor(
     private clinicaService: ClinicaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,8 @@ export class ListagemClinicaComponent implements OnInit {
     this.clinica_visualizing = new Clinica();
     setTimeout(()=>{
       this.getData();
-    }, 3000);
+    }, 1000);
+
   }
 
   private getData () {
@@ -45,58 +48,29 @@ export class ListagemClinicaComponent implements OnInit {
   }
 
   private visualizar ( id: string ) {
-    this.clinicaService.find( id ).then((dado: Clinica)=>{
-      this.clinica_visualizing = dado;
-      this.visualizing = true;
-      this.editing = false;
-    });
+    this.router.navigate(['/pedilandia/clinica/', id ])
   }
 
-  private editar ( clinica: Clinica ) {
-    this.clinicaService.find( clinica._id ).then((dado: Clinica)=>{
-      console.log(dado);
-      this.clinica_edit = dado;
-      this.editing = true;
-      this.visualizing = false;
-    });
+  private editar ( id: string ) {
+    this.router.navigate(['/pedilandia/clinica/editar/', id ])
   }
 
   private excluir ( clinica: Clinica ) {
     const dialogRef = this.dialog.open(DialogContent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if (result ) {
         this.clinicaService.deleteClinica( clinica._id ).then((dado)=>{
-            console.log(dado);
             this.getData();
         });
       }
     });
   }
 
-  private salvar () {
-    this.clinicaService.updateClinica(this.clinica_edit).then((dado)=> {
-      if(dado) {
-        this.message_text = "Clínica alterada com sucesso";
-        this.message_class = "success";
-        this.message_show = true;
-        setTimeout(()=>{
-          this.message_show = false;
-          this.editing = false;
-          this.getData();
-        }, 1500);
-      }
-      console.log(dado)
-    })
-  }
-
   private openDialog () {
     const dialogRef = this.dialog.open(DialogContent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

@@ -43,6 +43,7 @@ import { HomeComponent } from './main/home/home.component';
 import { ClinicaModule } from './pedilandia/clinica/clinica.module';
 import { EnfermeiroModule } from './pedilandia/enfermeiro/enfermeiro.module';
 import { MedicoModule } from './pedilandia/medico/medico.module';
+import { SnackComponent } from './common/utils/snack/snack.component';
 
 
 
@@ -56,7 +57,9 @@ import { MedicoModule } from './pedilandia/medico/medico.module';
 
         AppComponent,
         DialogUserInfoComponent,
-        ToolbarUserAvatarComponent
+        ToolbarUserAvatarComponent,
+        SnackComponent,
+        SnackComponent
     ],
     imports: [
         // PedilandiaModule,
@@ -75,6 +78,7 @@ import { MedicoModule } from './pedilandia/medico/medico.module';
 
         BrowserAnimationsModule,
         MatAutocompleteModule,
+
         // MainModule,
         
         MatInputModule,
@@ -109,6 +113,7 @@ import { MedicoModule } from './pedilandia/medico/medico.module';
     exports : [
     ],
     entryComponents: [
+        SnackComponent,
         DialogUserInfoComponent
     ],
     providers: [],

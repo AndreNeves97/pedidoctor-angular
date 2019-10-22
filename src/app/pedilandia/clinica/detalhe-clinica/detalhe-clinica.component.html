@@ -1,0 +1,21 @@
+<div class='content-div'>
+
+    <button mat-mini-fab color="primary" (click)="navigate_back()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button> <br/> <br/>
+    
+    <mat-card class="content-card">
+        
+        <mat-card-title>Detalhes da clínica {{ clinica.nome }}</mat-card-title> <br>
+
+        <mat-card-content>
+            
+            <h3><i>Nome: </i></h3> {{ clinica.nome }}         <br><br>
+
+            <h3><i>Endereço: </i></h3> {{ clinica.endereco }} <br><br>
+            
+        </mat-card-content>
+        
+    </mat-card>
+
+</div>

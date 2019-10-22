@@ -43,7 +43,19 @@ export class CadastroEnfermeiroComponent implements OnInit {
   private cadastrar() {
     this.enfermeiroService.insert(this.enfermeiro).then((dado)=>{
       if ( dado ) {
-        console.log(dado);
+        // console.log(dado);
+        setTimeout(
+          () => {
+            this.enfermeiro = new Enfermeiro({
+              _id : "",
+              email: "",
+              fotoUrl: "",
+              jwt: "",
+              nome: "",
+              telefone: ""
+            });
+          }, 500
+        )
       }
     });
   }

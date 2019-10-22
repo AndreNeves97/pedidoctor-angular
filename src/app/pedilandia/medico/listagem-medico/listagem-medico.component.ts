@@ -37,13 +37,11 @@ export class ListagemMedicoComponent implements OnInit {
 
   private getData () {
     this.medicoService.getResumoForListing().then((dado: Medico[])=>{
-      console.log(dado);
       this.medicos_listagem = dado;
     });
   }
 
   private visualizar ( id: string ) {
-    console.log(id);
     this.medicoService.find( id ).then((dado: Medico)=>{
       this.medico_visualizing = dado;
       this.visualizing = true;
@@ -86,7 +84,6 @@ export class ListagemMedicoComponent implements OnInit {
       // console.log(`Dialog result: ${result}`);
       // if (result ) {
         this.medicoService.deleteEnfermeiro( medico._id ).then((dado)=>{
-            console.log(dado);
             this.getData();
         });
       // }

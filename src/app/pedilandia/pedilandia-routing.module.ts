@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { CadastroUsuarioComponent } from './usuario/cadastro-usuario/cadastro-usuario.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CadastroConsultaComponent } from './consulta/cadastro-consulta/cadastro-consulta.component';
-import { CadastroClinicaComponent } from './clinica/cadastro-clinica/cadastro-clinica.component';
 import { CadastroMedicoComponent } from './medico/cadastro-medico/cadastro-medico.component';
 import { CadastroEnfermeiroComponent } from './enfermeiro/cadastro-enfermeiro/cadastro-enfermeiro.component';
+import { MainClinicaComponent } from './clinica/main-clinica/main-clinica.component';
+import { DetalheClinicaComponent } from './clinica/detalhe-clinica/detalhe-clinica.component';
+import { UpdateClinicaComponent } from './clinica/update-clinica/update-clinica.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,15 @@ const routes: Routes = [
     },
     {
         path: 'clinica', 
-        component: CadastroClinicaComponent
+        component: MainClinicaComponent,
+    },
+    {
+        path: 'clinica/:id',
+        component: DetalheClinicaComponent
+    },
+    {
+        path: 'clinica/editar/:id',
+        component: UpdateClinicaComponent
     },
     {
         path: 'medico', 

@@ -12,10 +12,12 @@ export class Clinica {
 
     constructor(
         nome: string = "",
-        endereco: string = ""
+        endereco: string = "",
+        _id: string = "",
     ) {
         this.nome = nome;
         this.endereco = endereco;
+        this._id = _id;
     }
     
 }

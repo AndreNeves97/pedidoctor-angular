@@ -21,7 +21,9 @@ export class Consulta {
             fotoUrl: null,
             jwt: null,
             nome: null,
-            telefone: null
+            telefone: null,
+            tipo: 0,
+            qtConsultas: 0
         }),
         tipoConsulta: string = "",
         sintomasObservados: string = "",
