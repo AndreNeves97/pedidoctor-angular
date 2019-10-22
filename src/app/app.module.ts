@@ -44,6 +44,7 @@ import { ClinicaModule } from './pedilandia/clinica/clinica.module';
 import { EnfermeiroModule } from './pedilandia/enfermeiro/enfermeiro.module';
 import { MedicoModule } from './pedilandia/medico/medico.module';
 import { SnackComponent } from './common/utils/snack/snack.component';
+import { DialogComponent } from './common/utils/dialog/dialog.component';
 
 
 
@@ -59,7 +60,8 @@ import { SnackComponent } from './common/utils/snack/snack.component';
         DialogUserInfoComponent,
         ToolbarUserAvatarComponent,
         SnackComponent,
-        SnackComponent
+        SnackComponent,
+        DialogComponent
     ],
     imports: [
         // PedilandiaModule,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListagemClinicaComponent, DialogContent } from './listagem-clinica/listagem-clinica.component';
+import { ListagemClinicaComponent } from './listagem-clinica/listagem-clinica.component';
 import { CadastroClinicaComponent } from './cadastro-clinica/cadastro-clinica.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -21,12 +21,12 @@ import { DetalheClinicaComponent } from './detalhe-clinica/detalhe-clinica.compo
 import { UpdateClinicaComponent } from './update-clinica/update-clinica.component';
 import { MainClinicaComponent } from './main-clinica/main-clinica.component';
 import { RouterModule } from '@angular/router';
+import { DialogComponent } from 'src/app/common/utils/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     ListagemClinicaComponent, 
     CadastroClinicaComponent,
-    DialogContent,
     DetalheClinicaComponent,
     UpdateClinicaComponent,
     MainClinicaComponent
@@ -54,10 +54,10 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     ListagemClinicaComponent, 
-    CadastroClinicaComponent
+    CadastroClinicaComponent,
   ],
   entryComponents: [
-    DialogContent
+    DialogComponent
   ]
 })
 export class ClinicaModule { }
