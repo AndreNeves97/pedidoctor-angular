@@ -3,6 +3,7 @@ import { Clinica } from '../clinica.model';
 import { ClinicaService } from '../clinica.service';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/common/utils/dialog/dialog.service';
+import { SnackService } from 'src/app/common/utils/snack/snack.service';
 
 @Component({
   selector: 'app-listagem-clinica',
@@ -16,9 +17,10 @@ export class ListagemClinicaComponent implements OnInit {
   private displayedColumns: string[] = ['nome', 'endereco', 'options'];
 
   constructor(
-    private service:        ClinicaService,
-    private router:         Router,
-    private dialog_service:  DialogService
+    private service:           ClinicaService,
+    private router:            Router,
+    private dialog_service:    DialogService,
+    private snack_bar_service: SnackService
   ) { }
 
   ngOnInit() {
@@ -49,7 +51,13 @@ export class ListagemClinicaComponent implements OnInit {
       .subscribe(resposta => {
         if (resposta) {
           this.service.deleteClinica( clinica._id ).then((dado)=>{
-            this.getData();
+            if (dado) {
+              this.getData();
+              this.snack_bar_service.open_snack_bar('Clínica excluída', 'success');
+            } else 
+              throw 'erro de exclusão'; 
+          }).catch(error=>{
+            this.snack_bar_service.open_snack_bar('Algum problema ocorreu', 'danger');
           });
         }  
       })
