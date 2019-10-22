@@ -1,0 +1,23 @@
+<h4 mat-dialog-title> {{ data.message }} </h4>
+<mat-dialog-content class="mat-typography">
+  <button 
+    mat-raised-button
+    isRoundButton
+    color="warn"
+    class="left-button"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Sim
+  </button>
+
+  <button
+    mat-raised-button
+    isRoundButton
+    color="primary"
+    class="right-button"
+    (click)="onNoClick()"
+  >
+    Não
+  </button>
+</mat-dialog-content>
