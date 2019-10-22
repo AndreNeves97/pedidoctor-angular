@@ -15,9 +15,9 @@ export class DetalheClinicaComponent implements OnInit {
   private clinica: Clinica = new Clinica();
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: ClinicaService
+    private route:   ActivatedRoute,
+    private router:  Router,
+    private service: ClinicaService,
   ) { 
 
     this.route.paramMap

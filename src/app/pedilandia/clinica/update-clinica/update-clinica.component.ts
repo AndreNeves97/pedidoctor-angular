@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Clinica } from '../clinica.model';
 import { ClinicaService } from '../clinica.service';
-import { SnackComponent } from '../../../common/utils/snack/snack.component';
-import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { SnackService } from 'src/app/common/utils/snack/snack.service';
 
 @Component({
   selector: 'app-update-clinica',
@@ -20,11 +19,11 @@ export class UpdateClinicaComponent implements OnInit {
   private clinica: Clinica;
 
   constructor(
-    private fb: FormBuilder,
-    private service: ClinicaService,
-    private snack_bar: MatSnackBar,
-    private router: Router,
-    private route: ActivatedRoute,
+    private fb:                 FormBuilder,
+    private service:            ClinicaService,
+    private snack_bar_service:  SnackService,
+    private router:             Router,
+    private route:              ActivatedRoute,
   ) { 
 
     this.route.paramMap
@@ -92,20 +91,26 @@ export class UpdateClinicaComponent implements OnInit {
 
   atualizar () {
     const form_value = this.cadastroForm.value;
+
     this.clinica = new Clinica(
           form_value.nome, 
           form_value.endereco,
           form_value._id);
+    
     this.service.updateClinica(this.clinica).then((data) =>{
+      
       if ( data ) {
-        this.open_snack_bar( 'Clínica atualizada!', 'success' );
+        this.snack_bar_service
+            .open_snack_bar( 'Clínica atualizada!', 'success' );
         this.limpar();
         this.navigate_back();
       } else {
         throw "Erro ao atualizar"
       }
+    
     }).catch(error => {
-      this.open_snack_bar( 'Clínica não atualizada. Algum erro ocorreu', 'danger' );
+      this.snack_bar_service
+          .open_snack_bar( 'Clínica não atualizada. Algum erro ocorreu', 'danger' );
     });
   }
 
@@ -113,13 +118,4 @@ export class UpdateClinicaComponent implements OnInit {
     this.router.navigate(['/pedilandia/clinica']);
   }
 
-  open_snack_bar ( message: string, gravidade: string ) {
-    this.snack_bar.openFromComponent( SnackComponent, {
-      data:  { 
-        message, 
-        style: gravidade,
-      }, 
-      duration: 5000
-    });
-  }
 }
