@@ -12,12 +12,12 @@ import { SnackService } from 'src/app/common/utils/snack/snack.service';
 })
 export class CadastroClinicaComponent implements OnInit {
 
-  private cadastroForm: FormGroup;
+  private cadastro_form: FormGroup;
 
   private clinica: Clinica;
 
   constructor(
-    private fb:                FormBuilder,
+    private form_builder:      FormBuilder,
     private service:           ClinicaService,
     private snack_bar_service: SnackService,
     private router:            Router
@@ -27,7 +27,7 @@ export class CadastroClinicaComponent implements OnInit {
     
     this.clinica = new Clinica();
 
-    this.cadastroForm = this.fb.group({
+    this.cadastro_form = this.form_builder.group({
       nome: [ 
         this.clinica.nome, 
         [
@@ -47,19 +47,19 @@ export class CadastroClinicaComponent implements OnInit {
   }
 
   get nome () {
-    return this.cadastroForm.get('nome');
+    return this.cadastro_form.get('nome');
   }
 
   get endereco () {
-    return this.cadastroForm.get('endereco');
+    return this.cadastro_form.get('endereco');
   }
 
   limpar () {
-    this.cadastroForm.reset();
+    this.cadastro_form.reset();
   }
 
   cadastrar () {
-    const form_value = this.cadastroForm.value;
+    const form_value = this.cadastro_form.value;
     this.clinica = new Clinica(form_value.nome, form_value.endereco);
     this.service.insert(this.clinica).then((data) =>{
       this.snack_bar_service.open_snack_bar( 'Clínica cadastrada!', 'success' );

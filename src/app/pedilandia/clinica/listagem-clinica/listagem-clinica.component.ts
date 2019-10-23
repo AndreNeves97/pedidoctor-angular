@@ -14,7 +14,9 @@ export class ListagemClinicaComponent implements OnInit {
 
   private clinicas: Clinica[];
 
-  private displayedColumns: string[] = ['nome', 'endereco', 'options'];
+  private colunas_mostradas: string[] = [
+    'nome', 'endereco', 'options'
+  ];
 
   constructor(
     private service:           ClinicaService,

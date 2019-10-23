@@ -45,6 +45,9 @@ import { EnfermeiroModule } from './pedilandia/enfermeiro/enfermeiro.module';
 import { MedicoModule } from './pedilandia/medico/medico.module';
 import { SnackComponent } from './common/utils/snack/snack.component';
 import { DialogComponent } from './common/utils/dialog/dialog.component';
+import { SintomasModule } from './pedilandia/sintomas/sintomas.module';
+import { MedicamentosModule } from './pedilandia/medicamentos/medicamentos.module';
+import { DoencasModule } from './pedilandia/doencas/doencas.module';
 
 
 
@@ -77,6 +80,9 @@ import { DialogComponent } from './common/utils/dialog/dialog.component';
         ClinicaModule,
         EnfermeiroModule,
         MedicoModule,
+        SintomasModule,
+        MedicamentosModule,
+        DoencasModule,
 
         BrowserAnimationsModule,
         MatAutocompleteModule,

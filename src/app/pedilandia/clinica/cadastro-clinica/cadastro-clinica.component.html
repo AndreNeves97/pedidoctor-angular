@@ -1,5 +1,5 @@
 <div class="cadastro-container">
-  <form [formGroup]="cadastroForm">
+  <form [formGroup]="cadastro_form">
     <mat-form-field class="in-field">
       <input matInput placeholder="nome da clínica..." formControlName="nome" />
       <mat-hint align="end">No mínimo 4 caracteres</mat-hint>
@@ -41,7 +41,7 @@
       color="primary"
       (click)="cadastrar()"
       class="right-button"
-      [disabled]="!cadastroForm.valid"
+      [disabled]="!cadastro_form.valid"
     >
       Cadastrar
     </button>

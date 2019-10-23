@@ -14,12 +14,12 @@ import { SnackService } from 'src/app/common/utils/snack/snack.service';
 })
 export class UpdateClinicaComponent implements OnInit {
 
-  private cadastroForm: FormGroup;
+  private update_form: FormGroup;
 
   private clinica: Clinica;
 
   constructor(
-    private fb:                 FormBuilder,
+    private form_builder:       FormBuilder,
     private service:            ClinicaService,
     private snack_bar_service:  SnackService,
     private router:             Router,
@@ -45,7 +45,7 @@ export class UpdateClinicaComponent implements OnInit {
     
     this.clinica = new Clinica();
 
-    this.cadastroForm = this.fb.group({
+    this.update_form = this.form_builder.group({
       _id: this.clinica.nome, 
       nome: [ 
         this.clinica.nome, 
@@ -66,7 +66,7 @@ export class UpdateClinicaComponent implements OnInit {
   }
 
   set_values () {
-    this.cadastroForm.patchValue({
+    this.update_form.patchValue({
       _id : this.clinica.nome ? this.clinica._id : "",
       nome : this.clinica.nome ? this.clinica.nome : "",
       endereco: this.clinica.endereco ? this.clinica.endereco : ""
@@ -74,23 +74,23 @@ export class UpdateClinicaComponent implements OnInit {
   }
 
   get _id () {
-    return this.cadastroForm.get('_id');
+    return this.update_form.get('_id');
   }
 
   get nome () {
-    return this.cadastroForm.get('nome');
+    return this.update_form.get('nome');
   }
 
   get endereco () {
-    return this.cadastroForm.get('endereco');
+    return this.update_form.get('endereco');
   }
 
   limpar () {
-    this.cadastroForm.reset();
+    this.update_form.reset();
   }
 
   atualizar () {
-    const form_value = this.cadastroForm.value;
+    const form_value = this.update_form.value;
 
     this.clinica = new Clinica(
           form_value.nome, 

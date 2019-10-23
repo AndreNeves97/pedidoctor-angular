@@ -8,6 +8,15 @@ import { CadastroEnfermeiroComponent } from './enfermeiro/cadastro-enfermeiro/ca
 import { MainClinicaComponent } from './clinica/main-clinica/main-clinica.component';
 import { DetalheClinicaComponent } from './clinica/detalhe-clinica/detalhe-clinica.component';
 import { UpdateClinicaComponent } from './clinica/update-clinica/update-clinica.component';
+import { MainSintomaComponent } from './sintomas/main-sintoma/main-sintoma.component';
+import { DetalheSintomaComponent } from './sintomas/detalhe-sintoma/detalhe-sintoma.component';
+import { UpdateSintomaComponent } from './sintomas/update-sintoma/update-sintoma.component';
+import { MainDoencaComponent } from './doencas/main-doenca/main-doenca.component';
+import { DetalheDoencaComponent } from './doencas/detalhe-doenca/detalhe-doenca.component';
+import { UpdateDoencaComponent } from './doencas/update-doenca/update-doenca.component';
+import { MainMedicamentoComponent } from './medicamentos/main-medicamento/main-medicamento.component';
+import { DetalheMedicamentoComponent } from './medicamentos/detalhe-medicamento/detalhe-medicamento.component';
+import { UpdateMedicamentoComponent } from './medicamentos/update-medicamento/update-medicamento.component';
 
 
 const routes: Routes = [
@@ -42,12 +51,52 @@ const routes: Routes = [
     {
         path: 'enfermeiro', 
         component: CadastroEnfermeiroComponent
+    },
+    {
+        path: 'sintoma',
+        component: MainSintomaComponent
+    },
+    {
+        path: 'sintoma/:id',
+        component: DetalheSintomaComponent
+    },
+    {
+        path: 'sintoma/editar/:id',
+        component: UpdateSintomaComponent
+    },
+    {
+        path: 'doenca',
+        component: MainDoencaComponent
+    },
+    {
+        path: 'doenca/:id',
+        component: DetalheDoencaComponent
+    },
+    {
+        path: 'doenca/editar/:id',
+        component: UpdateDoencaComponent
+    },
+    {
+        path: 'medicamento',
+        component: MainMedicamentoComponent
+    },
+    {
+        path: 'medicamento/:id',
+        component: DetalheMedicamentoComponent
+    },
+    {
+        path: 'medicamento/editar/:id',
+        component: UpdateMedicamentoComponent
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class PedilandiaRoutingModule { }
 
