@@ -1,1 +1,71 @@
-<p>update-sintoma works!</p>
+<div class="main-container">
+    
+    <button mat-mini-fab color="primary" matTooltip="Voltar para listagem" (click)="navigate_back()">
+    
+        <mat-icon>
+            
+            keyboard_arrow_left
+        
+        </mat-icon>
+    
+    </button>
+    
+    
+    <h1>Editar sintoma</h1> <br/> <br/>
+    
+    
+    <form [formGroup]="update_form">
+
+        <mat-form-field class="in-field">
+
+            <input matInput placeholder="nome do sintoma..." formControlName="nome"/>
+            
+            <mat-hint align="end">
+
+                No mínimo 5 caracteres.
+
+            </mat-hint>
+
+            <mat-error *ngIf="nome.invalid && nome.touched"> 
+
+                Nome inválido
+
+            </mat-error>
+
+        </mat-form-field> <br/>
+
+        <mat-form-field class="in-field">
+
+            <textarea matInput placeholder="descrição do sintoma..." formControlName="descricao" rows="3"></textarea>
+
+            <mat-hint align="end">
+
+                No mínimo 20 caracteres.
+
+            </mat-hint>
+
+            <mat-error *ngIf="descricao.invalid && descricao.touched">
+
+                Descrição inválida
+
+            </mat-error>
+
+        </mat-form-field>
+
+        <br/><br/>
+
+        <button mat-raised-button 
+                isRoundButton 
+                color="warn" 
+                (click)="limpar()" 
+                class="left-button">Limpar</button>
+
+        <button mat-raised-button 
+                isRoundButton 
+                color="primary" 
+                (click)="atualizar()" 
+                class="right-button" 
+                [disabled]="!update_form.valid">Cadastrar</button>    
+
+    </form>
+</div>

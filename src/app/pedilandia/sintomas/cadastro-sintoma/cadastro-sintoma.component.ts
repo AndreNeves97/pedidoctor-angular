@@ -47,11 +47,11 @@ export class CadastroSintomaComponent implements OnInit {
   }
 
   get nome () {
-    return this.cadastro_form.get('nome').value;
+    return this.cadastro_form.get('nome');
   }
 
   get descricao () {
-    return this.cadastro_form.get('descricao').value;
+    return this.cadastro_form.get('descricao');
   }
 
   limpar () {

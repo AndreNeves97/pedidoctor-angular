@@ -12,12 +12,24 @@ export class SintomaService {
   ) { }
 
   async insert ( sintoma: Sintoma ) {
-    
-    const response = await this.api.graphqlMutation(`
 
-    `);
+    console.log(sintoma);
 
-    return response;
+    // const response = await this.api.graphqlMutation(`
+    //   mutation {
+    //     createSintoma(obj:{
+    //       nome: "${sintoma.nome}",
+    //       descricao: "${sintoma.descricao}"
+    //     }) {
+    //       _id,
+    //       nome,
+    //       descricao
+    //     }
+    //   }
+    // `);
+
+    // return response;
+    return '';
   
   }
 
@@ -37,7 +49,13 @@ export class SintomaService {
   async findAll () {
 
     const response = await this.api.graphqlQuery(`
-    
+        query {
+          sintomas {
+            _id,
+            nome,
+            descricao
+          }
+        }
     `);
 
     if ( response.data && response.data.sintomas )

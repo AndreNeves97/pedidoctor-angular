@@ -1,1 +1,21 @@
-<p>detalhe-sintoma works!</p>
+<div class='content-div'>
+
+    <button mat-mini-fab color="primary" (click)="navigate_back()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button> <br/> <br/>
+    
+    <mat-card class="content-card">
+        
+        <mat-card-title>Detalhes do sintoma {{ sintoma.nome }}</mat-card-title> <br>
+
+        <mat-card-content>
+            
+            <h3><i>Nome: </i></h3> {{ sintoma.nome }}         <br><br>
+
+            <h3><i>Descrição: </i></h3> {{ sintoma.descricao }} <br><br>
+            
+        </mat-card-content>
+        
+    </mat-card>
+
+</div>

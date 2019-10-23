@@ -40,6 +40,9 @@ export class ListagemSintomaComponent implements OnInit {
     this.service
         .findAll()
         .then((sintomas: Sintoma[]) => {
+
+          console.table(sintomas);
+
           this.sintomas = sintomas;
         });
 

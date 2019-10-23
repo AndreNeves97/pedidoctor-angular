@@ -46,7 +46,7 @@ export class UpdateClinicaComponent implements OnInit {
     this.clinica = new Clinica();
 
     this.update_form = this.form_builder.group({
-      _id: this.clinica.nome, 
+      _id: this.clinica._id, 
       nome: [ 
         this.clinica.nome, 
         [
@@ -67,7 +67,7 @@ export class UpdateClinicaComponent implements OnInit {
 
   set_values () {
     this.update_form.patchValue({
-      _id : this.clinica.nome ? this.clinica._id : "",
+      _id : this.clinica._id ? this.clinica._id : "",
       nome : this.clinica.nome ? this.clinica.nome : "",
       endereco: this.clinica.endereco ? this.clinica.endereco : ""
     });
