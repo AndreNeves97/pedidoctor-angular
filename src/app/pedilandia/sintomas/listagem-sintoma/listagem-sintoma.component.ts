@@ -14,7 +14,7 @@ export class ListagemSintomaComponent implements OnInit {
 
   private sintomas: Sintoma[];
 
-  private displayed_columns: string[] = [ 
+  private colunas_mostradas: string[] = [ 
     'nome', 'descricao', 'options'
   ]
 
@@ -40,9 +40,6 @@ export class ListagemSintomaComponent implements OnInit {
     this.service
         .findAll()
         .then((sintomas: Sintoma[]) => {
-
-          console.table(sintomas);
-
           this.sintomas = sintomas;
         });
 
@@ -60,7 +57,7 @@ export class ListagemSintomaComponent implements OnInit {
 
     this.dialog_service
         .open_confirmation_dialog(
-          `Tem certeza que deseja excluir o sintoma ${sintoma.nome}`)
+          `Tem certeza que deseja excluir o sintoma ${ sintoma.nome }`)
         .subscribe((resposta) => {
           if ( resposta ) {
             this.service

@@ -1,7 +1,7 @@
 <div class="main-container">
 
     <table mat-table [dataSource]="sintomas" class="mat-elevation-z8" >
-
+        batata
         <ng-container matColumnDef="nome">
 
             <th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -24,7 +24,7 @@
                 
                 Opções
                 
-                <button mat-button color="primary" (click)="getData()">
+                <button mat-button color="primary" (click)="get_data()">
                   <mat-icon>update</mat-icon>
                 </button>
             
@@ -52,7 +52,7 @@
     
                 </button>
 
-                <button mat-icon-button matTooltip="Excluir sintoma" (click)="excluir(sintoma._id)" color="primary" aria-label="Example icon-button with a heart icon">
+                <button mat-icon-button matTooltip="Excluir sintoma" (click)="excluir(sintoma)" color="primary" aria-label="Example icon-button with a heart icon">
 
                     <mat-icon>
                                 
