@@ -13,30 +13,35 @@ export class SintomaService {
 
   async insert ( sintoma: Sintoma ) {
 
-    console.log(sintoma);
+    const response = await this.api.graphqlMutation(`
+      mutation {
+        createSintoma(obj:{
+          nome: "${sintoma.nome}",
+          descricao: "${sintoma.descricao}"
+        }) {
+          _id,
+          nome,
+          descricao
+        }
+      }
+    `);
 
-    // const response = await this.api.graphqlMutation(`
-    //   mutation {
-    //     createSintoma(obj:{
-    //       nome: "${sintoma.nome}",
-    //       descricao: "${sintoma.descricao}"
-    //     }) {
-    //       _id,
-    //       nome,
-    //       descricao
-    //     }
-    //   }
-    // `);
-
-    // return response;
-    return '';
+    return response;
   
   }
 
   async find ( id: string ) {
     
     const response = await this.api.graphqlQuery(`
+      query {
     
+        sintoma(id: "${id}") {
+          _id,
+          nome,
+          descricao
+        }
+        
+      }
     `);
 
     if ( response.data && response.data.sintoma )
@@ -68,7 +73,15 @@ export class SintomaService {
   async delete ( id: string ) {
     
     const response = await this.api.graphqlMutation(`
+      mutation {
     
+        deleteSintoma(id: "${ id }")  {
+          _id,
+          nome,
+          descricao
+        }
+        
+      }
     `);
 
     return response;
@@ -78,7 +91,21 @@ export class SintomaService {
   async update ( sintoma: Sintoma ) {
 
     const response = await this.api.graphqlMutation(`
+      mutation {
     
+        updateSintoma ( 
+          id: "${ sintoma._id }",
+          obj: {
+            nome: "${ sintoma.nome }",
+            descricao: "${ sintoma.descricao }"
+          }
+        ) {
+          _id,
+          nome,
+          descricao
+        }
+        
+      }
     `);
 
     if ( response.data && response.data.updateSintoma )
