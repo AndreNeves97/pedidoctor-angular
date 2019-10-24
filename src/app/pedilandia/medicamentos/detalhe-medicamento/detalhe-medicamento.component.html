@@ -1,1 +1,33 @@
-<p>detalhe-medicamento works!</p>
+<div class='content-div'>
+
+        <button mat-mini-fab color="primary" (click)="navigate_back()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button> <br/> <br/>
+        
+        <mat-card class="content-card">
+            
+            <mat-card-title>Detalhes do medicamento {{ medicamento.nome }}</mat-card-title> <br>
+    
+            <mat-card-content>
+                
+                <h3><i>Nome: </i></h3> {{ medicamento.nome }}         <br><br>
+    
+                <h3><i>Descrição: </i></h3> {{ medicamento.descricao }} <br><br>
+                
+                <h3><i>Indicado para: </i></h3> 
+    
+                <ul *ngFor="let doenca of medicamento.indicadoPara">
+                    
+                    <li>
+    
+                        {{ doenca.nome }} : {{ doenca.descricao }}
+    
+                    </li>
+                
+                </ul>
+    
+            </mat-card-content>
+            
+        </mat-card>
+    
+    </div>

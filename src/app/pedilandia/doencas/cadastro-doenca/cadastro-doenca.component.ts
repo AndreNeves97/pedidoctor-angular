@@ -24,7 +24,6 @@ export class CadastroDoencaComponent implements OnInit {
     private form_builder        : FormBuilder,
     private service             : DoencaService,
     private sintomas_service    : SintomaService,
-    private router              : Router,
     private snack_bar_service   : SnackService
   ) { }
 
@@ -84,11 +83,14 @@ export class CadastroDoencaComponent implements OnInit {
 
   cadastrar ( ) {
     const form_value = this.cadastro_form.value;
+
     this.doenca = new Doenca(
       form_value.nome,
       form_value.descricao,
       form_value.sintomas
     );
+
+    console.log(this.doenca);
 
     this.service.insert( this.doenca ).then((data) => {
       this.snack_bar_service

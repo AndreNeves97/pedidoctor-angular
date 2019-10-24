@@ -9,7 +9,6 @@ export class MainMedicamentoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
