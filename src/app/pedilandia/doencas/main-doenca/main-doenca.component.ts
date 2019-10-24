@@ -9,7 +9,6 @@ export class MainDoencaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

@@ -9,7 +9,6 @@ export class MainSintomaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

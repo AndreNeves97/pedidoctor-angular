@@ -1,1 +1,33 @@
-<p>detalhe-doenca works!</p>
+<div class='content-div'>
+
+    <button mat-mini-fab color="primary" (click)="navigate_back()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button> <br/> <br/>
+    
+    <mat-card class="content-card">
+        
+        <mat-card-title>Detalhes da doença {{ doenca.nome }}</mat-card-title> <br>
+
+        <mat-card-content>
+            
+            <h3><i>Nome: </i></h3> {{ doenca.nome }}         <br><br>
+
+            <h3><i>Descrição: </i></h3> {{ doenca.descricao }} <br><br>
+            
+            <h3><i>Sintomas: </i></h3> 
+
+            <ul *ngFor="let sintoma of doenca.sintomas">
+                
+                <li>
+
+                    {{ sintoma.nome }} : {{ sintoma.descricao }}
+
+                </li>
+            
+            </ul>
+
+        </mat-card-content>
+        
+    </mat-card>
+
+</div>
