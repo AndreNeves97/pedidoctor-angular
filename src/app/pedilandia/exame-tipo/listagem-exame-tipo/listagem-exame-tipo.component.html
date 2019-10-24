@@ -1,0 +1,55 @@
+<table
+  mat-table
+  [dataSource]="objs"
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef>Nome</th>
+    <td mat-cell *matCellDef="let obj">{{ obj.nome }}</td>
+  </ng-container>
+  <ng-container matColumnDef="descricao">
+    <th mat-header-cell *matHeaderCellDef>Descricao</th>
+    <td mat-cell *matCellDef="let obj">{{ obj.descricao }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef>
+      Opções
+      <button mat-button color="primary" (click)="getData()">
+        <mat-icon>update</mat-icon>
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let obj">
+      <button
+        mat-icon-button
+        matTooltip="Visualizar tipo de exame"
+        (click)="visualizar(obj._id)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+      >
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Editar tipo de exame"
+        (click)="editar(obj._id)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Excluir tipo de consulta"
+        (click)="excluir(obj)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="colunas_mostradas"></tr>
+  <tr mat-row *matRowDef="let row; columns: colunas_mostradas"></tr>
+</table>
