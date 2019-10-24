@@ -49,6 +49,8 @@ import { SintomasModule } from './pedilandia/sintomas/sintomas.module';
 import { MedicamentosModule } from './pedilandia/medicamentos/medicamentos.module';
 import { DoencasModule } from './pedilandia/doencas/doencas.module';
 import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.module';
+import { DiagnosticoTipoModule } from './pedilandia/diagnostico-tipo/diagnostico-tipo.module';
+import { ExameTipoModule } from './pedilandia/exame-tipo/exame-tipo.module';
 
 
 @NgModule({
@@ -84,6 +86,8 @@ import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.mod
         MedicamentosModule,
         DoencasModule,
         ConsultaTipoModule,
+        DiagnosticoTipoModule,
+        ExameTipoModule,
 
         BrowserAnimationsModule,
         MatAutocompleteModule,

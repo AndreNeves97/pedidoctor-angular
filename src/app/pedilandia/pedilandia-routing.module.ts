@@ -20,6 +20,12 @@ import { UpdateMedicamentoComponent } from './medicamentos/update-medicamento/up
 import { DetalheConsultaTipoComponent } from './consulta-tipo/detalhe-consulta-tipo/detalhe-consulta-tipo.component';
 import { MainConsultaTipoComponent } from './consulta-tipo/main-consulta-tipo/main-consulta-tipo.component';
 import { UpdateConsultaTipoComponent } from './consulta-tipo/update-consulta-tipo/update-consulta-tipo.component';
+import { MainDiagnosticoTipoComponent } from './diagnostico-tipo/main-diagnostico-tipo/main-diagnostico-tipo.component';
+import { DetalheDiagnosticoTipoComponent } from './diagnostico-tipo/detalhe-diagnostico-tipo/detalhe-diagnostico-tipo.component';
+import { UpdateDiagnosticoTipoComponent } from './diagnostico-tipo/update-diagnostico-tipo/update-diagnostico-tipo.component';
+import { MainExameTipoComponent } from './exame-tipo/main-exame-tipo/main-exame-tipo.component';
+import { DetalheExameTipoComponent } from './exame-tipo/detalhe-exame-tipo/detalhe-exame-tipo.component';
+import { UpdateExameTipoComponent } from './exame-tipo/update-exame-tipo/update-exame-tipo.component';
 
 
 const routes: Routes = [
@@ -104,6 +110,32 @@ const routes: Routes = [
     {
         path: 'tipos-consulta/editar/:id',
         component: UpdateConsultaTipoComponent
+    },
+    
+    {
+        path: 'tipos-diagnostico',
+        component: MainDiagnosticoTipoComponent
+    },
+    {
+        path: 'tipos-diagnostico/:id',
+        component: DetalheDiagnosticoTipoComponent
+    },
+    {
+        path: 'tipos-diagnostico/editar/:id',
+        component: UpdateDiagnosticoTipoComponent
+    },
+    
+    {
+        path: 'tipos-exame',
+        component: MainExameTipoComponent
+    },
+    {
+        path: 'tipos-exame/:id',
+        component: DetalheExameTipoComponent
+    },
+    {
+        path: 'tipos-exame/editar/:id',
+        component: UpdateExameTipoComponent
     }
 ];
 

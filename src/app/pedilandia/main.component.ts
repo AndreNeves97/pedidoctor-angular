@@ -66,6 +66,16 @@ const TREE_DATA: FoodNode[] = [
         name: 'Tipos de consulta',
         route: 'pedilandia/tipos-consulta',
         id: '3A'
+    },
+    {
+        name: 'Tipos de diagnósticos',
+        route: 'pedilandia/tipos-diagnostico',
+        id: '3A'
+    },
+    {
+        name: 'Tipos de exames',
+        route: 'pedilandia/tipos-exame',
+        id: '3A'
     }
 ];
 

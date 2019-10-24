@@ -20,6 +20,8 @@ import { ClinicaModule } from './clinica/clinica.module';
 import { EnfermeiroModule } from './enfermeiro/enfermeiro.module';
 import { MedicoModule } from './medico/medico.module';
 import { ConsultaTipoModule } from './consulta-tipo/consulta-tipo.module';
+import { DiagnosticoTipoModule } from './diagnostico-tipo/diagnostico-tipo.module';
+import { ExameTipoModule } from './exame-tipo/exame-tipo.module';
 
 @NgModule({
     declarations: [ 
@@ -34,6 +36,8 @@ import { ConsultaTipoModule } from './consulta-tipo/consulta-tipo.module';
         MedicoModule,
 
         ConsultaTipoModule,
+        DiagnosticoTipoModule,
+        ExameTipoModule,
 
         CommonModule,
         MatGridListModule,
