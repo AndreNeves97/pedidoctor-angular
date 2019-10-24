@@ -48,7 +48,7 @@ import { DialogComponent } from './common/utils/dialog/dialog.component';
 import { SintomasModule } from './pedilandia/sintomas/sintomas.module';
 import { MedicamentosModule } from './pedilandia/medicamentos/medicamentos.module';
 import { DoencasModule } from './pedilandia/doencas/doencas.module';
-
+import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.module';
 
 
 @NgModule({
@@ -64,7 +64,7 @@ import { DoencasModule } from './pedilandia/doencas/doencas.module';
         ToolbarUserAvatarComponent,
         SnackComponent,
         SnackComponent,
-        DialogComponent
+        DialogComponent,
     ],
     imports: [
         // PedilandiaModule,
@@ -83,6 +83,7 @@ import { DoencasModule } from './pedilandia/doencas/doencas.module';
         SintomasModule,
         MedicamentosModule,
         DoencasModule,
+        ConsultaTipoModule,
 
         BrowserAnimationsModule,
         MatAutocompleteModule,

@@ -17,6 +17,9 @@ import { UpdateDoencaComponent } from './doencas/update-doenca/update-doenca.com
 import { MainMedicamentoComponent } from './medicamentos/main-medicamento/main-medicamento.component';
 import { DetalheMedicamentoComponent } from './medicamentos/detalhe-medicamento/detalhe-medicamento.component';
 import { UpdateMedicamentoComponent } from './medicamentos/update-medicamento/update-medicamento.component';
+import { DetalheConsultaTipoComponent } from './consulta-tipo/detalhe-consulta-tipo/detalhe-consulta-tipo.component';
+import { MainConsultaTipoComponent } from './consulta-tipo/main-consulta-tipo/main-consulta-tipo.component';
+import { UpdateConsultaTipoComponent } from './consulta-tipo/update-consulta-tipo/update-consulta-tipo.component';
 
 
 const routes: Routes = [
@@ -76,6 +79,7 @@ const routes: Routes = [
         path: 'doenca/editar/:id',
         component: UpdateDoencaComponent
     },
+    
     {
         path: 'medicamento',
         component: MainMedicamentoComponent
@@ -87,6 +91,19 @@ const routes: Routes = [
     {
         path: 'medicamento/editar/:id',
         component: UpdateMedicamentoComponent
+    },
+    
+    {
+        path: 'tipos-consulta',
+        component: MainConsultaTipoComponent
+    },
+    {
+        path: 'tipos-consulta/:id',
+        component: DetalheConsultaTipoComponent
+    },
+    {
+        path: 'tipos-consulta/editar/:id',
+        component: UpdateConsultaTipoComponent
     }
 ];
 

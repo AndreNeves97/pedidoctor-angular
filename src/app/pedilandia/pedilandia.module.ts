@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClinicaModule } from './clinica/clinica.module';
 import { EnfermeiroModule } from './enfermeiro/enfermeiro.module';
 import { MedicoModule } from './medico/medico.module';
+import { ConsultaTipoModule } from './consulta-tipo/consulta-tipo.module';
 
 @NgModule({
     declarations: [ 
@@ -31,6 +32,8 @@ import { MedicoModule } from './medico/medico.module';
         ClinicaModule,
         EnfermeiroModule,
         MedicoModule,
+
+        ConsultaTipoModule,
 
         CommonModule,
         MatGridListModule,
