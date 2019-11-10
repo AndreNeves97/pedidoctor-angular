@@ -90,11 +90,10 @@ export class CadastroDoencaComponent implements OnInit {
       form_value.sintomas
     );
 
-    console.log(this.doenca);
-
     this.service.insert( this.doenca ).then((data) => {
       this.snack_bar_service
           .open_snack_bar('Doença cadastrada!', 'success');
+      this.limpar();
     }).catch((error) => {
       this.snack_bar_service
           .open_snack_bar('Doença não cadastrada. Algum erro ocorreu|', 'danger');
