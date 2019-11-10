@@ -22,3 +22,15 @@ export class Usuario {
         Object.assign(this, params);
     }
 }
+
+export enum LoginUsuarioStatus {
+    UNDEFINED = 'undefined',
+    DESLOGADO = 'deslogado',
+    VALIDANDO = 'validando',
+    LOGADO = 'logado'
+}
+
+export class UsuarioLogadoModel {
+    status : LoginUsuarioStatus;
+    usuario : Usuario;
+}

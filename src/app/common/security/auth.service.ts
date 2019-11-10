@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from './usuario.model';
+import { Usuario, UsuarioLogadoModel, LoginUsuarioStatus } from './usuario.model';
 import { ApiService } from '../api.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth, FirebaseError } from 'firebase/app';
@@ -12,14 +12,22 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
     apiUrl : string = 'http://localhost:3000';
-    usuarioLogado : BehaviorSubject<Usuario>;
+
+    usuarioLogado : BehaviorSubject<UsuarioLogadoModel>;
     
 
     constructor(
         private afAuth: AngularFireAuth,
         private http: HttpClient
     ) {
-        this.usuarioLogado = new BehaviorSubject<Usuario>(null);
+        const usuarioLogadoDefault = {
+            status: LoginUsuarioStatus.UNDEFINED,
+            usuario: null
+        };
+
+        this.usuarioLogado = new BehaviorSubject<UsuarioLogadoModel>(usuarioLogadoDefault);
+
+
         this.afAuth.user.subscribe( user => this.newFirebaseUser(user) );
     }
 
@@ -28,18 +36,26 @@ export class AuthService {
             this.setUsuarioLogado(null);
             return;
         }
+
+        
         
         const idToken = await user.getIdToken();
         const usuarioLogado = await this.validateFirebaseLogin(idToken);
         this.setUsuarioLogado(usuarioLogado);
     }
 
-    private setUsuarioLogado(user : Usuario) {
+    private setUsuarioLogado(usuario : Usuario) {
+        let status : LoginUsuarioStatus = LoginUsuarioStatus.DESLOGADO;
 
-        if(user != null)
-            console.log('jwt', user.jwt);
-        
-        this.usuarioLogado.next(user);
+        if(usuario != null) {
+            console.log('jwt', usuario.jwt);
+            status = LoginUsuarioStatus.LOGADO;
+        }
+
+        this.usuarioLogado.next({
+            status,
+            usuario
+        });
     }
 
     async signInWithGoogle() {

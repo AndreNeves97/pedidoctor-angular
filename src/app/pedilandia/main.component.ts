@@ -109,6 +109,7 @@ export class MainPedilandiaComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.auth.usuarioLogado.subscribe(v => console.log( v))
     }
 
     private _transformer = (node: FoodNode, level: number) => {

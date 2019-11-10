@@ -38,7 +38,9 @@ export class CadastroConsultaComponent implements OnInit{
             }
         });
         this.consulta = new Consulta();
-        const user = this.authService.usuarioLogado.value;
+
+        const user = this.authService.usuarioLogado.value.usuario;
+        
         if ( user ) {
             console.log(user);
             this.consulta = new Consulta(
@@ -68,7 +70,7 @@ export class CadastroConsultaComponent implements OnInit{
     }
 
     private init_consulta () {
-        const user = this.authService.usuarioLogado.value;
+        const user = this.authService.usuarioLogado.value.usuario;
         if ( user ) {
             this.consulta = new Consulta(
                 new Date(),
