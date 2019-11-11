@@ -42,7 +42,7 @@ export class ApiService {
             headers = {}
         } else {
             headers = {
-                "Authorization": `Bearer ${usuarioLogado.jwt}`
+                "Authorization": `Bearer ${usuarioLogado.usuario.jwt}`
             }
         }
 
@@ -65,7 +65,7 @@ export class ApiService {
             headers = {}
         } else {
             headers = {
-                "Authorization": `Bearer ${usuarioLogado.jwt}`
+                "Authorization": `Bearer ${usuarioLogado.usuario.jwt}`
             }
         }
 

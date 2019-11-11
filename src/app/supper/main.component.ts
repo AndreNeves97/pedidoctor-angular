@@ -54,6 +54,11 @@ export class MainSupperComponent {
     ngOnInit() {
     }
 
+    pedilandia() {
+        console.log('navigate to pedilândia')
+        this.router.navigate(['/pedilandia']);
+    }
+
     private _transformer = (node: FoodNode, level: number) => {
         return {
             expandable: !!node.children && node.children.length > 0,

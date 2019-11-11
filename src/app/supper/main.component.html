@@ -64,6 +64,8 @@
         <div [style.margin-left]="(isHandset$ | async)? 'initial' : '200px'">
             <router-outlet></router-outlet>
 
+
+            <button mat-raised-button (click)="pedilandia()">Pedilândia</button>
             <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <input matInput placeholder="Favorite food" value="Sushi">

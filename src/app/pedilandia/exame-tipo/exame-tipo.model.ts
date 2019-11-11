@@ -1,4 +1,4 @@
-import { Usuario } from '../../common/security/usuario.model';
+
 
 export class ExameTipo {
 

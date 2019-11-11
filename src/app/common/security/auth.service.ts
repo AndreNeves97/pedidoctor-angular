@@ -24,7 +24,6 @@ export class AuthService {
             status: LoginUsuarioStatus.UNDEFINED,
             usuario: null
         };
-
         this.usuarioLogado = new BehaviorSubject<UsuarioLogadoModel>(usuarioLogadoDefault);
 
 
@@ -37,7 +36,10 @@ export class AuthService {
             return;
         }
 
-        
+        this.usuarioLogado.next({
+            status: LoginUsuarioStatus.VALIDANDO,
+            usuario: null
+        });
         
         const idToken = await user.getIdToken();
         const usuarioLogado = await this.validateFirebaseLogin(idToken);
