@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
         MatButtonModule,
         MatCardModule,
         MatDialogModule,
+        MatProgressSpinnerModule,
         
         MatTooltipModule,
 

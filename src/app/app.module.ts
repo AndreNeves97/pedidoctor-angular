@@ -51,6 +51,7 @@ import { DoencasModule } from './pedilandia/doencas/doencas.module';
 import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.module';
 import { DiagnosticoTipoModule } from './pedilandia/diagnostico-tipo/diagnostico-tipo.module';
 import { ExameTipoModule } from './pedilandia/exame-tipo/exame-tipo.module';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 
 @NgModule({
@@ -121,6 +122,8 @@ import { ExameTipoModule } from './pedilandia/exame-tipo/exame-tipo.module';
         MatCardModule,
         MatMenuModule,
         MatDialogModule,
+
+        MatProgressSpinnerModule,
         LayoutModule,
     ],
     exports : [

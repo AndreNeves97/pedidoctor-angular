@@ -1,13 +1,21 @@
 <div class='main'>
-  <div *ngIf="auth.usuarioLogado | async as user; else showLogin">
-    <h1>Hello {{ user.nome }}!</h1>
-    Email: {{ user.email }}<br /><br />
-    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
-  </div>
-  
-  <ng-template #showLogin>
-    <p>Please login.</p>
-    <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
-  </ng-template>
+    <div *ngIf="auth.usuarioLogado | async as user; else showLogin">
+        
+        <div *ngIf="user.status != 'deslogado' else showLogin">
+            <div *ngIf="user.status == 'logado' else loading" >
+                <h1>Hello {{ user.usuario.nome }}!</h1>
+                Email: {{ user.usuario.email }}<br /><br />
+                <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #showLogin>
+        <p>Please login.</p>
+        <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+    </ng-template>
+
+    <ng-template #loading>
+        <mat-spinner></mat-spinner>
+    </ng-template>
 </div>
-  
