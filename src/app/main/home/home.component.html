@@ -1,16 +1,13 @@
-
-
-
-
-    <div *ngIf="auth.usuarioLogado | async as user; else showLogin">
-        <h1>Hello {{ user.nome }}! </h1>
-        Email: {{ user.email }}<br><br>
-        <button (click)="logout()">Logout</button>
-    </div>
-
-      <ng-template #showLogin>
-        <p>Please login.</p>
-        <button (click)="login()">Login with Google</button>
-      </ng-template>
-
-             
+<div class='main'>
+  <div *ngIf="auth.usuarioLogado | async as user; else showLogin">
+    <h1>Hello {{ user.nome }}!</h1>
+    Email: {{ user.email }}<br /><br />
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </div>
+  
+  <ng-template #showLogin>
+    <p>Please login.</p>
+    <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+  </ng-template>
+</div>
+  

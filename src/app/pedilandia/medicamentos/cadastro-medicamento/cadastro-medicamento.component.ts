@@ -92,6 +92,7 @@ export class CadastroMedicamentoComponent implements OnInit {
       this.service.insert( this.medicamento ).then((data) => {
         this.snack_bar_service
             .open_snack_bar('Medicamento cadastrado!', 'success');
+        this.limpar();
       }).catch((error) => {
         this.snack_bar_service
             .open_snack_bar('Medicamento não cadastrado. Algum erro ocorreu!', 'danger');

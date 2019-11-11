@@ -10,8 +10,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private auth : AuthService
-    ) { 
-    }
+    ) { }
 
     async login() {
         let a = await this.auth.signInWithGoogle();
