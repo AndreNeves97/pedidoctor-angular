@@ -14,8 +14,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 const routes: Routes = [
     {
         path: '', 
-        component: MainComponent,
-        children: mainRoutes
+        component: HomePageComponent
     },
     {
         path: 'pedilandia',

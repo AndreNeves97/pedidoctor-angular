@@ -22,24 +22,14 @@ export class ToolbarUserAvatarComponent implements OnInit {
         this.auth.signInWithGoogle();
     }
 
-    logout() {
-        this.auth.signOut();
+    openUserDialog() {
+        const dialogRef = this.dialog.open(DialogUserInfoComponent, {
+            width: '400px',
+            data: {}
+        });
+
+
     }
-
-
-  openUserDialog() {
-    const dialogRef = this.dialog.open(DialogUserInfoComponent, {
-      width: '400px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result === 'signOut') {
-          this.logout();
-      }
-    })
-
-  }
 
 
 

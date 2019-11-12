@@ -26,7 +26,7 @@ a:hover {
 }
 
 .title {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 200;
     margin-bottom: 15px;
     text-align-last: center;
@@ -41,16 +41,26 @@ app-google-login-button {
     display: flex;
     justify-content: center;
     margin-top: 35px;
+
 }
 
 
 .submit-button-area {
     display: flex;
     justify-content: center;
+
+    a {
+        width: 100%;
+    }
 }
 
 
 mat-form-field {
     width: 100%;
     padding-bottom: 20px;
+}
+
+.grid-wrap {
+    display: grid;
+    text-align: center;
 }

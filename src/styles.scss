@@ -34,5 +34,10 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: mat-color($primary);
+    // background: mat-color($primary);
+}
+
+.loading-backdrop {
+    background: #2b367a;
+    // background: mat-color($primary);
 }

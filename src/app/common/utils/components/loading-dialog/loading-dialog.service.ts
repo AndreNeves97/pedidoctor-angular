@@ -14,7 +14,10 @@ export class LoadingDialogService {
         return this.dialog.open(LoadingDialogComponent, {
             width: '450px',
             height: '200px',
-            data: {}
+            data: {},
+            closeOnNavigation: false,
+            backdropClass: 'loading-backdrop',
+            disableClose: true
         });
     } 
 }
