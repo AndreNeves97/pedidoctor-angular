@@ -3,6 +3,13 @@
     display: flex;
 }
 
+.user-data {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+}
+
 .user-avatar {
     border-radius: 100%;
 }
@@ -18,10 +25,10 @@
 
 
 .user-info {
-    margin-left: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; 
+    margin: auto;
 }
 
 .user-info-xs {

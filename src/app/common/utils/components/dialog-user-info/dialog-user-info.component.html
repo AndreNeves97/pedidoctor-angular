@@ -1,6 +1,6 @@
 
 <div mat-dialog-content class="content" ngClass.xs="content-mobile" *ngIf="(auth.usuarioLogado | async).usuario as user">
-    <div fxLayout="row"  fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" ngClass.xs="user-wrap-xs">
+    <div class="user-data">
       <div class="user-avatar-wrap">
         <img class="user-avatar" 
         [src]="user.fotoUrl">
