@@ -51,7 +51,13 @@ import { DoencasModule } from './pedilandia/doencas/doencas.module';
 import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.module';
 import { DiagnosticoTipoModule } from './pedilandia/diagnostico-tipo/diagnostico-tipo.module';
 import { ExameTipoModule } from './pedilandia/exame-tipo/exame-tipo.module';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatFormFieldModule } from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { GoogleLoginButtonModule } from './common/utils/components/google-login-button/google-login-button.module';
+import { LoadingDialogModule } from './common/utils/components/loading-dialog/loading-dialog.module';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HomePageContentComponent } from './home-page/home-page-content/home-page-content.component';
 
 
 @NgModule({
@@ -68,6 +74,9 @@ import { MatProgressSpinnerModule } from '@angular/material';
         SnackComponent,
         SnackComponent,
         DialogComponent,
+        LoginComponent,
+        HomePageComponent,
+        HomePageContentComponent,
     ],
     imports: [
         // PedilandiaModule,
@@ -94,7 +103,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
         MatAutocompleteModule,
 
         // MainModule,
-        
+
         MatInputModule,
 
         HttpClientModule,
@@ -104,7 +113,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
 
 
         AngularFireModule.initializeApp(environment.firebase),
-        
+
         AngularFireDatabaseModule,
         AngularFireAuthModule,
 
@@ -112,6 +121,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
 
 
         MatButtonModule,
+        MatFormFieldModule,
         MatSidenavModule,
         MatIconModule,
         MatListModule,
@@ -125,14 +135,26 @@ import { MatProgressSpinnerModule } from '@angular/material';
 
         MatProgressSpinnerModule,
         LayoutModule,
+
+
+
+        FormsModule,
+        ReactiveFormsModule,
+
+        GoogleLoginButtonModule,
+        LoadingDialogModule
+
+
     ],
-    exports : [
+    exports: [
     ],
     entryComponents: [
         SnackComponent,
         DialogUserInfoComponent
     ],
-    providers: [],
+    providers: [
+        FormBuilder
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

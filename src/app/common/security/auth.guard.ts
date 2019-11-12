@@ -3,6 +3,7 @@ import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRou
 import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { LoginUsuarioStatus } from './usuario.model';
+import { LoadingDialogService } from '../utils/components/loading-dialog/loading-dialog.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,8 @@ import { LoginUsuarioStatus } from './usuario.model';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     constructor(
         private router : Router,
-        private authService : AuthService
+        private authService : AuthService,
+        private loadingDialogService : LoadingDialogService
     ) { }
 
     canActivate(
@@ -21,33 +23,32 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         const usuario = this.authService.usuarioLogado.value;
 
 
-        console.log('PEDILANDIA', usuario);
-
         if(usuario.status == LoginUsuarioStatus.DESLOGADO) {
-            this.router.navigate(['/'])
-            return false;
+            return this.router.createUrlTree(['/login']);
         } else if(usuario.status == LoginUsuarioStatus.LOGADO) {
             return true;
         } else {
-            console.log('esperar');
+            const loadingDialog = this.loadingDialogService.show();
+            let subscription;
+
+            const okFn = () => {
+                subscription.unsubscribe();
+                loadingDialog.close()
+            }
+                        
 
             return new Promise<boolean | UrlTree>(async (res, rej) => {
-                let subscription;
-                
+
                 subscription = this.authService.usuarioLogado.subscribe(novoUsuario => {
+                    
 
                     if(novoUsuario.status == LoginUsuarioStatus.DESLOGADO) {
-                        subscription.unsubscribe();
-
-                        this.router.navigate(['/'])
-                        res(false);
+                        okFn()
+                        res(this.router.createUrlTree(['/login']));
                     } else if(novoUsuario.status == LoginUsuarioStatus.LOGADO) {
-                        subscription.unsubscribe();
-                        
+                        okFn()
                         res(true);
                     }
-                    console.log(subscription)
-                    console.log(novoUsuario)
                 });
 
 

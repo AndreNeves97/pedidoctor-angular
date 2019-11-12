@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { auth, FirebaseError } from 'firebase/app';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router, Route } from '@angular/router';
 
 @Injectable({
   providedIn: 'root' 
@@ -18,7 +19,8 @@ export class AuthService {
 
     constructor(
         private afAuth: AngularFireAuth,
-        private http: HttpClient
+        private http: HttpClient,
+        private router : Router
     ) {
         const usuarioLogadoDefault = {
             status: LoginUsuarioStatus.UNDEFINED,
@@ -58,6 +60,13 @@ export class AuthService {
             status,
             usuario
         });
+
+        
+        if (status === LoginUsuarioStatus.LOGADO) {
+            this.router.navigate(['pedilandia']);
+        } else if(status === LoginUsuarioStatus.DESLOGADO) {
+            this.router.navigate(['login']);
+        }
     }
 
     async signInWithGoogle() {
