@@ -1,0 +1,56 @@
+
+@import '../../styles.scss'; 
+
+
+.wrap {
+    background: mat-color($primary, 500);
+    padding: 20px;
+    min-height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: mat-contrast($primary,  A200);
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+}
+
+
+
+a:hover {
+    text-decoration: none;
+}
+
+.title {
+    font-size: 35px;
+    font-weight: 200;
+    margin-bottom: 15px;
+    text-align-last: center;
+    justify-content: center;    
+}
+
+form {
+    padding: 40px;
+}
+
+app-google-login-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+
+.submit-button-area {
+    display: flex;
+    justify-content: center;
+}
+
+
+mat-form-field {
+    width: 100%;
+    padding-bottom: 20px;
+}

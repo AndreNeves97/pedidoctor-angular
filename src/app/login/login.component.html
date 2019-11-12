@@ -1,0 +1,51 @@
+<div class="wrap">
+    <div class="container">
+                
+        <form [formGroup]="form">
+            <div class="row title">
+                Login
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field>
+                        <input matInput formControlName="email" placeholder="E-mail">
+                        <mat-error *ngIf="form.get('email').invalid">Digite um email válido</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field>
+                        <input matInput formControlName="senha" type="password" placeholder="Senha de acesso">
+                        <mat-error *ngIf="form.get('senha').invalid">Digite sua senha (min. 6 caracteres).</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+                    <div class="submit-button-area">
+                        <a 
+                            *ngIf="!loading" 
+                            mat-raised-button 
+                            color="primary"
+                            (click)="login()"
+                        >
+                            LOGIN
+                        </a>
+        
+                        <mat-spinner *ngIf="loading"></mat-spinner>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+                    <app-google-login-button></app-google-login-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
