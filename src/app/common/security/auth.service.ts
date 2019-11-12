@@ -94,10 +94,11 @@ export class AuthService {
             nome: res.user.nome,
             email: res.user.email,
             fotoUrl: res.user.fotoUrl,
+            roles: res.user.roles,
             jwt: res.jwt,
             telefone: null,
             tipo: 0,
-            qtConsultas: 0
+            qtConsultas: 0,
         });
 
         return user;

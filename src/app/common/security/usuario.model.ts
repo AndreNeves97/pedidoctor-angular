@@ -8,6 +8,7 @@ export class Usuario {
     qtConsultas: number = 0;
     fotoUrl: string;
     telefone: string;
+    roles: string[];
 
     constructor(params : {
         _id : string,
@@ -17,6 +18,7 @@ export class Usuario {
         qtConsultas: number,
         fotoUrl: string,
         telefone: string,
+        roles?: string[],
         tipo: number 
     }) {
         Object.assign(this, params);

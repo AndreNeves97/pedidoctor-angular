@@ -6,14 +6,16 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { LoginUsuarioStatus } from '../common/security/usuario.model';
 
 
 
 interface FoodNode {
     name: string;
-    id: string;
-    route: string;
+    id?: string;
+    route?: string;
     children?: FoodNode[];
+    role? : string
 }
 
 const TREE_DATA: FoodNode[] = [
@@ -23,9 +25,10 @@ const TREE_DATA: FoodNode[] = [
         route: 'pedilandia'
     },
     {
-        name: 'Usuario',
+        name: 'Usuarios',
         id: '3A',
-        route: 'pedilandia/usuario'
+        route: 'pedilandia/usuario',
+        role: 'admin'
     },
     {
         name: 'Consulta',
@@ -33,7 +36,7 @@ const TREE_DATA: FoodNode[] = [
         id: '3A'
     },
     {
-        name: 'Clinica',
+        name: 'Clinicas',
         route: 'pedilandia/clinica',
         id: '3A'
     },    
@@ -48,35 +51,41 @@ const TREE_DATA: FoodNode[] = [
         id: '3A'
     },
     {
-        name: 'Sintoma',
-        route: 'pedilandia/sintoma',
-        id: '3A'
+        name: 'Configurações',
+        role: 'admin',
+        children: [
+            {
+                name: 'Sintomas',
+                route: 'pedilandia/sintoma',
+                id: '3A'
+            },
+            {
+                name: 'Doenca',
+                route: 'pedilandia/doenca',
+                id: '3A'
+            },
+            {
+                name: 'Medicamento',
+                route: 'pedilandia/medicamento',
+                id: '3A'
+            },
+            {
+                name: 'Tipos de consulta',
+                route: 'pedilandia/tipos-consulta',
+                id: '3A'
+            },
+            {
+                name: 'Tipos de diagnósticos',
+                route: 'pedilandia/tipos-diagnostico',
+                id: '3A'
+            },
+            {
+                name: 'Tipos de exames',
+                route: 'pedilandia/tipos-exame',
+                id: '3A'
+            }
+        ]
     },
-    {
-        name: 'Doenca',
-        route: 'pedilandia/doenca',
-        id: '3A'
-    },
-    {
-        name: 'Medicamento',
-        route: 'pedilandia/medicamento',
-        id: '3A'
-    },
-    {
-        name: 'Tipos de consulta',
-        route: 'pedilandia/tipos-consulta',
-        id: '3A'
-    },
-    {
-        name: 'Tipos de diagnósticos',
-        route: 'pedilandia/tipos-diagnostico',
-        id: '3A'
-    },
-    {
-        name: 'Tipos de exames',
-        route: 'pedilandia/tipos-exame',
-        id: '3A'
-    }
 ];
 
 interface ExampleFlatNode {
@@ -104,12 +113,23 @@ export class MainPedilandiaComponent implements OnInit {
         private breakpointObserver: BreakpointObserver,
         private router: Router,
         private auth: AuthService
-    ) {
-        this.dataSource.data = TREE_DATA;
-    }
+    ) { }
 
     ngOnInit() {
-        this.auth.usuarioLogado.subscribe(v => console.log( v))
+        this.auth.usuarioLogado.subscribe(usuario => {
+            this.dataSource.data = TREE_DATA.filter(node => {
+                if(node.role == undefined)
+                    return true;
+                
+                else if(    
+                    usuario.status == LoginUsuarioStatus.LOGADO && 
+                    usuario.usuario.roles.includes(node.role)
+                )
+                    return true;
+                
+                return false;
+            })
+        });
     }
 
     private _transformer = (node: FoodNode, level: number) => {
@@ -117,6 +137,7 @@ export class MainPedilandiaComponent implements OnInit {
             expandable: !!node.children && node.children.length > 0,
             name: node.name,
             route: node.route,
+            role: node.role,
             level: level,
         };
     }
