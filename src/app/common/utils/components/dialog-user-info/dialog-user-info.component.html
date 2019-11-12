@@ -1,28 +1,28 @@
-
-<div mat-dialog-content class="content" ngClass.xs="content-mobile" *ngIf="(auth.usuarioLogado | async).usuario as user">
+<div mat-dialog-content class="content" ngClass.xs="content-mobile"
+    *ngIf="(auth.usuarioLogado | async).usuario as user">
     <div class="user-data">
-      <div class="user-avatar-wrap">
-        <img class="user-avatar" 
-        [src]="user.fotoUrl">
-      </div>
-      
-      <div class="user-info" ngClass.xs="user-info-xs">
-          <b>{{user.nome}}</b>
-          {{user.email}}
-      </div>
+        <div class="user-avatar-wrap">
+            <img class="user-avatar" [src]="user.fotoUrl">
+        </div>
+
+        <div class="user-info" ngClass.xs="user-info-xs">
+            <b>{{user.nome}}</b>
+            {{user.email}}
+        </div>
     </div>
 
-    <ng-template #showLogin>                       
-        <button mat-raised-button class="google-sign-in-wrapper"  (click)="login()">
-            <img width="20px" alt="Google Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+    <ng-template #showLogin>
+        <button mat-raised-button class="google-sign-in-wrapper" (click)="login()">
+            <img width="20px" alt="Google Logo"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
             Login
         </button>
     </ng-template>
-  </div>
-  
-  
-  <mat-dialog-actions align="end">
-          <button mat-button (click)="close()" color="primary" cdkFocusInitial>CANCELAR</button>
-          <button mat-button [mat-dialog-close]="'signOut'" color="primary">SAIR</button>
-  </mat-dialog-actions>
-  
+</div>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()" color="primary" cdkFocusInitial>CANCELAR</button>
+    <button mat-button (click)="alterarSenha()" color="primary" cdkFocusInitial>ALTERAR SENHA</button>
+    <button mat-button (click)="sair()" color="primary">SAIR</button>
+</mat-dialog-actions>

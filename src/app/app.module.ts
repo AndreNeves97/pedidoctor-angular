@@ -58,6 +58,7 @@ import { GoogleLoginButtonModule } from './common/utils/components/google-login-
 import { LoadingDialogModule } from './common/utils/components/loading-dialog/loading-dialog.module';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HomePageContentComponent } from './home-page/home-page-content/home-page-content.component';
+import { ChangePasswordDialogModule } from './common/utils/components/change-password-dialog/change-password-dialog.module';
 
 
 @NgModule({
@@ -76,7 +77,7 @@ import { HomePageContentComponent } from './home-page/home-page-content/home-pag
         DialogComponent,
         LoginComponent,
         HomePageComponent,
-        HomePageContentComponent,
+        HomePageContentComponent
     ],
     imports: [
         // PedilandiaModule,
@@ -142,7 +143,8 @@ import { HomePageContentComponent } from './home-page/home-page-content/home-pag
         ReactiveFormsModule,
 
         GoogleLoginButtonModule,
-        LoadingDialogModule
+        LoadingDialogModule,
+        ChangePasswordDialogModule
 
 
     ],
