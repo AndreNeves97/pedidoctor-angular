@@ -1,6 +1,6 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ListagemConsultaComponent } from './listagem-consulta/listagem-consulta.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,11 @@ import { ListagemConsultaComponent } from './listagem-consulta/listagem-consulta
     MatInputModule,
     FormsModule,
     MatAutocompleteModule,
+    ReactiveFormsModule,
     MatSelectModule,
+    MatProgressBarModule,
     MatTableModule,
+    MatStepperModule,
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,

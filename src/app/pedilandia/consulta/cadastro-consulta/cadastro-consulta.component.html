@@ -1,4 +1,4 @@
-<mat-tab-group>
+<!-- <mat-tab-group>
   <mat-tab label="Agendamento de consultas">
     <div class="consulta-cadastro-container">
       <form class="consulta-form">
@@ -105,4 +105,115 @@
   <mat-tab label="Listagem">
     <app-listagem-consulta></app-listagem-consulta>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+<mat-horizontal-stepper linear #stepper>
+
+  <mat-step [stepControl]="primeiro_form_group" [editable]="true">
+    <ng-template matStepLabel>Clínica e Médico</ng-template>
+    <div class="stepper-div">
+      <h2>
+        Escolha uma clínica e um médico para agendar um horário
+      </h2>
+      <form class="" [formGroup]="primeiro_form_group">
+        <mat-form-field class="input-class">
+            <mat-label>Escolha uma clínica para a consulta</mat-label>
+            <mat-select formControlName="clinica" (change)='check_medico_clinica()' required>
+              <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica }} </mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field class="input-class">
+            <mat-label>Escolha um(a) médico(a) para a consulta</mat-label>
+            <mat-select formControlName="medico">
+              <mat-option *ngFor="let medico of medicos" [value]="medico"> {{ medico }} </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </form>
+      <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="segundo_form_group" [editable]="true">
+      <ng-template matStepLabel>Data e horário</ng-template>
+      <div class="stepper-div">
+        <h2>
+          Escolha data e horário da consulta
+        </h2>
+        <form class="" [formGroup]="segundo_form_group">
+          <mat-form-field class="input-class">
+            <input matInput [matDatepicker]="picker" placeholder="Escolha uma data para a consulta" formControlName="data" (dateChange)="date_change()"/>
+            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+            <mat-datepicker #picker (click)="date_change()"></mat-datepicker>
+            <mat-hint align="end">
+              Este campo é necessário
+            </mat-hint>
+          </mat-form-field> <br>
+          <mat-form-field class="input-class">
+            <mat-label>Escolha um horário para a consulta</mat-label>
+            <mat-select  matTooltip="Caso o horário desejado não esteja aqui listado, talvez seja porque o mesmo já esteja ocupado." formControlName="horario">
+              <mat-option *ngFor="let option of options" [value]="option"> {{ option }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+      </div>
+    </mat-step>
+
+  <mat-step [stepControl]="terceiro_form_group" [editable]="true">
+    <ng-template matStepLabel>Motivação</ng-template>
+    <div class="stepper-div">
+      <h2>
+        Selecione o tipo de consulta e fale sobre os sintomas
+      </h2>
+      <form [formGroup]="terceiro_form_group">
+        <mat-form-field class="input-class">
+          <mat-label>Tipo de consulta</mat-label>
+          <mat-select formControlName="tipoConsulta" >
+            <mat-option *ngFor="let tipoConsulta of tipoConsultaOptions" [value]="tipoConsulta.value">
+              {{ tipoConsulta.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field><br>
+        <mat-form-field class="input-class">
+          <textarea matInput placeholder="Caso haja algum, descreva os sintomas observados" formControlName="sintomasObservados"></textarea>
+        </mat-form-field>
+      </form>
+      <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+      <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="quarto_form_group" [editable]="true">
+    <ng-template matStepLabel>Anamnese</ng-template>
+    <div class='stepper-div'>
+      <form [formGroup]="quarto_form_group">
+        <h4>
+          Insira os medicamentos que utiliza, caso utilize algum
+        </h4>
+        <mat-form-field class="input-class-no-margin">
+          <textarea matInput placeholder="Medicamentos que utiliza" formControlName="medicamentosQueToma"></textarea>
+        </mat-form-field><br>
+        <h4>
+          Insira as doenças que possui, caso positivo
+        </h4>
+        <mat-form-field class="input-class-no-margin">
+          <textarea matInput placeholder="Doenças ou enfermidades recentes" formControlName="doencasRecentes"></textarea>
+        </mat-form-field><br>
+        <h4>
+          Case julgue necessário alguma informação a mais, este é o espaço!
+        </h4>
+        <mat-form-field class="input-class-no-margin">
+          <textarea matInput placeholder="Informações adicionais que julgar importantes" formControlName="informacoesAdicionais"></textarea>
+        </mat-form-field>
+      </form>
+      <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+      <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="firstFormGroup" [editable]="true">
+    <ng-template matStepLabel>Confirmação</ng-template>
+    
+  </mat-step>
+
+</mat-horizontal-stepper>
