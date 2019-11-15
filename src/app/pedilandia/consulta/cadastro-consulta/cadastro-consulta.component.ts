@@ -154,21 +154,15 @@ export class CadastroConsultaComponent implements OnInit{
 
     private date_change() {
         if ( this.segundo_form_group.get('data').valid ) {
-            this.segundo_form_group.get('horario').enable();
             // Preencher horarios disponiveis
-        } else {
-            this.segundo_form_group.get('horario').disable();
         }
 
     }
 
     private check_medico_clinica() {
         if ( this.primeiro_form_group.get('clinica').valid ) {
-            this.primeiro_form_group.get('medico').enable();
             // Preencher médicos disponíveis
-        } else {
-            this.primeiro_form_group.get('medico').disable();
-        }
+        } 
     }
 
     public add_sintoma(event: MatChipInputEvent) {
