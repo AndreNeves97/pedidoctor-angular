@@ -12,6 +12,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { ClinicaService } from '../../clinica/clinica.service';
 import { MedicoService } from '../../medico/medico.service';
 import { Medico } from '../../medico/medico.model';
+import { ConsultaTipoService } from '../../consulta-tipo/consulta-tipo.service';
 
 @Component({
     selector: 'app-cadastro-consulta',
@@ -20,10 +21,10 @@ import { Medico } from '../../medico/medico.model';
 })
 export class CadastroConsultaComponent implements OnInit{
 
-    visible = true;
-    selectable = true;
-    removable = true;
-    addOnBlur = true;
+    private visible = true;
+    private selectable = true;
+    private removable = true;
+    private addOnBlur = true;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -40,8 +41,8 @@ export class CadastroConsultaComponent implements OnInit{
 
     private horarios_disponiveis: string[];
     private options             : string[];
-    private clinicas            : string[];
-    private medicos             : string[];
+    private clinicas            : any[];
+    private medicos             : any[];
 
     private sintomas_selected       : any[];
     private medicamentos_selected   : any[]
@@ -53,6 +54,7 @@ export class CadastroConsultaComponent implements OnInit{
         private authService         : AuthService,
         private service             : ConsultaService,
         private clinica_service     : ClinicaService,
+        private consultaT_service   : ConsultaTipoService,
         private medico_service      : MedicoService,
         private router              : Router,
         private snack_bar_service   : SnackService
@@ -62,11 +64,13 @@ export class CadastroConsultaComponent implements OnInit{
 
         this.consulta = new Consulta();
 
+        this.tipoConsultaOptions = [];
+        this.medicos = [];
+        this.clinicas = [];
+
         this.options = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', 
                         '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', 
                         '14:30', '15:00', '15:30'];
-
-        // this.clinicas = ['São Judas Tadeu', 'Vital Brazil'];
 
         this.clinica_service.findAll().then((clinicas: any[]) => {
             this.clinicas = clinicas;
@@ -76,14 +80,15 @@ export class CadastroConsultaComponent implements OnInit{
             this.medicos = medicos;
         })
 
-        // this.medicos = ['André M. S. N.', 'Leonam T. V.'];
-
-        this.tipoConsultaOptions = [
-            { label: 'Diagnóstico', value:"diag" },
-            { label: 'Pós-Operatório', value:"posop" },
-            { label: 'Pré-Operatório', value:"preop" },
-            { label: 'Checkup', value:"check" },
-        ]
+        this.consultaT_service.findAll().then((consultasT: any[]) => {
+            this.tipoConsultaOptions = consultasT.map((consT) => {
+                return {
+                    label : consT.nome,
+                    value : consT.nome,
+                    content : consT
+                }
+            })
+        })
 
         this.quarto_form_group = this.form_builder.group({
             medicamentosQueToma: [
@@ -99,7 +104,7 @@ export class CadastroConsultaComponent implements OnInit{
 
         this.terceiro_form_group = this.form_builder.group({
             tipoConsulta: [
-                this.consulta.tipoConsulta,
+                this.consulta.tipoConsulta.nome,
                 [
                     Validators.required
                 ]
@@ -126,15 +131,17 @@ export class CadastroConsultaComponent implements OnInit{
 
         this.primeiro_form_group = this.form_builder.group({
             clinica: [
-                this.nome_clinica,
+                this.consulta.clinica.nome,
                 [
-                    Validators.required
+                    Validators.required,
+                    Validators.minLength(1)
                 ]
             ],
             medico: [
-                this.nome_medico,
+                this.consulta.medico.nome,
                 [
-                    Validators.required
+                    Validators.required,
+                    Validators.minLength(1)
                 ]
             ]
         })
@@ -177,6 +184,10 @@ export class CadastroConsultaComponent implements OnInit{
         if ( input ) {
             input.value = '';
         }
+
+        this.terceiro_form_group.patchValue({
+            sintomasObservados : this.sintomas_selected
+        })
     }
 
     public remove_sintomas(sintoma) {
@@ -185,6 +196,10 @@ export class CadastroConsultaComponent implements OnInit{
         if ( index >= 0 ) {
             this.sintomas_selected.splice(index, 1);
         }
+
+        this.terceiro_form_group.patchValue({
+            sintomasObservados : this.sintomas_selected
+        })
     }
 
     public add_medicamento(event: MatChipInputEvent) {
@@ -198,6 +213,11 @@ export class CadastroConsultaComponent implements OnInit{
         if ( input ) {
             input.value = '';
         }
+
+        this.quarto_form_group.patchValue({
+            medicamentosQueToma : this.medicamentos_selected
+        });
+
     }
 
     public remove_medicamentos(medicamento) {
@@ -206,6 +226,10 @@ export class CadastroConsultaComponent implements OnInit{
         if ( index >= 0 ) {
             this.medicamentos_selected.splice(index, 1);
         }
+
+        this.quarto_form_group.patchValue({
+            medicamentosQueToma : this.medicamentos_selected
+        });
     }
 
     public add_doenca(event: MatChipInputEvent) {
@@ -219,6 +243,10 @@ export class CadastroConsultaComponent implements OnInit{
         if ( input ) {
             input.value = '';
         }
+
+        this.quarto_form_group.patchValue({
+            doencasRecentes : this.doencas_selected
+        });
     }
 
     public remove_doencas(doenca) {
@@ -227,14 +255,28 @@ export class CadastroConsultaComponent implements OnInit{
         if ( index >= 0 ) {
             this.doencas_selected.splice(index, 1);
         }
+
+        this.quarto_form_group.patchValue({
+            doencasRecentes : this.doencas_selected
+        });
     }
 
     get medico () {
-        return this.primeiro_form_group.get('medico').value;
+        if ( this.medicos.length > 0 ) {
+            return this.medicos.filter(medico => {
+                return medico.nome == this.primeiro_form_group.get('medico').value;
+            })[0]
+        } else 
+            return null
     }
 
     get clinica () {
-        return this.primeiro_form_group.get('clinica').value;
+        if ( this.clinicas.length > 0 ) {
+            return this.clinicas.filter(clinica => {
+                return clinica.nome == this.primeiro_form_group.get('clinica').value;
+            })[0]
+        } else 
+            return null
     }
 
     get data () {
@@ -246,23 +288,28 @@ export class CadastroConsultaComponent implements OnInit{
     }
 
     get tipoConsulta () {
-        let tp: any[] = this.tipoConsultaOptions.filter((tpc) => {
-            return tpc.value == this.terceiro_form_group.get('tipoConsulta').value;
-        });
-
-        return ( tp.length > 0 ) ? tp[0]['label'] : undefined;
+        if ( this.tipoConsultaOptions.length > 0 ) {
+            let tipo =  this.tipoConsultaOptions.filter(tpCons => {
+                return tpCons.label == this.terceiro_form_group.get('tipoConsulta').value;
+            })[0]
+            if (tipo) {
+                return tipo.content;
+            } else 
+                return null;
+        } else 
+            return null
     }
 
     get sintomasObservados () {
-        return this.terceiro_form_group.get('sintomasObservados').value;
+        return ( this.terceiro_form_group.get('sintomasObservados').value == null ) ? [] : this.terceiro_form_group.get('sintomasObservados').value;
     }
 
     get medicamentosQueToma () {
-        return this.quarto_form_group.get('medicamentosQueToma').value;
+        return  ( this.quarto_form_group.get('medicamentosQueToma').value == null) ? [] : this.quarto_form_group.get('medicamentosQueToma').value ;
     }
 
     get doencasRecentes () {
-        return this.quarto_form_group.get('doencasRecentes').value;
+        return ( this.quarto_form_group.get('doencasRecentes').value == null ) ? [] : this.quarto_form_group.get('doencasRecentes').value;
     }
 
     get informacoesAdicionais () {
@@ -292,13 +339,27 @@ export class CadastroConsultaComponent implements OnInit{
             this.sintomas_selected,
             this.medicamentos_selected,
             this.doencas_selected,
-            this.informacoesAdicionais
+            this.informacoesAdicionais,
+            this.clinica,
+            this.medico
         );
 
         consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0)
 
-        console.log(consulta_cadastrada);
+        this.service.insert(consulta_cadastrada).then((data) => {
+            this.snack_bar_service.open_snack_bar('Consulta agendada', 'success');
+            this.primeiro_form_group.reset();
+            this.segundo_form_group.reset();
+            this.terceiro_form_group.reset();
+            this.quarto_form_group.reset();
+        }).catch(error => {
+            this.snack_bar_service.open_snack_bar( 'Consulta não agendada. Algum erro ocorreu', 'danger' );
+        })
 
+    }
+
+    navigate_back() {
+        this.router.navigate([ '/pedilandia/consulta' ]);
     }
 
 }

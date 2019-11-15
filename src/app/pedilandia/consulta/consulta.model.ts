@@ -1,35 +1,49 @@
 import { Usuario } from '../../common/security/usuario.model';
+import { Clinica } from '../clinica/clinica.model';
+import { Medico } from '../medico/medico.model';
+import { ConsultaTipo } from '../consulta-tipo/consulta-tipo.model';
 
 export class Consulta {
 
     _id: string;
+    clinica: Clinica;
+    medico: Medico;
     dataConsulta: Date;
     dataRegistro: Date;
     paciente: Usuario;
-    tipoConsulta: string;
+    tipoConsulta: ConsultaTipo;
     sintomasObservados: string[];
     medicamentosQueToma: string[];
     doencasRecentes: string[];
     informacoesAdicionais: string;
     
     constructor(
-        dataConsulta: Date = new Date(),
-        dataRegistro: Date = new Date(),
-        paciente: Usuario = new Usuario({
-            _id: null,
-            email: null,
-            fotoUrl: null,
-            jwt: null,
-            nome: null,
-            telefone: null,
-            tipo: 0,
-            qtConsultas: 0
+        dataConsulta: Date  = new Date(),
+        dataRegistro: Date  = new Date(),
+        paciente: Usuario   = new Usuario({
+            _id         : null,
+            email       : null,
+            fotoUrl     : null,
+            jwt         : null,
+            nome        : null,
+            telefone    : null,
+            tipo        : 0,
+            qtConsultas : 0
         }),
-        tipoConsulta: string = "",
+        tipoConsulta: ConsultaTipo = new ConsultaTipo(),
         sintomasObservados: string[] = [],
         medicamentosQueToma: string[] = [],
         doencasRecentes: string[] = [],
-        informacoesAdicionais: string = ""
+        informacoesAdicionais: string = "",
+        clinica: Clinica = new Clinica(),
+        medico: Medico = new Medico({
+            _id     : "",
+            nome    : "",
+            email   : "",
+            jwt     : "",
+            fotoUrl : "",
+            telefone: ""
+        })
     ) {
         this.dataConsulta = dataConsulta;
         this.dataRegistro = dataRegistro;
@@ -39,6 +53,8 @@ export class Consulta {
         this.medicamentosQueToma = medicamentosQueToma;
         this.doencasRecentes = doencasRecentes;
         this.informacoesAdicionais = informacoesAdicionais;
+        this.clinica = clinica;
+        this.medico = medico;
     }
 
 }

@@ -54,7 +54,7 @@ export class MedicoService {
   async findAll (  ) {
     const response = await this.api.graphqlQuery(`
       query {
-        users {
+        findByTipo(tipo: 2) {
           _id, 
           nome, 
           email, 
@@ -65,9 +65,9 @@ export class MedicoService {
       }
     `);
 
-      console.log(response);
+      // console.log(response);
 
-    return response.data.usuarios;
+    return response.data.findByTipo;
   }
 
   async find ( id: string ) {

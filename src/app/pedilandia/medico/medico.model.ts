@@ -8,12 +8,12 @@ export class Medico {
     telefone: string;
 
     constructor(params : {
-        _id : string,
-        nome: string,
-        email: string,
-        jwt: string,
-        fotoUrl: string,
-        telefone: string
+        _id ?: string,
+        nome?: string,
+        email?: string,
+        jwt?: string,
+        fotoUrl?: string,
+        telefone?: string
     }) {
         Object.assign(this, params);
     }
