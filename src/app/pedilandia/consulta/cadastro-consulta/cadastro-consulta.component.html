@@ -40,7 +40,7 @@
         </h2>
         <form class="" [formGroup]="segundo_form_group">
           <mat-form-field class="input-class">
-            <input matInput [matDatepicker]="picker" placeholder="Escolha uma data para a consulta" formControlName="data" (dateChange)="date_change()"/>
+            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="filter_date"  placeholder="Escolha uma data para a consulta" formControlName="data" (dateChange)="date_change()"/>
             <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
             <mat-datepicker #picker (click)="date_change()"></mat-datepicker>
             <mat-hint align="end">

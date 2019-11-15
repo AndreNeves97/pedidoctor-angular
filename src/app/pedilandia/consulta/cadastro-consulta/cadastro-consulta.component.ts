@@ -152,6 +152,16 @@ export class CadastroConsultaComponent implements OnInit{
 
     }
 
+    filter_date = (d: Date): boolean => {
+
+        const date = new Date();
+
+        date.setDate(new Date().getDate() - 1);
+
+        return d >= date && d.getDay() != 0;
+
+    }
+
     private date_change() {
         if ( this.segundo_form_group.get('data').valid ) {
             this.segundo_form_group.get('horario').enable();
