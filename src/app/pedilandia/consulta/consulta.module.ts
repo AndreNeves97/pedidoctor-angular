@@ -19,11 +19,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MainConsultaComponent } from './main-consulta/main-consulta.component';
+import { UpdateConsultaComponent } from './update-consulta/update-consulta.component';
+import { DetalheConsultaComponent } from './detalhe-consulta/detalhe-consulta.component';
 
 @NgModule({
   declarations: [
     CadastroConsultaComponent,
-    ListagemConsultaComponent
+    ListagemConsultaComponent,
+    MainConsultaComponent,
+    UpdateConsultaComponent,
+    DetalheConsultaComponent
   ],
   providers:[
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
