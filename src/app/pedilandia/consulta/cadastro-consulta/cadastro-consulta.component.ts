@@ -1,17 +1,15 @@
 import { AuthService } from 'src/app/common/security/auth.service';
-import { TipoConsulta } from './../../util/tipo-consulta.enum';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Consulta } from './../consulta.model';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../common/security/usuario.model';
 import { ConsultaService } from '../consulta.service';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
 import { MatChipInputEvent } from '@angular/material';
 import { ClinicaService } from '../../clinica/clinica.service';
 import { MedicoService } from '../../medico/medico.service';
-import { Medico } from '../../medico/medico.model';
 import { ConsultaTipoService } from '../../consulta-tipo/consulta-tipo.service';
 
 @Component({
