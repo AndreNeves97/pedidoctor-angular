@@ -16,6 +16,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ListagemConsultaComponent } from './listagem-consulta/listagem-consulta.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -31,10 +34,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormsModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    MatCardModule,
     MatSelectModule,
+    MatExpansionModule,
     MatProgressBarModule,
     MatTableModule,
     MatStepperModule,
+    MatChipsModule,
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,

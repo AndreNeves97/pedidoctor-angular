@@ -53,12 +53,34 @@
     font-weight: 100;
 }
 
+.stepper-div b {
+    font-weight: 500;
+}
+
+.stepper-div h3 {
+    font-weight: 100;
+    font-style: italic;
+}
+
 .input-class {
-    margin: 1% 0%;
+    margin: 0.5% 0%;
     width: 50%;
 }
 
 .input-class-no-margin {
     margin: 0.2% 0%;
     width: 50%;
+}
+
+.ok-button {
+    margin: 1% 0%;
+    background-color: rgb(24, 204, 24);
+    float: right;
+}
+
+.dica-class {
+    background-color: rgb(79, 202, 79);
+    margin-bottom: 1%;
+    width: 50%;
+    font-style: italic;
 }

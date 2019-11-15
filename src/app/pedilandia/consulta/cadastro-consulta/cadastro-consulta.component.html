@@ -118,13 +118,13 @@
         <mat-form-field class="input-class">
             <mat-label>Escolha uma clínica para a consulta</mat-label>
             <mat-select formControlName="clinica" (change)='check_medico_clinica()' required>
-              <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica }} </mat-option>
+              <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica.nome }} </mat-option>
             </mat-select>
         </mat-form-field><br>
         <mat-form-field class="input-class">
             <mat-label>Escolha um(a) médico(a) para a consulta</mat-label>
             <mat-select formControlName="medico">
-              <mat-option *ngFor="let medico of medicos" [value]="medico"> {{ medico }} </mat-option>
+              <mat-option *ngFor="let medico of medicos" [value]="medico"> {{ medico.nome }} </mat-option>
             </mat-select>
         </mat-form-field>
       </form>
@@ -175,8 +175,21 @@
           </mat-select>
         </mat-form-field><br>
         <mat-form-field class="input-class">
-          <textarea matInput placeholder="Caso haja algum, descreva os sintomas observados" formControlName="sintomasObservados"></textarea>
+          <mat-chip-list #chipList>
+            <mat-chip color="primary" *ngFor="let sintoma of sintomas_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_sintomas(sintoma)" selected>
+              {{sintoma.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Adicionar sintoma"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add_sintoma($event)">
+          </mat-chip-list>
         </mat-form-field>
+        <mat-card class='dica-class' color='accent'>
+          Dica: Escreva os sintomas separando-os com um <b>enter</b> ou com uma vírgula.
+        </mat-card>
       </form>
       <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
       <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
@@ -190,15 +203,51 @@
         <h4>
           Insira os medicamentos que utiliza, caso utilize algum
         </h4>
-        <mat-form-field class="input-class-no-margin">
+
+        <mat-form-field class="input-class">
+          <mat-chip-list #chipList>
+            <mat-chip color="primary" *ngFor="let medicamento of medicamentos_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_medicamentos(medicamento)" selected>
+              {{medicamento.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Adicionar medicamento"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add_medicamento($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-card class='dica-class' color='accent'>
+          Dica: Escreva os medicamentos que toma separando-os com um <b>enter</b> ou com uma vírgula.
+        </mat-card>
+
+        <!-- <mat-form-field class="input-class-no-margin">
           <textarea matInput placeholder="Medicamentos que utiliza" formControlName="medicamentosQueToma"></textarea>
-        </mat-form-field><br>
+        </mat-form-field><br> -->
         <h4>
           Insira as doenças que possui, caso positivo
         </h4>
-        <mat-form-field class="input-class-no-margin">
+
+        <mat-form-field class="input-class">
+          <mat-chip-list #chipList>
+            <mat-chip color="primary" *ngFor="let doenca of doencas_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_doencas(doenca)" selected>
+              {{doenca.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Adicionar doença"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add_doenca($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-card class='dica-class' color='accent'>
+          Dica: Escreva doenças que possui, caso tenha alguma separando-as com um <b>enter</b> ou com uma vírgula.
+        </mat-card>
+
+        <!-- <mat-form-field class="input-class-no-margin">
           <textarea matInput placeholder="Doenças ou enfermidades recentes" formControlName="doencasRecentes"></textarea>
-        </mat-form-field><br>
+        </mat-form-field><br> -->
         <h4>
           Case julgue necessário alguma informação a mais, este é o espaço!
         </h4>
@@ -213,7 +262,65 @@
 
   <mat-step [stepControl]="firstFormGroup" [editable]="true">
     <ng-template matStepLabel>Confirmação</ng-template>
-    
+    <div class='stepper-div'>
+      <h2>
+        Confirme se os dados estão corretos
+      </h2>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h2>
+              Horário
+            </h2>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>
+          Consulta agendada para dia <b>{{ data | date : 'dd/MM/yyyy' }}</b> às <b>{{ horario }}</b> horas.
+        </h3>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <h2>
+            Médico e clínica
+          </h2>
+        </mat-expansion-panel-header>
+        <h3>
+          Médico: <b>{{ medico }}</b> na clínica <b>{{ clinica }}</b>.
+        </h3>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <h2>
+            Motivação
+          </h2>
+        </mat-expansion-panel-header>
+        <h3>
+          Tipo de consulta: <b>{{ tipoConsulta }}</b>.
+        </h3>
+        <h3 *ngIf="sintomasObservados != ''">
+          Sintomas observados: <b>{{ sintomasObservados }}</b>.
+        </h3>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel expanded *ngIf = "medicamentosQueToma != '' || doencasRecentes != '' || informacoesAdicionais != ''" >
+        <mat-expansion-panel-header>
+          <h2>
+            Anamnese
+          </h2>
+        </mat-expansion-panel-header>
+        <h3 *ngIf="medicamentosQueToma != ''">
+          Medicamentos que toma: <b>{{ medicamentosQueToma }}</b>.
+        </h3>
+        <h3 *ngIf="doencasRecentes != ''">
+          Doenças recentes: <b>{{ doencasRecentes }}</b>.
+        </h3>
+        <h3 *ngIf="informacoesAdicionais != ''">
+          Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+        </h3>
+      </mat-expansion-panel>
+      <button mat-raised-button class='ok-button' (click)="salvar()">Confirmar</button>
+    </div>
   </mat-step>
-
 </mat-horizontal-stepper>

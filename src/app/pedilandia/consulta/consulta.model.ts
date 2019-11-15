@@ -7,9 +7,9 @@ export class Consulta {
     dataRegistro: Date;
     paciente: Usuario;
     tipoConsulta: string;
-    sintomasObservados: string;
-    medicamentosQueToma: string;
-    doencasRecentes: string;
+    sintomasObservados: string[];
+    medicamentosQueToma: string[];
+    doencasRecentes: string[];
     informacoesAdicionais: string;
     
     constructor(
@@ -26,9 +26,9 @@ export class Consulta {
             qtConsultas: 0
         }),
         tipoConsulta: string = "",
-        sintomasObservados: string = "",
-        medicamentosQueToma: string = "",
-        doencasRecentes: string = "",
+        sintomasObservados: string[] = [],
+        medicamentosQueToma: string[] = [],
+        doencasRecentes: string[] = [],
         informacoesAdicionais: string = ""
     ) {
         this.dataConsulta = dataConsulta;
