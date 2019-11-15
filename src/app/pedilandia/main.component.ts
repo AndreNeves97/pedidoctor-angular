@@ -25,15 +25,20 @@ const TREE_DATA: FoodNode[] = [
         route: 'pedilandia'
     },
     {
+        name: 'Agendar consulta',
+        route: 'pedilandia/agendar-consulta',
+        id: '3A'
+    },
+    {
+        name: 'Consultas agendadas',
+        route: 'pedilandia/consultas',
+        id: '3A'
+    },
+    {
         name: 'Usuarios',
         id: '3A',
         route: 'pedilandia/usuario',
         role: 'admin'
-    },
-    {
-        name: 'Consulta',
-        route: 'pedilandia/consulta',
-        id: '3A'
     },
     {
         name: 'Clinicas',
