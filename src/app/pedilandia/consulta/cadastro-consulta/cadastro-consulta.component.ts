@@ -7,11 +7,11 @@ import { ConsultaService } from '../consulta.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
-import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
 import { ClinicaService } from '../../clinica/clinica.service';
 import { MedicoService } from '../../medico/medico.service';
 import { ConsultaTipoService } from '../../consulta-tipo/consulta-tipo.service';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { startWith, map, debounceTime, distinctUntilChanged, switchMap, filter, tap } from 'rxjs/operators';
 import { Sintoma } from '../../sintomas/sintoma.model';
 import { SintomaService } from '../../sintomas/sintoma.service';
@@ -39,11 +39,49 @@ export class CadastroConsultaComponent implements OnInit{
 
     sintomasCtrl = new FormControl();
     filteredSintomas: BehaviorSubject<Sintoma[]>;
-    allSintomas: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+    
+    private clinicaInput: ElementRef | any;
+
+    @ViewChild('clinicaInput', {static: false}) 
+    set _clinicaInput(content: ElementRef) {
+        this.clinicaInput = content;
+    }
+
+    
+    private dataInput: ElementRef | any;
+
+    @ViewChild('dataInput', {static: false}) 
+    set _dataInput(content: ElementRef) {
+        this.dataInput = content;
+    }
+
+    
+    private tipoConsultaInput: ElementRef | any;
+
+    @ViewChild('tipoConsultaInput', {static: false}) 
+    set _tipoConsultaInput(content: ElementRef) {
+        this.tipoConsultaInput = content;
+    }
+
+    
+    private medicamentosInput: ElementRef | any;
+
+    @ViewChild('medicamentosInput', {static: false}) 
+    set _medicamentosInput(content: ElementRef) {
+        this.medicamentosInput = content;
+    }
 
 
-    @ViewChild('sintomasInput', {static: false}) fruitInput: ElementRef<HTMLInputElement>;
-    @ViewChild('autoCompleteSintomas', {static: false}) matAutocomplete: MatAutocomplete;
+    @ViewChild(MatAutocompleteTrigger, {read: MatAutocompleteTrigger, static: false}) 
+    sintomasInputAutoCmpTrigger: MatAutocompleteTrigger;
+
+    
+    @ViewChild('sintomasInput', {static: false}) 
+    sintomasInput: any;
+    
+    @ViewChild('autoCompleteSintomas', {static: false}) 
+    matAutocomplete: MatAutocomplete;
 
     
     private primeiro_form_group : FormGroup;
@@ -67,8 +105,8 @@ export class CadastroConsultaComponent implements OnInit{
     private medicosLoading          : boolean;
     private horariosLoading         : boolean;
     private sintomasLoading         : boolean;
-    
 
+    
     constructor (
         private form_builder        : FormBuilder,
         private authService         : AuthService,
@@ -174,17 +212,39 @@ export class CadastroConsultaComponent implements OnInit{
             }),
             debounceTime(400),
             tap(v => this.sintomasLoading = false),
-            distinctUntilChanged(),
             tap(v => this.loadSintomas(v))
         ).subscribe();
+
+        this.stepChange({selectedIndex: 0});
     }
 
     stepChange($event) {
-        if($event.selectedIndex == 1) {
+        const i = $event.selectedIndex;
+
+        if(i == 1) {
             this.loadHorarios();
-        } else if($event.selectedIndex == 2) {
+        } else if(i == 2) {
             this.loadSintomas("");
         }
+        
+        // Dar foco a ao elemento do painel
+        setTimeout(() => {
+            let focusedElement = null;
+
+            if(i == 0) {
+                focusedElement = this.clinicaInput;
+            } else if(i == 1) {
+                focusedElement = this.dataInput.nativeElement;
+            } else if(i == 2) {
+                focusedElement = this.tipoConsultaInput;
+            } else if(i == 3) {
+                focusedElement = this.medicamentosInput.nativeElement;
+            }
+            
+            console.log(focusedElement)
+            if(focusedElement != null)
+                focusedElement.focus()
+        }, 1000)
     }
 
     loadClinicas() {
@@ -256,7 +316,7 @@ export class CadastroConsultaComponent implements OnInit{
             // Só pra forçar um tempo e mostrar o efeito de carregamento 
             setTimeout(() => {
                 this.options = horarios;
-                
+
                 if(lastValue != undefined) {
                     const lastValueIndex = this.options.findIndex(v => v.horario === lastValue);
                     
@@ -288,14 +348,15 @@ export class CadastroConsultaComponent implements OnInit{
     
                 this.horariosLoading = false;
             }, 200)
-        })
+        })        
     }
 
     async loadSintomas(query : string) {
         this.sintomasLoading = true;
 
         const itens = await this._filterSintomas(query);
-
+        
+        console.log(itens)
         this.filteredSintomas.next(itens);
         this.sintomasLoading = false;
     }
@@ -372,13 +433,24 @@ export class CadastroConsultaComponent implements OnInit{
             nome: event.option.viewValue,
         });
 
-        this.fruitInput.nativeElement.value = '';
-        this.sintomasCtrl.setValue(null);
+
+        this.sintomasInput.nativeElement.value = '';
+        this.sintomasCtrl.setValue('');
+
+        let subscription : Subscription;
+        
+        subscription = this.filteredSintomas.subscribe(v => {
+            console.log(v)
+            if(v != null) {
+                this.sintomasInputAutoCmpTrigger.openPanel();
+                subscription.unsubscribe()
+            }
+        });
     }
 
     private async _filterSintomas(value: string): Promise<Sintoma[]>{
         if(value == null) 
-            return [];            
+            value = '';            
             
         const filterValue = value.toLowerCase();
         
