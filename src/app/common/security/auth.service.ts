@@ -63,7 +63,7 @@ export class AuthService {
 
         
         if (status === LoginUsuarioStatus.LOGADO) {
-            this.router.navigate(['pedilandia']);
+            // this.router.navigate(['pedilandia']);
         } else if(status === LoginUsuarioStatus.DESLOGADO) {
             this.router.navigate(['login']);
         }
