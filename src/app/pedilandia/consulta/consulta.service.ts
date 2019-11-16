@@ -18,21 +18,21 @@ export class ConsultaService {
         const res = await this.api.graphqlQuery(`
             query {
                 consultas {
-                _id
-                dataConsulta
-                dataRegistro
-                paciente {
                     _id
-                    nome
-                    email
-                    telefone
-                    fotoUrl
-                }
-                tipoConsulta
-                sintomasObservados
-                medicamentosQueToma
-                doencasRecentes
-                informacoesAdicionais
+                    dataConsulta
+                    dataRegistro
+                    paciente {
+                        _id
+                        nome
+                        email
+                        telefone
+                        fotoUrl
+                    }
+                    tipoConsulta
+                    sintomasObservados
+                    medicamentosQueToma
+                    doencasRecentes
+                    informacoesAdicionais
                 }
             }
         `);
@@ -126,4 +126,12 @@ export class ConsultaService {
     }
 
     
+    async find ( id: string ): Promise<Consulta> {
+        return new Promise<Consulta>(null);
+    }
+
+    async update ( consulta: Consulta ): Promise<Consulta> {
+        return new Promise<Consulta>(null);
+    }
+
 }
