@@ -241,7 +241,6 @@ export class CadastroConsultaComponent implements OnInit{
                 focusedElement = this.medicamentosInput.nativeElement;
             }
             
-            console.log(focusedElement)
             if(focusedElement != null)
                 focusedElement.focus()
         }, 1000)
@@ -354,9 +353,12 @@ export class CadastroConsultaComponent implements OnInit{
     async loadSintomas(query : string) {
         this.sintomasLoading = true;
 
-        const itens = await this._filterSintomas(query);
+
+        const itens = await this._filterSintomas(
+            query,
+            this.sintomas_selected.map(v => v.nome)
+        );
         
-        console.log(itens)
         this.filteredSintomas.next(itens);
         this.sintomasLoading = false;
     }
@@ -448,13 +450,13 @@ export class CadastroConsultaComponent implements OnInit{
         });
     }
 
-    private async _filterSintomas(value: string): Promise<Sintoma[]>{
+    private async _filterSintomas(value: string, exclude : string[]): Promise<Sintoma[]>{
         if(value == null) 
             value = '';            
             
         const filterValue = value.toLowerCase();
         
-        return await this.sintoma_service.findAll('_id,nome', filterValue);
+        return await this.sintoma_service.findAll('_id,nome', filterValue, exclude);
     }
 
     public add_medicamento(event: MatChipInputEvent) {

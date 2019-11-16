@@ -51,11 +51,11 @@ export class SintomaService {
 
   }
 
-  async findAll (select = '_id,nome,descricao', query = "") {
+  async findAll (select = '_id,nome,descricao', query = "", exclude : string[] = []) {
 
     const response = await this.api.graphqlQuery(`
         query {
-          sintomas(query: "${query}") {
+          sintomas(  query: "${query}", exclude: [ "${ exclude.join('","') }" ]  ) {
             ${select}
           }
         }
