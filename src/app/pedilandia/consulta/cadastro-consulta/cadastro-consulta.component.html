@@ -13,7 +13,7 @@
     </div>
 </ng-template>
 
-<mat-horizontal-stepper linear #stepper *ngIf="clinicasLoaded && tiposConsultasLoaded; else loading">
+<mat-horizontal-stepper linear #stepper *ngIf="clinicasLoaded && tiposConsultasLoaded; else loading" (selectionChange)="stepChange($event)">
 
   <mat-step [stepControl]="primeiro_form_group" [editable]="true">
     <ng-template matStepLabel>Clínica e Médico</ng-template>
@@ -34,6 +34,9 @@
               <mat-option *ngFor="let medico of medicos" [value]="medico" required> {{ medico.nome }} </mat-option>
             </mat-select>
         </mat-form-field>
+        <div class="loading-input-class" *ngIf="medicosLoading">
+            <mat-progress-bar mode="query"></mat-progress-bar>
+        </div>
       </form>
       <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
     </div>
@@ -60,6 +63,9 @@
               <mat-option *ngFor="let option of options" [disabled]="!option.disponivel" [value]="option.horario"> {{ option.horario }} </mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="loading-input-class" *ngIf="horariosLoading">
+              <mat-progress-bar mode="query"></mat-progress-bar>
+          </div>
         </form>
         <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
         <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>

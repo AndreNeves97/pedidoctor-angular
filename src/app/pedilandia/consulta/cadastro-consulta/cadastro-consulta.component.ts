@@ -46,11 +46,14 @@ export class CadastroConsultaComponent implements OnInit{
     private medicamentos_selected   : any[]
     private doencas_selected        : any[]
     private tipoConsultaOptions     : any[];
-    
+
     private clinicasLoaded          : boolean;
     private tiposConsultasLoaded    : boolean;
-    
+
+    private medicosLoading          : boolean;
     private horariosLoading          : boolean;
+    
+
     constructor (
         private form_builder        : FormBuilder,
         private authService         : AuthService,
@@ -71,25 +74,14 @@ export class CadastroConsultaComponent implements OnInit{
         this.medicos = [];
         this.clinicas = [];
 
+        this.medicosLoading = false;
         this.horariosLoading = false;
 
-        this.clinica_service.findAll().then((clinicas: any[]) => {
-            this.clinicas = clinicas;
-        })
+        this.options = [];
 
-        this.medico_service.findAll().then((medicos: any[]) => {
-            this.medicos = medicos;
-        })
+        this.loadClinicas();
+        this.loadTiposConsultas();
 
-        this.consultaT_service.findAll().then((consultasT: any[]) => {
-            this.tipoConsultaOptions = consultasT.map((consT) => {
-                return {
-                    label : consT.nome,
-                    value : consT.nome,
-                    content : consT
-                }
-            })
-        })
 
         this.quarto_form_group = this.form_builder.group({
             medicamentosQueToma: [
@@ -157,6 +149,22 @@ export class CadastroConsultaComponent implements OnInit{
         this.primeiro_form_group.get('clinica').valueChanges.subscribe(v => this.check_medico_clinica())
     }
 
+    stepChange($event) {
+        if($event.selectedIndex == 1) {
+            this.loadHorarios();
+        }
+    }
+
+    loadClinicas() {
+        this.clinicas = [];
+        this.clinicasLoaded = false;
+
+        this.clinica_service.findAll().then((clinicas: any[]) => {
+            this.clinicas = clinicas;
+            this.clinicasLoaded = true;
+            this.changeDetectorRef.detectChanges();
+        });
+    }
 
     loadMedicos() {
         this.medicos = [];
@@ -173,6 +181,24 @@ export class CadastroConsultaComponent implements OnInit{
                 this.medicos = medicos;
                 this.medicosLoading = false;
             }, 200)
+        })
+    }
+
+    async loadTiposConsultas() {
+        this.tipoConsultaOptions = [];
+        this.tiposConsultasLoaded = false;
+
+        this.consultaT_service.findAll().then((consultasT: any[]) => {
+            this.tipoConsultaOptions = consultasT.map((consT) => {
+                return {
+                    label : consT.nome,
+                    value : consT.nome,
+                    content : consT
+                }
+            })
+
+            this.tiposConsultasLoaded = true;
+            this.changeDetectorRef.detectChanges();
         })
     }
 
@@ -252,7 +278,7 @@ export class CadastroConsultaComponent implements OnInit{
             this.loadMedicos();
         } else {
             this.medicos = [];
-        } 
+        }
     }
 
     public add_sintoma(event: MatChipInputEvent) {
