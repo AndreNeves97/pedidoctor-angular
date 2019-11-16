@@ -47,6 +47,9 @@ export class CadastroConsultaComponent implements OnInit{
     private doencas_selected        : any[]
     private tipoConsultaOptions     : any[];
     
+    private clinicasLoaded          : boolean;
+    private tiposConsultasLoaded    : boolean;
+    
     constructor (
         private form_builder        : FormBuilder,
         private authService         : AuthService,
@@ -55,7 +58,8 @@ export class CadastroConsultaComponent implements OnInit{
         private consultaT_service   : ConsultaTipoService,
         private medico_service      : MedicoService,
         private router              : Router,
-        private snack_bar_service   : SnackService
+        private snack_bar_service   : SnackService,
+        private changeDetectorRef   : ChangeDetectorRef
     ) { }
 
     ngOnInit(){ 

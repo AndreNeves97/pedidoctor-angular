@@ -6,7 +6,14 @@
     <app-listagem-consulta></app-listagem-consulta>
   </mat-tab>
 </mat-tab-group> -->
-<mat-horizontal-stepper linear #stepper>
+
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<mat-horizontal-stepper linear #stepper *ngIf="clinicasLoaded && tiposConsultasLoaded; else loading">
 
   <mat-step [stepControl]="primeiro_form_group" [editable]="true">
     <ng-template matStepLabel>Clínica e Médico</ng-template>
