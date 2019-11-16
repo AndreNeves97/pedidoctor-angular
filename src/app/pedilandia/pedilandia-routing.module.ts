@@ -27,6 +27,7 @@ import { MainExameTipoComponent } from './exame-tipo/main-exame-tipo/main-exame-
 import { DetalheExameTipoComponent } from './exame-tipo/detalhe-exame-tipo/detalhe-exame-tipo.component';
 import { UpdateExameTipoComponent } from './exame-tipo/update-exame-tipo/update-exame-tipo.component';
 import { ListagemConsultaComponent } from './consulta/listagem-consulta/listagem-consulta.component';
+import { MainConsultaComponent } from './consulta/main-consulta/main-consulta.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,10 @@ const routes: Routes = [
     {
         path: 'consultas', 
         component: ListagemConsultaComponent
+    },
+    {
+        path: 'consulta', 
+        component: MainConsultaComponent
     },
     {
         path: 'clinica', 

@@ -25,9 +25,19 @@ export class ListagemConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(()=>{
-      this.getData();
-    }, 3000);
+    this.getData();
+  }
+
+  visualizar () {
+
+  }
+
+  editar () {
+
+  }
+
+  excluir () {
+    
   }
 
 }
