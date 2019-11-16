@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { AuthService } from '../common/security/auth.service';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginUsuarioStatus } from '../common/security/usuario.model';
 
@@ -108,17 +108,22 @@ interface ExampleFlatNode {
 export class MainPedilandiaComponent implements OnInit {
     menuOpened;
 
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-        .pipe(
-            map(result => result.matches),
-            shareReplay()
-        );
+    isHandset$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+    @ViewChild('drawer', {static: false}) 
+    drawerRef: any;
 
     constructor(
         private breakpointObserver: BreakpointObserver,
         private router: Router,
         private auth: AuthService
-    ) { }
+    ) {
+        this.breakpointObserver.observe(Breakpoints.Handset)
+        .pipe(
+            map(result => result.matches),
+            shareReplay()
+        ).subscribe(v => this.isHandset$.next(v));
+    }
 
     ngOnInit() {
         this.auth.usuarioLogado.subscribe(usuario => {
@@ -157,6 +162,9 @@ export class MainPedilandiaComponent implements OnInit {
 
     click(component: any) {
         this.router.navigate([component.route]);
+
+        if(this.isHandset$.value == true)
+            this.drawerRef.toggle();
     }
 
 
