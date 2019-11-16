@@ -1,1 +1,249 @@
-<p>update-consulta works!</p>
+<div class="main-container">
+    <button mat-mini-fab color="primary" matTooltip="Voltar para listagem" (click)="navigate_back()">
+        <mat-icon>
+            keyboard_arrow_left
+        </mat-icon>
+    </button>
+
+    <ng-template #loading>
+        <div class="spinner-wrapper">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+
+    <mat-horizontal-stepper linear #stepper *ngIf="clinicasLoaded && tiposConsultasLoaded; else loading" (selectionChange)="stepChange($event)">
+
+    <mat-step [stepControl]="primeiro_form_group" [editable]="true">
+        <ng-template matStepLabel>Clínica e Médico</ng-template>
+        <div class="stepper-div">
+        <h2>
+            Escolha uma clínica e um médico para agendar um horário
+        </h2>
+        <form class="" [formGroup]="primeiro_form_group">
+            <mat-form-field class="input-class">
+                <mat-label>Escolha uma clínica para a consulta</mat-label>
+                <mat-select formControlName="clinica" required>
+                <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica.nome }} </mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class="input-class">
+                <mat-label>Escolha um(a) médico(a) para a consulta</mat-label>
+                <mat-select formControlName="medico">
+                <mat-option *ngFor="let medico of medicos" [value]="medico" required> {{ medico.nome }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="loading-input-class" *ngIf="medicosLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+        </form>
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+        </div>
+    </mat-step>
+
+    <mat-step [stepControl]="segundo_form_group" [editable]="true">
+        <ng-template matStepLabel>Data e horário</ng-template>
+        <div class="stepper-div">
+            <h2>
+            Escolha data e horário da consulta
+            </h2>
+            <form class="" [formGroup]="segundo_form_group">
+            <mat-form-field class="input-class">
+                <input matInput [matDatepicker]="picker" [matDatepickerFilter]="filter_date"  placeholder="Escolha uma data para a consulta" formControlName="data" (dateChange)="date_change()"/>
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker (click)="date_change()"></mat-datepicker>
+                <mat-hint align="end">
+                Este campo é necessário
+                </mat-hint>
+            </mat-form-field> <br>
+            <mat-form-field class="input-class">
+                <mat-label>Escolha um horário para a consulta</mat-label>
+                <mat-select  matTooltip="Os horários indispoíveis já estão ocupados por outro agendamento." formControlName="horario">
+                <mat-option *ngFor="let option of options" [disabled]="!option.disponivel" [value]="option.horario"> {{ option.horario }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="loading-input-class" *ngIf="horariosLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+            </form>
+            <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
+            <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+        </div>
+        </mat-step>
+
+    <mat-step [stepControl]="terceiro_form_group" [editable]="true">
+        <ng-template matStepLabel>Motivação</ng-template>
+        <div class="stepper-div">
+        <h2>
+            Selecione o tipo de consulta e fale sobre os sintomas
+        </h2>
+        <form [formGroup]="terceiro_form_group">
+            <mat-form-field class="input-class">
+            <mat-label>Tipo de consulta</mat-label>
+            <mat-select formControlName="tipoConsulta" >
+                <mat-option *ngFor="let tipoConsulta of tipoConsultaOptions" [value]="tipoConsulta.value">
+                {{ tipoConsulta.label }}
+                </mat-option>
+            </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class="input-class">
+            <mat-chip-list #chipListSintoma>
+                <mat-chip color="primary" *ngFor="let sintoma of sintomas_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_sintomas(sintoma)" selected>
+                {{sintoma.nome}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Adicionar sintoma"
+                #sintomasInput
+                [formControl]="sintomasCtrl"
+                [matAutocomplete]="autoCompleteSintomas"
+                [matChipInputFor]="chipListSintoma"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add_sintoma($event)">
+            </mat-chip-list>
+            <mat-autocomplete #autoCompleteSintomas="matAutocomplete" (optionSelected)="sintomaSelected($event)">
+                <mat-option *ngFor="let sintoma of filteredSintomas | async" [value]="sintoma._id">
+                    {{ sintoma.nome }}
+                </mat-option>
+            </mat-autocomplete>
+            </mat-form-field>
+            <div class="loading-input-class" *ngIf="sintomasLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+            <mat-card class='dica-class' color='accent'>
+            Dica: Escreva os sintomas separando-os com um <b>enter</b> ou com uma vírgula.
+            </mat-card>
+        </form>
+        <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+        </div>
+    </mat-step>
+
+    <mat-step [stepControl]="quarto_form_group" [editable]="true">
+        <ng-template matStepLabel>Anamnese</ng-template>
+        <div class='stepper-div'>
+        <form [formGroup]="quarto_form_group">
+            <h4>
+            Insira os medicamentos que utiliza, caso utilize algum
+            </h4>
+
+            <mat-form-field class="input-class">
+            <mat-chip-list #chipListMedicamento>
+                <mat-chip color="primary" *ngFor="let medicamento of medicamentos_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_medicamentos(medicamento)" selected>
+                {{medicamento.name}} 
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Adicionar medicamento"
+                [matChipInputFor]="chipListMedicamento"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add_medicamento($event)">
+            </mat-chip-list>
+            </mat-form-field>
+            <mat-card class='dica-class'>
+            Dica: Escreva os medicamentos que toma separando-os com um <b>enter</b> ou com uma vírgula.
+            </mat-card>
+            <h4>
+            Insira as doenças que possui, caso positivo
+            </h4>
+            <mat-form-field class="input-class">
+            <mat-chip-list #chipListDoenca>
+                <mat-chip color="primary" *ngFor="let doenca of doencas_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_doencas(doenca)" selected>
+                {{doenca.name}} 
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Adicionar doença"
+                [matChipInputFor]="chipListDoenca"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add_doenca($event)">
+            </mat-chip-list>
+            </mat-form-field>
+            <mat-card class='dica-class'>
+            Dica: Escreva doenças que possui, caso tenha alguma separando-as com um <b>enter</b> ou com uma vírgula.
+            </mat-card>
+            <h4>
+            Case julgue necessário alguma informação a mais, este é o espaço!
+            </h4>
+            <mat-form-field class="input-class-no-margin">
+            <textarea matInput placeholder="Informações adicionais que julgar importantes" formControlName="informacoesAdicionais"></textarea>
+            </mat-form-field>
+        </form>
+        <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+        </div>
+    </mat-step>
+
+    <mat-step [stepControl]="firstFormGroup" [editable]="true">
+        <ng-template matStepLabel>Confirmação</ng-template>
+        <div class='stepper-div'>
+        <h2>
+            Confirme se os dados estão corretos
+        </h2>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h2>
+                Horário
+                </h2>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h3>
+            Consulta agendada para dia <b>{{ data | date : 'dd/MM/yyyy' }}</b> às <b>{{ horario }}</b> horas.
+            </h3>
+        </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+            <h2>
+                Médico e clínica
+            </h2>
+            </mat-expansion-panel-header>
+            <h3>
+            Médico: <b>{{ ( medico != null ) ? ( medico.nome )  : '' }}</b> na clínica <b>{{ ( clinica != null ) ? ( clinica.nome ) : '' }}</b>.
+            </h3>
+        </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+            <h2>
+                Motivação
+            </h2>
+            </mat-expansion-panel-header>
+            <h3>
+            Tipo de consulta: <b>{{ ( tipoConsulta != null ) ? tipoConsulta.nome : '' }}</b>.
+            </h3>
+            <h3 *ngIf="sintomasObservados.length > 0">
+            Sintomas observados:
+            <ul *ngFor="let sintoma of sintomasObservados">
+                <li>{{ sintoma.nome }}</li>
+            </ul>
+            </h3>
+        </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel expanded *ngIf = "medicamentosQueToma.length > 0 || doencasRecentes.length > 0 || informacoesAdicionais != ''" >
+            <mat-expansion-panel-header>
+            <h2>
+                Anamnese
+            </h2>
+            </mat-expansion-panel-header>
+            <h3 *ngIf="medicamentosQueToma.length > 0">
+            Medicamentos que toma: 
+            <ul *ngFor="let medicamento of medicamentosQueToma">
+                <li>{{ medicamento.name }}</li>
+            </ul>
+            </h3>
+            <h3 *ngIf="doencasRecentes.length > 0">
+            Doenças recentes:
+            <ul *ngFor="let doenca of doencasRecentes">
+                <li>{{ doenca.name }}</li>
+            </ul>
+            </h3>
+            <h3 *ngIf="informacoesAdicionais != ''">
+            Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+            </h3>
+        </mat-expansion-panel>
+        <button mat-raised-button class='ok-button' (click)="salvar()">Confirmar e salvar</button>
+        </div>
+    </mat-step>
+    </mat-horizontal-stepper>
+</div>
