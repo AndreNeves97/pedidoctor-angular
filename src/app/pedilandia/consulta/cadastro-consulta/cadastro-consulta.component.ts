@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/common/security/auth.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Consulta } from './../consulta.model';
-import { Component, OnInit } from '@angular/core';
+import { Consulta, HorarioConsultaSelecao } from './../consulta.model';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Usuario } from '../../../common/security/usuario.model';
 import { ConsultaService } from '../consulta.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -38,7 +38,7 @@ export class CadastroConsultaComponent implements OnInit{
     private quarto_form_group   : FormGroup;
 
     private horarios_disponiveis: string[];
-    private options             : string[];
+    private options             : HorarioConsultaSelecao[];
     private clinicas            : any[];
     private medicos             : any[];
 
@@ -50,6 +50,7 @@ export class CadastroConsultaComponent implements OnInit{
     private clinicasLoaded          : boolean;
     private tiposConsultasLoaded    : boolean;
     
+    private horariosLoading          : boolean;
     constructor (
         private form_builder        : FormBuilder,
         private authService         : AuthService,
@@ -70,9 +71,7 @@ export class CadastroConsultaComponent implements OnInit{
         this.medicos = [];
         this.clinicas = [];
 
-        this.options = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', 
-                        '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', 
-                        '14:30', '15:00', '15:30'];
+        this.horariosLoading = false;
 
         this.clinica_service.findAll().then((clinicas: any[]) => {
             this.clinicas = clinicas;
@@ -176,9 +175,74 @@ export class CadastroConsultaComponent implements OnInit{
             }, 200)
         })
     }
+
+    async loadHorarios() {
+        this.options = [];
+        this.horariosLoading = true;
+
+        let lastValue = this.segundo_form_group.get('horario').value;
+        this.segundo_form_group.get('horario').setValue(null);
+
+        
+        const date : Date = this.segundo_form_group.get('data').value;
+
+        const fmtDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+
+
+        this.service.getDisponibilidadeHorarios(fmtDate).then((horarios: HorarioConsultaSelecao[]) => {
+
+            // Só pra forçar um tempo e mostrar o efeito de carregamento 
+            setTimeout(() => {
+                this.options = horarios;
+                
+                console.log(lastValue)
+
+                if(lastValue != undefined) {
+                    const lastValueIndex = this.options.findIndex(v => v.horario === lastValue);
+                    
+                    let newValueSet = null;
+
+                    if(lastValueIndex > -1 && this.options[ lastValueIndex ].disponivel) {
+                        newValueSet = lastValue;
+                    } else {
+                        for(let i = lastValueIndex - 1; i >= 0; i--) {
+                            if(this.options[i].disponivel ) {
+                                newValueSet = this.options[i].horario;
+                                break;
+                            }
+                        }
+
+                        if(newValueSet == null) {
+                            for(let i = lastValueIndex + 1; i < this.options.length; i++) {
+                                if(this.options[i].disponivel ) {
+                                    newValueSet = this.options[i].horario;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if(newValueSet != null)
+                        this.segundo_form_group.get('horario').setValue(newValueSet);
+                }
+    
+                this.horariosLoading = false;
+            }, 200)
+        })
+
+
+
+
+        
+
+        
+    }
+
     private date_change() {
         if ( this.segundo_form_group.get('data').valid ) {
-            // Preencher horarios disponiveis
+            this.loadHorarios();
+        } else {
+            this.options = [];
         }
 
     }

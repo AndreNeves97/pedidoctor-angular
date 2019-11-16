@@ -56,8 +56,8 @@
           </mat-form-field> <br>
           <mat-form-field class="input-class">
             <mat-label>Escolha um horário para a consulta</mat-label>
-            <mat-select  matTooltip="Caso o horário desejado não esteja aqui listado, talvez seja porque o mesmo já esteja ocupado." formControlName="horario">
-              <mat-option *ngFor="let option of options" [value]="option"> {{ option }} </mat-option>
+            <mat-select  matTooltip="Os horários indispoíveis já estão ocupados por outro agendamento." formControlName="horario">
+              <mat-option *ngFor="let option of options" [disabled]="!option.disponivel" [value]="option.horario"> {{ option.horario }} </mat-option>
             </mat-select>
           </mat-form-field>
         </form>

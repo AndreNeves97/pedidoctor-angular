@@ -3,6 +3,16 @@ import { Clinica } from '../clinica/clinica.model';
 import { Medico } from '../medico/medico.model';
 import { ConsultaTipo } from '../consulta-tipo/consulta-tipo.model';
 
+export class HorarioConsultaSelecao {
+    horario : string;
+    disponivel : boolean;
+
+    constructor(horario : string, disponivel : boolean) {
+        this.horario = horario;
+        this.disponivel = disponivel;
+    }
+}
+
 export class Consulta {
 
     _id: string;
