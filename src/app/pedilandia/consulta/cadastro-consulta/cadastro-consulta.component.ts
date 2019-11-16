@@ -351,7 +351,6 @@ export class CadastroConsultaComponent implements OnInit{
         })        
     }
 
-<<<<<<< HEAD
     async loadSintomas(query : string) {
         this.sintomasLoading = true;
 
@@ -360,8 +359,6 @@ export class CadastroConsultaComponent implements OnInit{
         console.log(itens)
         this.filteredSintomas.next(itens);
         this.sintomasLoading = false;
-=======
->>>>>>> Revert "Removendo espaços extras"
     }
 
     filter_date = (d: Date): boolean => {
