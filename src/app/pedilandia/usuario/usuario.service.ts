@@ -52,6 +52,24 @@ export class UsuarioService {
     return res;
   }
 
+  public async getPacientes () : Promise<Usuario[]> {
+    const res = await this.api.graphqlQuery(`
+      query {
+        usuarios(onlyPacientes:true) {
+          _id, 
+          nome, 
+        }
+      }
+  ` );
+
+
+    if(res.data && res.data.usuarios) {
+      return res.data.usuarios;
+    }
+        
+    return res;
+  }
+
   public async getResumoForListing () {
     const res = await this.api.graphqlQuery(`
       query {

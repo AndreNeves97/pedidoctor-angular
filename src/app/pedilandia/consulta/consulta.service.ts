@@ -102,24 +102,52 @@ export class ConsultaService {
     }
 
     async insert ( consulta: Consulta ) {
-        // const response = await this.api.graphqlMutation(`
-        //     mutation {
-        //         createConsulta (obj: {
-        //             dataConsulta: "${consulta.dataConsulta}",
-        //             paciente: {
-        //                 _id: "${consulta.paciente._id}"
-        //             },
-        //             tipoConsulta : "${consulta.tipoConsulta}",
-        //             sintomasObservados : "${consulta.sintomasObservados}",
-        //             medicamentosQueToma : "${consulta.medicamentosQueToma}",
-        //             doencasRecentes : "${consulta.doencasRecentes}",
-        //             informacoesAdicionais : "${consulta.informacoesAdicionais}"
-        //             }) {
-        //             dataConsulta,
-        //             _id
-        //         }
-        //     }
-        // `);
+        console.log(consulta);
+        const response = await this.api.graphqlMutation(`
+            mutation {
+                createAgendamento (obj: {
+                    dataAgendada: "${consulta.dataConsulta}",
+                    paciente: {
+                        _id: "${consulta.paciente._id}"
+                    },
+                    clinica :{
+                        _id: "${consulta.clinica._id}"
+                    }
+                    medico :{
+                        _id:"${consulta.medico._id}"
+                    }
+                    tipo:{
+                        _id:"${consulta.tipoConsulta._id}"
+                    }
+                    sintomasObservados :[
+                        ${
+                           consulta
+                            .sintomasObservados
+                            .map(v => `{_id:"${ v._id }"}`)
+                            .join(',') 
+                        }
+
+                    ]
+                    medicamentos : [
+                    
+                    ]
+                    doencas:[
+                    
+                    ]
+                    informacoesAdicionais:[
+                        ${
+                           consulta
+                            .informacoesAdicionais
+                            .split('\n')
+                            .map(v => `"${ v }"`)
+                            .join(',') 
+                        }
+                    ]
+                    }) {
+                    _id
+                }
+            }
+        `);
             
         // return(response);
         return null;

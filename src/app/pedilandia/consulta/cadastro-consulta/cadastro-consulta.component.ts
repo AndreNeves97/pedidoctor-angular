@@ -394,6 +394,10 @@ export class CadastroConsultaComponent implements OnInit{
         if(this.sintomas_selected.filter(v => v.nome == value.nome).length == 0) {
             this.sintomas_selected.push(value)
         }
+
+        this.terceiro_form_group.patchValue({
+            sintomasObservados : this.sintomas_selected
+        })
     }
 
     public add_sintoma(event: MatChipInputEvent) {
@@ -585,7 +589,7 @@ export class CadastroConsultaComponent implements OnInit{
         let user = this.authService.usuarioLogado.value.usuario;
 
         let consulta_cadastrada = new Consulta(
-            new Date(),
+            this.data,
             new Date(),
             new Usuario({
                 _id         : user._id,
@@ -605,16 +609,29 @@ export class CadastroConsultaComponent implements OnInit{
             this.medico
         );
 
-        consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0)
+        consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0, 0)
 
         this.service.insert(consulta_cadastrada).then((data) => {
-            this.snack_bar_service.open_snack_bar('Consulta agendada', 'success');
-            this.primeiro_form_group.reset();
-            this.segundo_form_group.reset();
-            this.terceiro_form_group.reset();
-            this.quarto_form_group.reset();
+            this.snack_bar_service.open_snack_bar(
+                'Consulta agendada',
+                'success', 
+                5000,
+                'Nova consulta'
+            )
+            .then((actioned) => {
+                if(actioned) {
+                    this.router.navigate(['/pedilandia']);
+                    this.router.navigate(['/pedilandia/agendar-consulta']);
+                }
+            });
+            
+            this.router.navigate(['/pedilandia']);
         }).catch(error => {
-            this.snack_bar_service.open_snack_bar( 'Consulta não agendada. Algum erro ocorreu', 'danger' );
+            this.snack_bar_service.open_snack_bar( 
+                'Consulta não agendada. Algum erro ocorreu', 
+                'danger', 
+                5000
+            );
         })
 
     }
