@@ -603,9 +603,6 @@ export class CadastroConsultaComponent implements OnInit{
             this.medico
         );
 
-        console.log(this.medico)
-        console.log(this.clinica)
-
         consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0)
 
         this.service.insert(consulta_cadastrada).then((data) => {
