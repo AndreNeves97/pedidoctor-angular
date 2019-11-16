@@ -351,6 +351,7 @@ export class CadastroConsultaComponent implements OnInit{
         })        
     }
 
+<<<<<<< HEAD
     async loadSintomas(query : string) {
         this.sintomasLoading = true;
 
@@ -359,6 +360,8 @@ export class CadastroConsultaComponent implements OnInit{
         console.log(itens)
         this.filteredSintomas.next(itens);
         this.sintomasLoading = false;
+=======
+>>>>>>> Revert "Removendo espaços extras"
     }
 
     filter_date = (d: Date): boolean => {
@@ -602,6 +605,9 @@ export class CadastroConsultaComponent implements OnInit{
             this.clinica,
             this.medico
         );
+
+        console.log(this.medico)
+        console.log(this.clinica)
 
         consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0)
 
