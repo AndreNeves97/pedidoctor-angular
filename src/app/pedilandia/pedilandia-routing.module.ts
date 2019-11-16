@@ -29,6 +29,7 @@ import { UpdateExameTipoComponent } from './exame-tipo/update-exame-tipo/update-
 import { ListagemConsultaComponent } from './consulta/listagem-consulta/listagem-consulta.component';
 import { MainConsultaComponent } from './consulta/main-consulta/main-consulta.component';
 import { UpdateConsultaComponent } from './consulta/update-consulta/update-consulta.component';
+import { DetalheConsultaComponent } from './consulta/detalhe-consulta/detalhe-consulta.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,10 @@ const routes: Routes = [
     {
         path: 'consulta/editar/:id', 
         component: UpdateConsultaComponent
+    },
+    {
+        path: 'consulta/:id', 
+        component: DetalheConsultaComponent
     },
     {
         path: 'consulta', 
