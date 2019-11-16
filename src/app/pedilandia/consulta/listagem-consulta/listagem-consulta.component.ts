@@ -1,6 +1,7 @@
 import { Consulta } from './../consulta.model';
 import { ConsultaService } from './../consulta.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class ListagemConsultaComponent implements OnInit {
   displayedColumns: string[] = ['data', 'nomePaciente', 'tipoConsulta', 'options'];
 
   constructor(
-    private consultaService: ConsultaService
+    private consultaService: ConsultaService,
+    private router: Router
   ) { }
 
   private getData() {
@@ -32,8 +34,8 @@ export class ListagemConsultaComponent implements OnInit {
 
   }
 
-  editar () {
-
+  editar ( id: string ) {
+    this.router.navigate([ '/pedilandia/consulta/editar/', id ]);
   }
 
   excluir () {

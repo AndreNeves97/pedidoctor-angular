@@ -17,13 +17,13 @@
       <button mat-button color="primary" (click)="getData()"><mat-icon>update</mat-icon></button>
     </th>
     <td mat-cell *matCellDef="let consulta">  
-      <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(obj._id)" color="primary" >
+      <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary" >
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Editar consulta" (click)="editar(obj._id)" color="primary">
+      <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(obj)" color="primary">
+      <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(consulta)" color="primary">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
