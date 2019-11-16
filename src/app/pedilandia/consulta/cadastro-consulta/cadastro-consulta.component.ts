@@ -154,8 +154,28 @@ export class CadastroConsultaComponent implements OnInit{
         this.medicamentos_selected = [];
         this.doencas_selected = [];
 
+
+        this.primeiro_form_group.get('clinica').valueChanges.subscribe(v => this.check_medico_clinica())
     }
 
+
+    loadMedicos() {
+        this.medicos = [];
+        this.medicosLoading = true;
+
+
+        this.primeiro_form_group.get('medico').setValue(null);
+
+        const clinica = this.primeiro_form_group.get('clinica').value;
+
+        this.medico_service.findByClinica(clinica).then((medicos: any[]) => {
+            // Só pra forçar um tempo e mostrar o efeito de carregamento 
+            setTimeout(() => {
+                this.medicos = medicos;
+                this.medicosLoading = false;
+            }, 200)
+        })
+    }
     private date_change() {
         if ( this.segundo_form_group.get('data').valid ) {
             // Preencher horarios disponiveis
@@ -165,7 +185,9 @@ export class CadastroConsultaComponent implements OnInit{
 
     private check_medico_clinica() {
         if ( this.primeiro_form_group.get('clinica').valid ) {
-            // Preencher médicos disponíveis
+            this.loadMedicos();
+        } else {
+            this.medicos = [];
         } 
     }
 

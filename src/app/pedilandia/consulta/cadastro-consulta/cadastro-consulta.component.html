@@ -24,14 +24,14 @@
       <form class="" [formGroup]="primeiro_form_group">
         <mat-form-field class="input-class">
             <mat-label>Escolha uma clínica para a consulta</mat-label>
-            <mat-select formControlName="clinica" (change)='check_medico_clinica()' required>
-              <mat-option *ngFor="let clinica of clinicas" [value]="clinica.nome"> {{ clinica.nome }} </mat-option>
+            <mat-select formControlName="clinica" required>
+              <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica.nome }} </mat-option>
             </mat-select>
         </mat-form-field><br>
         <mat-form-field class="input-class">
             <mat-label>Escolha um(a) médico(a) para a consulta</mat-label>
             <mat-select formControlName="medico">
-              <mat-option *ngFor="let medico of medicos" [value]="medico.nome" required> {{ medico.nome }} </mat-option>
+              <mat-option *ngFor="let medico of medicos" [value]="medico" required> {{ medico.nome }} </mat-option>
             </mat-select>
         </mat-form-field>
       </form>

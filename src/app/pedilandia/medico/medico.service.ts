@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/common/api.service';
 import { Medico } from './medico.model';
+import { Clinica } from '../clinica/clinica.model';
+import { Usuario } from 'src/app/common/security/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -65,9 +67,27 @@ export class MedicoService {
       }
     `);
 
-      // console.log(response);
-
     return response.data.findByTipo;
+  }
+
+  async findByClinica(clinica : Clinica) : Promise<Usuario[]> {
+    
+    const response = await this.api.graphqlQuery(`
+        query {
+            clinica(id:"${clinica._id}") {
+            _id
+            
+            medicos {
+                _id
+                nome
+            }
+            }
+        }
+  `);
+
+    // console.log(response);
+
+    return response.data.clinica.medicos;
   }
 
   async find ( id: string ) {
