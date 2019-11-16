@@ -2,6 +2,7 @@ import { Usuario } from '../../common/security/usuario.model';
 import { Clinica } from '../clinica/clinica.model';
 import { Medico } from '../medico/medico.model';
 import { ConsultaTipo } from '../consulta-tipo/consulta-tipo.model';
+import { Sintoma } from '../sintomas/sintoma.model';
 
 export class HorarioConsultaSelecao {
     horario : string;
@@ -22,7 +23,7 @@ export class Consulta {
     dataRegistro: Date;
     paciente: Usuario;
     tipoConsulta: ConsultaTipo;
-    sintomasObservados: string[];
+    sintomasObservados: Sintoma[];
     medicamentosQueToma: string[];
     doencasRecentes: string[];
     informacoesAdicionais: string;
@@ -41,7 +42,7 @@ export class Consulta {
             qtConsultas : 0
         }),
         tipoConsulta: ConsultaTipo = new ConsultaTipo(),
-        sintomasObservados: string[] = [],
+        sintomasObservados: Sintoma[] = [],
         medicamentosQueToma: string[] = [],
         doencasRecentes: string[] = [],
         informacoesAdicionais: string = "",

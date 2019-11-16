@@ -51,14 +51,12 @@ export class SintomaService {
 
   }
 
-  async findAll () {
+  async findAll (select = '_id,nome,descricao', query = "") {
 
     const response = await this.api.graphqlQuery(`
         query {
-          sintomas {
-            _id,
-            nome,
-            descricao
+          sintomas(query: "${query}") {
+            ${select}
           }
         }
     `);

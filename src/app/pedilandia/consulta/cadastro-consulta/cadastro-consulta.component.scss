@@ -1,3 +1,13 @@
+mat-chip {
+    background: #3f51b5 !important;
+    color: white !important;
+
+    mat-icon {
+        color: white !important;
+        opacity: 0.4 !important;
+    }
+}
+
 .spinner-wrapper {
     display: flex;
     justify-content: center;

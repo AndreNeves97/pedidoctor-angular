@@ -90,16 +90,27 @@
         <mat-form-field class="input-class">
           <mat-chip-list #chipListSintoma>
             <mat-chip color="primary" *ngFor="let sintoma of sintomas_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_sintomas(sintoma)" selected>
-              {{sintoma.name}}
+              {{sintoma.nome}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
             <input placeholder="Adicionar sintoma"
+              #sintomasInput
+              [formControl]="sintomasCtrl"
+              [matAutocomplete]="autoCompleteSintomas"
               [matChipInputFor]="chipListSintoma"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
               [matChipInputAddOnBlur]="addOnBlur"
               (matChipInputTokenEnd)="add_sintoma($event)">
           </mat-chip-list>
+          <mat-autocomplete #autoCompleteSintomas="matAutocomplete" (optionSelected)="sintomaSelected($event)">
+            <mat-option *ngFor="let sintoma of filteredSintomas | async" [value]="sintoma._id">
+                {{ sintoma.nome }}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
+        <div class="loading-input-class" *ngIf="sintomasLoading">
+            <mat-progress-bar mode="query"></mat-progress-bar>
+        </div>
         <mat-card class='dica-class' color='accent'>
           Dica: Escreva os sintomas separando-os com um <b>enter</b> ou com uma vírgula.
         </mat-card>
@@ -206,7 +217,7 @@
         <h3 *ngIf="sintomasObservados.length > 0">
           Sintomas observados:
           <ul *ngFor="let sintoma of sintomasObservados">
-            <li>{{ sintoma.name }}</li>
+            <li>{{ sintoma.nome }}</li>
           </ul>
         </h3>
       </mat-expansion-panel>

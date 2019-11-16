@@ -1,16 +1,20 @@
 import { AuthService } from 'src/app/common/security/auth.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Consulta, HorarioConsultaSelecao } from './../consulta.model';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Usuario } from '../../../common/security/usuario.model';
 import { ConsultaService } from '../consulta.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { ClinicaService } from '../../clinica/clinica.service';
 import { MedicoService } from '../../medico/medico.service';
 import { ConsultaTipoService } from '../../consulta-tipo/consulta-tipo.service';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { startWith, map, debounceTime, distinctUntilChanged, switchMap, filter, tap } from 'rxjs/operators';
+import { Sintoma } from '../../sintomas/sintoma.model';
+import { SintomaService } from '../../sintomas/sintoma.service';
 
 @Component({
     selector: 'app-cadastro-consulta',
@@ -22,7 +26,7 @@ export class CadastroConsultaComponent implements OnInit{
     private visible = true;
     private selectable = true;
     private removable = true;
-    private addOnBlur = true;
+    private addOnBlur = false;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -32,6 +36,16 @@ export class CadastroConsultaComponent implements OnInit{
     private nome_clinica    : string;
     private nome_medico     : string;
 
+
+    sintomasCtrl = new FormControl();
+    filteredSintomas: BehaviorSubject<Sintoma[]>;
+    allSintomas: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+
+    @ViewChild('sintomasInput', {static: false}) fruitInput: ElementRef<HTMLInputElement>;
+    @ViewChild('autoCompleteSintomas', {static: false}) matAutocomplete: MatAutocomplete;
+
+    
     private primeiro_form_group : FormGroup;
     private segundo_form_group  : FormGroup;
     private terceiro_form_group : FormGroup;
@@ -42,7 +56,7 @@ export class CadastroConsultaComponent implements OnInit{
     private clinicas            : any[];
     private medicos             : any[];
 
-    private sintomas_selected       : any[];
+    private sintomas_selected       : Sintoma[];
     private medicamentos_selected   : any[]
     private doencas_selected        : any[]
     private tipoConsultaOptions     : any[];
@@ -51,7 +65,8 @@ export class CadastroConsultaComponent implements OnInit{
     private tiposConsultasLoaded    : boolean;
 
     private medicosLoading          : boolean;
-    private horariosLoading          : boolean;
+    private horariosLoading         : boolean;
+    private sintomasLoading         : boolean;
     
 
     constructor (
@@ -61,6 +76,7 @@ export class CadastroConsultaComponent implements OnInit{
         private clinica_service     : ClinicaService,
         private consultaT_service   : ConsultaTipoService,
         private medico_service      : MedicoService,
+        private sintoma_service     : SintomaService,
         private router              : Router,
         private snack_bar_service   : SnackService,
         private changeDetectorRef   : ChangeDetectorRef
@@ -76,6 +92,7 @@ export class CadastroConsultaComponent implements OnInit{
 
         this.medicosLoading = false;
         this.horariosLoading = false;
+        this.sintomasLoading = false;
 
         this.options = [];
 
@@ -147,11 +164,26 @@ export class CadastroConsultaComponent implements OnInit{
 
 
         this.primeiro_form_group.get('clinica').valueChanges.subscribe(v => this.check_medico_clinica())
+
+        this.filteredSintomas = new BehaviorSubject<Sintoma[]>(null);
+        
+        this.sintomasCtrl.valueChanges.pipe(
+            tap(v => {
+                this.filteredSintomas.next(null);
+                this.sintomasLoading = true;
+            }),
+            debounceTime(400),
+            tap(v => this.sintomasLoading = false),
+            distinctUntilChanged(),
+            tap(v => this.loadSintomas(v))
+        ).subscribe();
     }
 
     stepChange($event) {
         if($event.selectedIndex == 1) {
             this.loadHorarios();
+        } else if($event.selectedIndex == 2) {
+            this.loadSintomas("");
         }
     }
 
@@ -255,13 +287,15 @@ export class CadastroConsultaComponent implements OnInit{
                 this.horariosLoading = false;
             }, 200)
         })
+    }
 
+    async loadSintomas(query : string) {
+        this.sintomasLoading = true;
 
+        const itens = await this._filterSintomas(query);
 
-
-        
-
-        
+        this.filteredSintomas.next(itens);
+        this.sintomasLoading = false;
     }
 
     filter_date = (d: Date): boolean => {
@@ -291,25 +325,34 @@ export class CadastroConsultaComponent implements OnInit{
         }
     }
 
+    public add_sintoma_select_array(value : Sintoma) {
+        if(this.sintomas_selected.filter(v => v.nome == value.nome).length == 0) {
+            this.sintomas_selected.push(value)
+        }
+    }
+
     public add_sintoma(event: MatChipInputEvent) {
         const input = event.input;
         const value = event.value;
 
         if ((value || '').trim()) {
-            this.sintomas_selected.push({ name : value.trim() })
+            this.add_sintoma_select_array({nome: value, _id: null});
         }
 
         if ( input ) {
             input.value = '';
         }
 
+            
+        this.sintomasCtrl.setValue(null);
+
         this.terceiro_form_group.patchValue({
             sintomasObservados : this.sintomas_selected
         })
     }
 
-    public remove_sintomas(sintoma) {
-        const index = this.sintomas_selected.indexOf(sintoma);
+    public remove_sintomas(sintoma : Sintoma) {
+        const index = this.sintomas_selected.findIndex(v => v.nome == sintoma.nome);
         
         if ( index >= 0 ) {
             this.sintomas_selected.splice(index, 1);
@@ -318,6 +361,26 @@ export class CadastroConsultaComponent implements OnInit{
         this.terceiro_form_group.patchValue({
             sintomasObservados : this.sintomas_selected
         })
+    }
+
+
+    sintomaSelected(event: MatAutocompleteSelectedEvent): void {
+        this.add_sintoma_select_array({
+            _id: event.option.value,
+            nome: event.option.viewValue,
+        });
+
+        this.fruitInput.nativeElement.value = '';
+        this.sintomasCtrl.setValue(null);
+    }
+
+    private async _filterSintomas(value: string): Promise<Sintoma[]>{
+        if(value == null) 
+            return [];            
+            
+        const filterValue = value.toLowerCase();
+        
+        return await this.sintoma_service.findAll('_id,nome', filterValue);
     }
 
     public add_medicamento(event: MatChipInputEvent) {

@@ -2,7 +2,7 @@ export class Sintoma {
 
     _id : string;
     nome: string;
-    descricao: string;
+    descricao?: string;
 
     constructor (
         nome: string = "",
