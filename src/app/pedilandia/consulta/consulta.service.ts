@@ -134,4 +134,8 @@ export class ConsultaService {
         return new Promise<Consulta>(null);
     }
 
+    async delete ( id: string ): Promise<Consulta> {
+        return new Promise<Consulta>(null);
+    }
+
 }
