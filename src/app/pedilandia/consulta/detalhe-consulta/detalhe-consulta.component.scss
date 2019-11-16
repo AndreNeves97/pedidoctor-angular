@@ -1,0 +1,118 @@
+.main-container {
+    padding: 2%;
+}
+
+mat-chip {
+    background: #3f51b5 !important;
+    color: white !important;
+
+    mat-icon {
+        color: white !important;
+        opacity: 0.4 !important;
+    }
+}
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+mat-horizontal-stepper {
+    background-color: #fafafa;
+}
+
+.consulta-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+  
+.consulta-cadastro-container {
+    padding: 5%;
+}
+
+.dataConsulta-full-width {
+    width: 100%;    
+}
+
+.horaConsulta-full-width {
+    width: 100%;    
+}
+
+.tipoConsulta-full-width {
+    width: 100%;    
+}
+
+.sintomas-full-width {
+    width: 100%;    
+}
+
+.medicamentos-full-width{
+    width: 100%;    
+}
+
+.doencas-full-width {
+    width: 100%;    
+}
+
+.info-full-width {
+    width: 100%;    
+}
+
+.left-button {
+    float:left;
+}
+
+.right-button{
+    float:right;
+}
+
+.stepper-div {
+    height: 100%;
+    padding: 1% 5%;
+}
+
+.main-container h2, .main-container h4 {
+    font-weight: 100;
+}
+
+.main-container b {
+    font-weight: 500;
+}
+
+.main-container h3 {
+    font-weight: 100;
+    font-style: italic;
+}
+
+.input-class {
+    margin: 0.5% 0%;
+    width: 50%;
+}
+
+.input-class-no-margin {
+    margin: 0.2% 0%;
+    width: 50%;
+}
+
+.loading-input-class {
+    margin: 0.5% 0%;
+    width: 50%;
+    margin-top: -25px;
+    margin-bottom: 21px;
+}
+
+.ok-button {
+    margin: 1% 0%;
+    background-color: rgb(24, 204, 24);
+    float: right;
+}
+
+.dica-class {
+    background-color: rgb(79, 202, 79);
+    margin-bottom: 1%;
+    width: 50%;
+    font-style: italic;
+}
