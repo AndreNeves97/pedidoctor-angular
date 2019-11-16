@@ -244,8 +244,12 @@ export class CadastroConsultaComponent implements OnInit{
         
         const date : Date = this.segundo_form_group.get('data').value;
 
-        const fmtDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+        if(date == null) {
+            this.horariosLoading = false;
+            return null;
+        }
 
+        const fmtDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
 
         this.service.getDisponibilidadeHorarios(fmtDate).then((horarios: HorarioConsultaSelecao[]) => {
 
@@ -253,8 +257,6 @@ export class CadastroConsultaComponent implements OnInit{
             setTimeout(() => {
                 this.options = horarios;
                 
-                console.log(lastValue)
-
                 if(lastValue != undefined) {
                     const lastValueIndex = this.options.findIndex(v => v.horario === lastValue);
                     
@@ -443,21 +445,25 @@ export class CadastroConsultaComponent implements OnInit{
     }
 
     get medico () {
-        if ( this.medicos.length > 0 ) {
-            return this.medicos.filter(medico => {
-                return medico.nome == this.primeiro_form_group.get('medico').value;
-            })[0]
-        } else 
-            return null
+        return this.primeiro_form_group.get('medico').value;
+
+        // if ( this.medicos.length > 0 ) {
+        //     return this.medicos.filter(medico => {
+        //         return medico.nome == this.primeiro_form_group.get('medico').value;
+        //     })[0]
+        // } else 
+        //     return null
     }
 
     get clinica () {
-        if ( this.clinicas.length > 0 ) {
-            return this.clinicas.filter(clinica => {
-                return clinica.nome == this.primeiro_form_group.get('clinica').value;
-            })[0]
-        } else 
-            return null
+        return this.primeiro_form_group.get('clinica').value;
+
+        // if ( this.clinicas.length > 0 ) {
+        //     return this.clinicas.filter(clinica => {
+        //         return clinica.nome == this.primeiro_form_group.get('clinica').value;
+        //     })[0]
+        // } else 
+        //     return null
     }
 
     get data () {
