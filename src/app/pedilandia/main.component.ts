@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { AuthService } from '../common/security/auth.service';
-import { Router } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -110,6 +110,15 @@ export class MainPedilandiaComponent implements OnInit {
 
     isHandset$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    private content;
+
+    @ViewChild('content', {static: false})
+    set _content(content) {
+        this.content = content;
+    }
+
+
+
     @ViewChild('drawer', {static: false}) 
     drawerRef: any;
 
@@ -123,6 +132,15 @@ export class MainPedilandiaComponent implements OnInit {
             map(result => result.matches),
             shareReplay()
         ).subscribe(v => this.isHandset$.next(v));
+
+
+        this.router.events.subscribe((event : Event ) => {
+            if(event instanceof NavigationEnd) {
+                if(this.content != undefined) {
+                    this.content.elementRef.nativeElement.scrollTo(0 ,0);
+                }
+            }
+        })
     }
 
     ngOnInit() {
