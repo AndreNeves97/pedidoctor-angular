@@ -1,10 +1,4 @@
 
-.spinner-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
 
 .main-container {
     padding: 2%;
@@ -114,7 +108,6 @@ mat-horizontal-stepper {
 
 .ok-button {
     margin: 1% 0%;
-    background-color: rgb(24, 204, 24);
     float: right;
 }
 
@@ -123,4 +116,20 @@ mat-horizontal-stepper {
     margin-bottom: 1%;
     width: 50%;
     font-style: italic;
+}
+
+
+.expansion-panel-body {
+    display: flex;
+    flex-direction: row;
+
+    .action-buttons {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: -13px;
+    }
+    
+    .body-gap {
+        flex: 1 1 auto;
+    }
 }

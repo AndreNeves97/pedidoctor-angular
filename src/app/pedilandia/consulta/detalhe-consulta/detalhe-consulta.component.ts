@@ -96,4 +96,20 @@ export class DetalheConsultaComponent implements OnInit {
         return this.consulta.tipoConsulta;
     }
 
+
+    editarHorario() {
+        
+    }
+
+    editarClinicaMedico() {
+        
+    }
+
+    editarMotivacao() {
+        
+    }
+
+    editarAnamnese() {
+        
+    }
 }
