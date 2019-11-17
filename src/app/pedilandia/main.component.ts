@@ -22,38 +22,28 @@ const TREE_DATA: FoodNode[] = [
     {
         name: 'Dashboard',
         id: '3A',
-        route: 'pedilandia'
+        route: './'
     },
     {
         name: 'Agendar consulta',
-        route: 'pedilandia/agendar-consulta',
+        route: './agendar-consulta',
         id: '3A'
     },
     {
-        name: 'Consultas agendadas',
-        route: 'pedilandia/consultas',
+        name: 'Agendamentos',
+        route: './consultas',
         id: '3A'
-    },
-    {
-        name: 'Usuarios',
-        id: '3A',
-        route: 'pedilandia/usuario',
-        role: 'admin'
     },
     {
         name: 'Clinicas',
-        route: 'pedilandia/clinica',
+        route: './clinica',
         id: '3A'
     },    
     {
-        name: 'Medico',
-        route: 'pedilandia/medico',
-        id: '3A'
-    },
-    {
-        name: 'Enfermeiro(a)',
-        route: 'pedilandia/enfermeiro',
-        id: '3A'
+        name: 'Usuarios',
+        id: '3A',
+        route: './usuario',
+        role: 'admin'
     },
     {
         name: 'Configurações',
@@ -61,34 +51,34 @@ const TREE_DATA: FoodNode[] = [
         children: [
             {
                 name: 'Sintomas',
-                route: 'pedilandia/sintoma',
+                route: './sintoma',
                 id: '3A'
             },
             {
-                name: 'Doenca',
-                route: 'pedilandia/doenca',
+                name: 'Doencas',
+                route: './doenca',
                 id: '3A'
             },
             {
-                name: 'Medicamento',
-                route: 'pedilandia/medicamento',
+                name: 'Medicamentos',
+                route: './medicamento',
+                id: '3A'
+            },
+            {
+                name: 'Diagnósticos',
+                route: './tipos-diagnostico',
+                id: '3A'
+            },
+            {
+                name: 'Exames',
+                route: './tipos-exame',
                 id: '3A'
             },
             {
                 name: 'Tipos de consulta',
-                route: 'pedilandia/tipos-consulta',
+                route: './tipos-consulta',
                 id: '3A'
             },
-            {
-                name: 'Tipos de diagnósticos',
-                route: 'pedilandia/tipos-diagnostico',
-                id: '3A'
-            },
-            {
-                name: 'Tipos de exames',
-                route: 'pedilandia/tipos-exame',
-                id: '3A'
-            }
         ]
     },
 ];

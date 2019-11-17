@@ -2,12 +2,24 @@
     height: calc(100% - 70px);
 }
 
+.menu-list-item-has-child {
+    mat-icon {
+        position: relative;
+        left: -7.5px;
+    }
+
+    .menu-item-container {
+        display: flex;
+    }
+}
+
+
 .sidenav-container {
   height: 100%;
 }
 
 .sidenav {
-  width: 200px;
+  width: 210px;
 }
 
 mat-sidenav-content {
