@@ -3,6 +3,7 @@ import { Clinica } from '../clinica/clinica.model';
 import { Medico } from '../medico/medico.model';
 import { ConsultaTipo } from '../consulta-tipo/consulta-tipo.model';
 import { Sintoma } from '../sintomas/sintoma.model';
+import { ReportagemConsulta } from '../reportagem-consulta/realizar-reportagem/reportagem-consulta.model';
 
 export class HorarioConsultaSelecao {
     horario : string;
@@ -27,6 +28,7 @@ export class Consulta {
     medicamentosQueToma: string[];
     doencasRecentes: string[];
     informacoesAdicionais: string;
+    reportagemConsulta: ReportagemConsulta;
     
     constructor(
         dataConsulta: Date  = new Date(),
