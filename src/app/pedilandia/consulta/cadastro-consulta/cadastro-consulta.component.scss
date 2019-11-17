@@ -96,13 +96,12 @@ mat-horizontal-stepper {
 .loading-input-class {
     margin: 0.5% 0%;
     width: 50%;
-    margin-top: -25px;
-    margin-bottom: 21px;
+    margin-top: -28px;
+    margin-bottom: 24px;
 }
 
 .ok-button {
     margin: 1% 0%;
-    background-color: rgb(24, 204, 24);
     float: right;
 }
 
@@ -111,4 +110,8 @@ mat-horizontal-stepper {
     margin-bottom: 1%;
     width: 50%;
     font-style: italic;
+}
+
+.action-buttons {
+    margin-top: 30px;
 }

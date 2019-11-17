@@ -127,6 +127,8 @@ export class CadastroConsultaComponent implements OnInit{
 
         this.consulta = new Consulta();
 
+        this.defineDefaultDate(this.consulta);
+
         this.tipoConsultaOptions = [];
         this.medicos = [];
         this.clinicas = [];
@@ -306,7 +308,7 @@ export class CadastroConsultaComponent implements OnInit{
         
         const date : Date = this.segundo_form_group.get('data').value;
 
-        if(date == null) {
+        if(date == null || this.filter_date(date) == false) {
             this.horariosLoading = false;
             return null;
         }
@@ -378,7 +380,7 @@ export class CadastroConsultaComponent implements OnInit{
 
         const date = new Date();
 
-        date.setDate(new Date().getDate() - 1);
+        date.setHours(0, 0, 0, 0);
 
         return d >= date && d.getDay() != 0;
 
@@ -655,4 +657,18 @@ export class CadastroConsultaComponent implements OnInit{
         this.router.navigate([ '/pedilandia/consulta' ]);
     }
 
+
+    defineDefaultDate(consulta : Consulta) {
+        
+        const currentDate = consulta.dataConsulta = new Date('2019-11-14 15:00:00');
+ 
+        while(this.filter_date(currentDate) == false) {
+            // Próximo dia
+            const newTime = currentDate.getTime() + 24 * 60 * 60 * 1000;
+            currentDate.setTime(newTime);
+
+            console.log(currentDate)
+        }
+
+    }
 }

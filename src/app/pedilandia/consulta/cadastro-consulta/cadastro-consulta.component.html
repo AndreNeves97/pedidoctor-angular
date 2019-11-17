@@ -58,7 +58,7 @@
               <mat-progress-bar mode="query"></mat-progress-bar>
           </div>
         </form>
-        <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton  class="left-button" matStepperPrevious>Voltar</button>
         <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
       </div>
     </mat-step>
@@ -106,8 +106,10 @@
           Dica: Escreva os sintomas separando-os com um <b>enter</b> ou com uma vírgula.
         </mat-card>
       </form>
-      <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+      <div class="action-buttons">
+        <button mat-raised-button isRoundButton   class="left-button"  matStepperPrevious>Voltar</button>
       <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </div>
     </div>
   </mat-step>
 
@@ -162,8 +164,10 @@
           <textarea matInput placeholder="Informações adicionais que julgar importantes" formControlName="informacoesAdicionais"></textarea>
         </mat-form-field>
       </form>
-      <button mat-raised-button isRoundButton color="accent"  class="left-button"  matStepperPrevious>Voltar</button>
+      <div class="action-buttons">
+        <button mat-raised-button isRoundButton  class="left-button"  matStepperPrevious>Voltar</button>
       <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </div>
     </div>
   </mat-step>
 
@@ -239,7 +243,7 @@
             </ul>
         </h3>
       </mat-expansion-panel>
-      <button mat-raised-button [disabled]="waiting" class='ok-button' (click)="salvar()">Confirmar</button>
+      <button mat-raised-button [disabled]="waiting" class='ok-button' color="primary" (click)="salvar()">Confirmar</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
