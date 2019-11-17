@@ -6,7 +6,7 @@ import { DiagnosticoConsultaComponent } from './realizar-reportagem/diagnostico-
 import { ReceitaConsultaComponent } from './realizar-reportagem/receita-consulta/receita-consulta.component';
 import { ConfirmacaoConsultaComponent } from './realizar-reportagem/confirmacao-consulta/confirmacao-consulta.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatStepperModule, MatIconModule, MatExpansionModule, MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatStepperModule, MatIconModule, MatExpansionModule, MatButtonModule, MatProgressSpinnerModule, MatInputModule } from '@angular/material';
 import { AppDateModule } from 'src/app/common/pipes/app-date/app-date.module';
 
 @NgModule({
@@ -23,6 +23,7 @@ import { AppDateModule } from 'src/app/common/pipes/app-date/app-date.module';
     ReactiveFormsModule,
     MatStepperModule,
     MatIconModule,
+    MatInputModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     AppDateModule

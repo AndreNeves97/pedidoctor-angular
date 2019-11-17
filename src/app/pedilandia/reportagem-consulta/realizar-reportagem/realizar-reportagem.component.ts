@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Consulta } from '../../consulta/consulta.model';
 import { Router, ActivatedRoute, ParamMap, RoutesRecognized } from '@angular/router';
 import { switchMap, filter, pairwise } from 'rxjs/operators';
@@ -19,6 +19,8 @@ export class RealizarReportagemComponent implements OnInit {
   private primeiro_form_group : FormGroup;
   private segundo_form_group  : FormGroup;
   private terceiro_form_group : FormGroup;
+
+  private descricao_consulta  : string;
 
   private consulta            : Consulta;
 
@@ -51,8 +53,6 @@ export class RealizarReportagemComponent implements OnInit {
           );
           this.navigate_back();
         }
-
-        console.log(this.consulta)
       })
     });
 
@@ -64,7 +64,10 @@ export class RealizarReportagemComponent implements OnInit {
   private init_forms() {
 
     this.primeiro_form_group = this.form_builder.group({
-      
+        descricao : [
+          this.descricao_consulta,
+          Validators.required
+        ]
     });
 
     this.segundo_form_group = this.form_builder.group({
