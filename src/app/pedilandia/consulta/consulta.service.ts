@@ -155,7 +155,33 @@ export class ConsultaService {
 
     
     async find ( id: string ): Promise<Consulta> {
-        return new Promise<Consulta>(null);
+
+        const res = await this.api.graphqlQuery(`
+            query {
+                consulta(id:"${id}") {
+                    _id
+                    dataConsulta
+                    paciente {
+                        _id
+                        nome
+                        email
+                    }
+                    tipoConsulta
+                    sintomasObservados
+                    medicamentosQueToma
+                    doencasRecentes
+                    informacoesAdicionais
+                    realizada
+                    observacoesMedico
+                }
+            }
+        `)
+
+        if(res.data && res.data.consulta) {
+            return res.data.consulta;
+        }
+        
+        return null;
     }
 
     async update ( consulta: Consulta ): Promise<Consulta> {
