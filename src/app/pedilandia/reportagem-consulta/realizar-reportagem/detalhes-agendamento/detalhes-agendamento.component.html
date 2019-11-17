@@ -1,0 +1,68 @@
+<div class='main-container'>
+    <h2>
+        Detalhes da consulta
+    </h2>
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h2>
+                    Horário
+                </h2>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>
+            Consulta agendada para dia <b>{{ data | date : 'dd/MM/yyyy' }}</b> às <b>{{ horario }}</b> horas.
+        </h3>
+    </mat-expansion-panel>
+    <br>
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <h2>
+                Médico e clínica
+            </h2>
+        </mat-expansion-panel-header>
+        <h3>
+            Médico: <b>{{ ( medico != null ) ? ( medico.nome )  : '' }}</b> na clínica <b>{{ ( clinica != null ) ? ( clinica.nome ) : '' }}</b>.
+        </h3>
+    </mat-expansion-panel>
+    <br>
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <h2>
+                Motivação
+            </h2>
+        </mat-expansion-panel-header>
+        <h3>
+            Tipo de consulta: <b>{{ ( tipoConsulta != null ) ? tipoConsulta.nome : '' }}</b>.
+        </h3>
+        <h3 *ngIf="sintomasObservados != undefined && sintomasObservados.length > 0">
+            Sintomas observados:
+            <ul *ngFor="let sintoma of sintomasObservados">
+                <li>{{ sintoma.nome }}</li>
+            </ul>
+        </h3>
+    </mat-expansion-panel>
+    <br>
+    <mat-expansion-panel expanded *ngIf = "medicamentosQueToma.length > 0 || doencasRecentes.length > 0 || informacoesAdicionais != ''" >
+        <mat-expansion-panel-header>
+            <h2>
+                Anamnese
+            </h2>
+        </mat-expansion-panel-header>
+        <h3 *ngIf="medicamentosQueToma.length > 0">
+            Medicamentos que toma: 
+            <ul *ngFor="let medicamento of medicamentosQueToma">
+                <li>{{ medicamento.name }}</li>
+            </ul>
+        </h3>
+        <h3 *ngIf="doencasRecentes.length > 0">
+            Doenças recentes:
+            <ul *ngFor="let doenca of doencasRecentes">
+                <li>{{ doenca.name }}</li>
+            </ul>
+        </h3>
+        <h3 *ngIf="informacoesAdicionais != ''">
+            Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+        </h3>
+    </mat-expansion-panel>
+</div>
