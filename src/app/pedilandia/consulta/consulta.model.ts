@@ -68,6 +68,7 @@ export class Consulta {
         this.informacoesAdicionais = informacoesAdicionais;
         this.clinica = clinica;
         this.medico = medico;
+        this.reportagemConsulta = new ReportagemConsulta();
     }
 
 }
