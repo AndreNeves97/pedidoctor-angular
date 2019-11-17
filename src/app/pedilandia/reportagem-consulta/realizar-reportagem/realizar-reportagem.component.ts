@@ -22,6 +22,7 @@ export class RealizarReportagemComponent implements OnInit {
 
   // Propriedades para serem gerenciadas individualmente
   private descricao_consulta  : string;
+  private descricao_exames    : string;
   private medicamentos        : any[];
 
   private consulta            : Consulta;
@@ -76,6 +77,9 @@ export class RealizarReportagemComponent implements OnInit {
       medicamentos: [
         this.medicamentos
       ],
+      exames: [
+        this.descricao_exames
+      ]
     });
 
     this.terceiro_form_group = this.form_builder.group({
