@@ -49,7 +49,7 @@ export class DetalheConsultaComponent implements OnInit {
   }
 
   get horario () {
-    return `${this.consulta.dataConsulta.getHours()}:${this.consulta.dataConsulta.getMinutes()}`
+    return `${new Date(this.consulta.dataConsulta).getHours()}:${new Date(this.consulta.dataConsulta).getMinutes()}`
   }
 
   get paciente () {
