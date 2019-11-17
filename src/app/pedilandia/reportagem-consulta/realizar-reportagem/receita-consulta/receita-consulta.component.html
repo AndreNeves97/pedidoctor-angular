@@ -1,1 +1,25 @@
-<p>receita-consulta works!</p>
+
+<div class="main-container">
+    <form [formGroup]="form">
+        <h4>
+          Insira os medicamentos que utiliza, caso utilize algum
+        </h4>
+
+        <mat-form-field class="input-class">
+          <mat-chip-list #chipListMedicamento>
+            <mat-chip color="primary" *ngFor="let medicamento of medicamentos_selected" [selectable]="selectable" [removable]="removable" (removed)="remove_medicamentos(medicamento)" selected>
+              {{medicamento.name}}<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Adicionar medicamento"
+              #medicamentosInput
+              [matChipInputFor]="chipListMedicamento"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add_medicamento($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-card class='dica-class'>
+          Dica: Escreva os medicamentos separando-os com um <b>enter</b> ou com uma vírgula.
+        </mat-card>
+    </form>
+</div>
