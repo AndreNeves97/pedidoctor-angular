@@ -40,6 +40,14 @@ export class ReceitaConsultaComponent implements OnInit {
     this._consulta = consulta;
   }
 
+  get medicamentos() {
+    return this.form.get('medicamentos').value;
+  }
+  
+  get exames() {
+    return this.form.get('exames').value;
+  }
+
   public add_medicamento(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
