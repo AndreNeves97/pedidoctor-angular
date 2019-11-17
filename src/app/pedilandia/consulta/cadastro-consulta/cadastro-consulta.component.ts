@@ -23,6 +23,9 @@ import { SintomaService } from '../../sintomas/sintoma.service';
 })
 export class CadastroConsultaComponent implements OnInit{
 
+    private waiting : boolean = false;
+
+    
     private visible = true;
     private selectable = true;
     private removable = true;
@@ -308,7 +311,15 @@ export class CadastroConsultaComponent implements OnInit{
             return null;
         }
 
-        const fmtDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+        let month : any = date.getMonth() + 1;
+        if(month < 10)
+            month = `0${month}`;
+
+        let day : any = date.getDate();
+        if(day < 10)
+            day = `0${day}`;
+
+        const fmtDate = `${ date.getFullYear() }-${ month }-${ day}`;
 
         this.service.getDisponibilidadeHorarios(fmtDate).then((horarios: HorarioConsultaSelecao[]) => {
 
@@ -611,7 +622,10 @@ export class CadastroConsultaComponent implements OnInit{
 
         consulta_cadastrada.dataConsulta.setHours(Number(h[0]), Number(m[0]), 0, 0)
 
+        this.waiting = true;
+
         this.service.insert(consulta_cadastrada).then((data) => {
+            this.waiting = false;
             this.snack_bar_service.open_snack_bar(
                 'Consulta agendada',
                 'success', 
@@ -627,6 +641,7 @@ export class CadastroConsultaComponent implements OnInit{
             
             this.router.navigate(['/pedilandia']);
         }).catch(error => {
+            this.waiting = false;
             this.snack_bar_service.open_snack_bar( 
                 'Consulta não agendada. Algum erro ocorreu', 
                 'danger', 

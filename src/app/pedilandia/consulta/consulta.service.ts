@@ -2,19 +2,22 @@ import { Consulta, HorarioConsultaSelecao } from './consulta.model';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/common/api.service';
 
+
 @Injectable({
     providedIn: 'root'
 })
 export class ConsultaService {
-    defaultHorarios = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', 
-    '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', 
-    '14:30', '15:00', '15:30'];
+    
+
+    defaultHorarios = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00',
+        '10:30', '11:00', '11:30', '13:00', '13:30', '14:00',
+        '14:30', '15:00', '15:30'];
 
     constructor(
-        private api : ApiService
+        private api: ApiService
     ) { }
 
-    async get() {        
+    async get() {
         const res = await this.api.graphqlQuery(`
             query {
                 consultas {
@@ -36,61 +39,74 @@ export class ConsultaService {
                 }
             }
         `);
-        
 
-        if(res.data && res.data.consultas) {
+
+        if (res.data && res.data.consultas) {
             return res.data.consultas;
         }
-        
+
         return null;
     }
 
-    async getResumoForListing () {
+    async getResumoForListing() {
         const res = await this.api.graphqlQuery(`
             query {
-                consultas {
+                agendamentos {
                     _id
-                    dataConsulta
+                    dataAgendada
                     paciente {
+                        _id
                         nome
                     }
-                    tipoConsulta
-                    realizada
+                    clinica {
+                        _id
+                        nome
+                    }
+                    
+                    medico {
+                        _id
+                        nome
+                    }
+                    tipo {
+                        _id
+                        nome
+                        descricao
+                    }
                 }
             }
         `);
-        
 
-        if(res.data && res.data.consultas) {
-            return res.data.consultas;
+
+        if (res.data && res.data.agendamentos) {
+            return res.data.agendamentos;
         }
 
         return res.data;
-        
+
     }
-    
-    async getDisponibilidadeHorarios (dia : string) : Promise<HorarioConsultaSelecao[]> {
+
+    async getDisponibilidadeHorarios(dia: string): Promise<HorarioConsultaSelecao[]> {
         const res = await this.api.graphqlQuery(`
             query {
                 horariosIndisponiveis(dia:"${dia}") 
             }
         `);
-        
 
-        if(res.data && res.data.horariosIndisponiveis) {
-            const horariosIndisponiveis : string[] = res.data.horariosIndisponiveis.map(v => {
+
+        if (res.data && res.data.horariosIndisponiveis) {
+            const horariosIndisponiveis: string[] = res.data.horariosIndisponiveis.map(v => {
                 const date = new Date(v);
 
-                let hours : any = date.getHours();
-                if(hours < 10)
-                    hours = `0${hours}`;
+                let hours: any = date.getHours();
 
-                let minutes : any = date.getMinutes();
-                if(minutes < 10)
+                let minutes: any = date.getMinutes();
+                if (minutes < 10)
                     minutes = `0${minutes}`;
 
-                return `${ hours }:${ minutes }`
+                return `${hours}:${minutes}`
             });
+
+            console.log(horariosIndisponiveis, this.defaultHorarios)
 
             return this.defaultHorarios.map(v => {
                 return new HorarioConsultaSelecao(v, !horariosIndisponiveis.includes(v))
@@ -98,10 +114,10 @@ export class ConsultaService {
         }
 
         return [];
-        
+
     }
 
-    async insert ( consulta: Consulta ) {
+    async insert(consulta: Consulta) {
         console.log(consulta);
         const response = await this.api.graphqlMutation(`
             mutation {
@@ -121,11 +137,11 @@ export class ConsultaService {
                     }
                     sintomasObservados :[
                         ${
-                           consulta
-                            .sintomasObservados
-                            .map(v => `{_id:"${ v._id }"}`)
-                            .join(',') 
-                        }
+            consulta
+                .sintomasObservados
+                .map(v => `{_id:"${v._id}"}`)
+                .join(',')
+            }
 
                     ]
                     medicamentos : [
@@ -136,60 +152,121 @@ export class ConsultaService {
                     ]
                     informacoesAdicionais:[
                         ${
-                           consulta
-                            .informacoesAdicionais
-                            .split('\n')
-                            .map(v => `"${ v }"`)
-                            .join(',') 
-                        }
+            consulta
+                .informacoesAdicionais
+                .split('\n')
+                .map(v => `"${v}"`)
+                .join(',')
+            }
                     ]
                     }) {
                     _id
                 }
             }
         `);
-            
+
         // return(response);
         return null;
     }
 
-    
-    async find ( id: string ): Promise<Consulta> {
+
+    async find(id: string, select : string = defaultFindSelect): Promise<Consulta> {
 
         const res = await this.api.graphqlQuery(`
             query {
-                consulta(id:"${id}") {
-                    _id
-                    dataConsulta
-                    paciente {
-                        _id
-                        nome
-                        email
-                    }
-                    tipoConsulta
-                    sintomasObservados
-                    medicamentosQueToma
-                    doencasRecentes
-                    informacoesAdicionais
-                    realizada
-                    observacoesMedico
+                agendamento(id:"${id}") {
+                    ${select}
                 }
             }
         `)
 
-        if(res.data && res.data.consulta) {
-            return res.data.consulta;
+        if (res.data && res.data.agendamento) {
+            return res.data.agendamento;
         }
-        
+
         return null;
     }
 
-    async update ( consulta: Consulta ): Promise<Consulta> {
+    async update(consulta: Consulta): Promise<Consulta> {
         return new Promise<Consulta>(null);
     }
 
-    async delete ( id: string ): Promise<Consulta> {
-        return new Promise<Consulta>(null);
+    async delete(id: string): Promise<Consulta> {
+
+        const res = await this.api.graphqlMutation(`
+            mutation {
+                deleteAgendamento(id:"${id}") {
+                    _id
+                }
+            }
+        `);
+
+        if (res.data && res.data.deleteAgendamento) {
+            return res.data.deleteAgendamento;
+        }
+
+        return null;
     }
 
 }
+
+const defaultFindSelect = `
+    _id
+    dataAgendada
+    paciente {
+        _id
+        nome
+    }
+    clinica {
+        _id
+        nome
+    }
+    medico {
+        _id
+        nome
+    }
+    tipo {
+        _id
+        nome
+        descricao
+    }
+    sintomasObservados {
+        _id
+        nome
+    }
+    medicamentos {
+        _id
+        nome
+    }
+    doencas {
+        _id
+        nome
+    }
+    realizacao {
+        horarioInicio
+        horarioFinalizacao
+        diagnostico {
+            descricao
+            tipo {
+                _id
+                nome
+            }
+            doencasCuradas {
+                _id
+                nome
+            }
+            doencasDiagnosticadas {
+                _id
+                nome
+            }
+            examesExigidos {
+                tipo {
+                    _id
+                    nome
+                }
+            }
+        }
+    }
+    informacoesAdicionais
+    createdAt
+`;

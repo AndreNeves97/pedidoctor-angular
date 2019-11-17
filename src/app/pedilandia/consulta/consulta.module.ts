@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { MainConsultaComponent } from './main-consulta/main-consulta.component';
 import { UpdateConsultaComponent } from './update-consulta/update-consulta.component';
 import { DetalheConsultaComponent } from './detalhe-consulta/detalhe-consulta.component';
+import { AppDateModule } from 'src/app/common/pipes/app-date/app-date.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { DetalheConsultaComponent } from './detalhe-consulta/detalhe-consulta.co
     TextMaskModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+
+    AppDateModule
   ],
   exports: [
     CadastroConsultaComponent

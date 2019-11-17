@@ -1,4 +1,10 @@
-<div class='main-container'>
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<div class='main-container' *ngIf="consulta != null; else loading">
 
     <button mat-mini-fab color="primary" matTooltip="Voltar para listagem" (click)="navigate_back()">
         <mat-icon>
@@ -20,7 +26,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <h3>
-            Consulta agendada para dia <b>{{ data | date : 'dd/MM/yyyy' }}</b> às <b>{{ horario }}</b> horas.
+            Consulta agendada para dia <b>{{ consulta.dataAgendada | appDate : 'lean-view' }}</b> às <b>{{ consulta.dataAgendada | date : 'HH:mm'}}</b> horas.
         </h3>
     </mat-expansion-panel>
     <br>
@@ -42,7 +48,7 @@
             </h2>
         </mat-expansion-panel-header>
         <h3>
-            Tipo de consulta: <b>{{ ( tipoConsulta != null ) ? tipoConsulta.nome : '' }}</b>.
+            Tipo de consulta: <b>{{ ( consulta.tipo != null ) ? consulta.tipo.nome : '' }}</b>.
         </h3>
         <h3 *ngIf="sintomasObservados != undefined && sintomasObservados.length > 0">
             Sintomas observados:
@@ -70,8 +76,11 @@
                 <li>{{ doenca.name }}</li>
             </ul>
         </h3>
-        <h3 *ngIf="informacoesAdicionais != ''">
-            Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+        <h3 *ngIf="consulta.informacoesAdicionais.length > 0">
+            Informações adicionais: 
+            <ul *ngFor="let informacao of consulta.informacoesAdicionais">
+                <li>{{ informacao }}</li>
+            </ul>
         </h3>
     </mat-expansion-panel>
     <button mat-raised-button class='ok-button' (click)="salvar()">Confirmar</button>

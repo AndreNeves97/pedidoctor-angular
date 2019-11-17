@@ -16,7 +16,8 @@ import {  MatInputModule,
           MatCardModule,
           MatTooltipModule, 
           MAT_DATE_LOCALE, 
-          MatDialogModule } from '@angular/material';
+          MatDialogModule, 
+          MatProgressSpinnerModule} from '@angular/material';
 import { DetalheClinicaComponent } from './detalhe-clinica/detalhe-clinica.component';
 import { UpdateClinicaComponent } from './update-clinica/update-clinica.component';
 import { MainClinicaComponent } from './main-clinica/main-clinica.component';
@@ -50,6 +51,7 @@ import { DialogComponent } from 'src/app/common/utils/dialog/dialog.component';
     MatTabsModule,
     MatIconModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     RouterModule
   ],
   exports: [

@@ -261,7 +261,15 @@ export class UpdateConsultaComponent implements OnInit {
             return null;
         }
 
-        const fmtDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+        let month : any = date.getMonth() + 1;
+        if(month < 10)
+            month = `0${month}`;
+
+        let day : any = date.getDate();
+        if(day < 10)
+            day = `0${day}`;
+
+        const fmtDate = `${ date.getFullYear() }-${ month }-${ day}`;
 
         this.service.getDisponibilidadeHorarios(fmtDate).then((horarios: HorarioConsultaSelecao[]) => {
 

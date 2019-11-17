@@ -33,30 +33,32 @@ export class RealizarReportagemComponent implements OnInit {
 
     // console.log('http://localhost:4200/pedilandia/realizar-consulta/5dc846471cecf915ba77f0dd');
 
+    this.consulta = null;
+
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         return of(params.get('id'));
       })
     ).subscribe((id: string) => {
-      console.log(id);
+      this.consulta = null;
+
       this.service.find(id).then((consulta: Consulta) => {
         if ( consulta ) this.consulta = consulta;
         else {
           this.snack_bar_service.open_snack_bar(
-            'Consulta não encontrara. Algo deu errado.',
+            'Consulta não encontrada. Algo deu errado.',
             'warn', 5
           );
           this.navigate_back();
         }
+
+        console.log(this.consulta)
       })
     });
 
   }
 
   ngOnInit() { 
-    this.consulta = new Consulta();
-    this.consulta.reportagemConsulta = new ReportagemConsulta();
-    this.consulta.reportagemConsulta.diagnostico = new Diagnostico();
   }
 
   private init_forms() {

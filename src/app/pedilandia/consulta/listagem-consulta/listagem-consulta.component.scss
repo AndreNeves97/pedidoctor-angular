@@ -1,7 +1,15 @@
 table {
-  width: 100%;
+    width: 100%;
 }
 
 .main-container {
-  padding: 5%;
+    padding: 5%;
+}
+
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

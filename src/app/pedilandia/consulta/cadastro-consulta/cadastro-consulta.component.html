@@ -233,10 +233,13 @@
           </ul>
         </h3>
         <h3 *ngIf="informacoesAdicionais != ''">
-          Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+            Informações adicionais: 
+            <ul *ngFor="let informacao of informacoesAdicionais.split('\n')">
+                <li>{{ informacao }}</li>
+            </ul>
         </h3>
       </mat-expansion-panel>
-      <button mat-raised-button class='ok-button' (click)="salvar()">Confirmar</button>
+      <button mat-raised-button [disabled]="waiting" class='ok-button' (click)="salvar()">Confirmar</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

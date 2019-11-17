@@ -6,91 +6,94 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'app-detalhe-consulta',
-  templateUrl: './detalhe-consulta.component.html',
-  styleUrls: ['./detalhe-consulta.component.scss']
+    selector: 'app-detalhe-consulta',
+    templateUrl: './detalhe-consulta.component.html',
+    styleUrls: ['./detalhe-consulta.component.scss']
 })
 export class DetalheConsultaComponent implements OnInit {
 
-  private consulta: Consulta;
+    private consulta: Consulta;
 
-  constructor(
-    private service :   ConsultaService,
-    private router  :   Router,
-    private route   :   ActivatedRoute
-  ) { 
+    constructor(
+        private service: ConsultaService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {
+        this.consulta = null;
 
-    this.route.paramMap
-        .pipe(
-          switchMap((params: ParamMap) => {
-            return of(params.get('id'));
-          })
-        ).subscribe((id: string) => {
-          this.service.find(id).then((consulta: Consulta) =>{
-            if ( consulta )
-              this.consulta = consulta;
-            else
-              this.navigate_back();
-          })
-        });
+        this.route.paramMap
+            .pipe(
+                switchMap((params: ParamMap) => {
+                    return of(params.get('id'));
+                })
+            ).subscribe((id: string) => {
+                this.consulta = null;
 
-  }
+                this.service.find(id).then((consulta: Consulta) => {
+                    console.log(consulta)
+                    if (consulta)
+                        this.consulta = consulta;
+                    else
+                        this.navigate_back();
+                })
+            });
 
-  ngOnInit() { 
-    this.consulta = new Consulta();
-  }
+    }
 
-  private navigate_back() {
-    this.router.navigate(['/pedilandia/consultas']);
-  }
+    ngOnInit() {
+    }
 
-  get dataConsulta () {
-    return this.consulta.dataConsulta;
-  }
+    private navigate_back() {
+        this.router.navigate(['/pedilandia/consultas']);
+    }
 
-  get horario () {
-    return `${new Date(this.consulta.dataConsulta).getHours()}:${new Date(this.consulta.dataConsulta).getMinutes()}`
-  }
+    get dataConsulta() {
+        return this.consulta.dataConsulta;
+    }
 
-  get paciente () {
-    return this.consulta.paciente;
-  }
+    get horario() {
+        return `${new Date(this.consulta.dataConsulta).getHours()}:${new Date(this.consulta.dataConsulta).getMinutes()}`
+    }
 
-  get clinica () {
-    return this.consulta.clinica;
-  }
+    get paciente() {
+        return this.consulta.paciente;
+    }
 
-  get medico () {
-    return this.consulta.medico;
-  }
+    get clinica() {
+        return this.consulta.clinica;
+    }
 
-  get medicamentosQueToma () {
-    if (this.consulta.medicamentosQueToma)
-      return this.consulta.medicamentosQueToma;
-    else 
-      return [];
-  }
+    get medico() {
+        return this.consulta.medico;
+    }
 
-  get doencasRecentes () {
-    if (this.consulta.doencasRecentes)
-      return this.consulta.doencasRecentes
-    else  
-      return [];
-  }
+    get medicamentosQueToma() {
+        if (this.consulta.medicamentosQueToma)
+            return this.consulta.medicamentosQueToma;
+        else
+            return [];
+    }
 
-  get informacoesAdicionais () { 
-    return this.consulta.informacoesAdicionais;
-  }
+    get doencasRecentes() {
+        if (this.consulta.doencasRecentes)
+            return this.consulta.doencasRecentes
+        else
+            return [];
+    }
 
-  get sintomasObservados () {
-    if (this.consulta.sintomasObservados)
-      return this.consulta.sintomasObservados;
-    else 
-      return [];
-  }
+    get informacoesAdicionais() {
+        return this.consulta.informacoesAdicionais;
+    }
 
-  get tipoConsulta () {
-    return this.consulta.tipoConsulta;
-  }
+    get sintomasObservados() {
+        if (this.consulta.sintomasObservados)
+            return this.consulta.sintomasObservados;
+        else
+            return [];
+    }
+
+    get tipoConsulta() {
+        return this.consulta.tipoConsulta;
+    }
 
 }

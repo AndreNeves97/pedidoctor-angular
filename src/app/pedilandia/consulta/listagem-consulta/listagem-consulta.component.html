@@ -1,33 +1,57 @@
-<table mat-table [dataSource]="consultas_listagem" class="mat-elevation-z8">
-  <ng-container matColumnDef="data">
-    <th mat-header-cell *matHeaderCellDef>Data</th>
-    <td mat-cell *matCellDef="let consulta">{{ ( consulta.dataConsulta ) ? ( consulta.dataConsulta | date:"dd/MM/yy" ) : '' }}</td>
-  </ng-container>
-  <ng-container matColumnDef="nomePaciente">
-    <th mat-header-cell *matHeaderCellDef>Paciente</th>
-    <td mat-cell *matCellDef="let consulta">{{ ( consulta.paciente != null ) ? consulta.paciente.nome : '' }}</td>
-  </ng-container>
-  <ng-container matColumnDef="tipoConsulta">
-    <th mat-header-cell *matHeaderCellDef>Tipo de consulta</th>
-    <td mat-cell *matCellDef="let consulta">{{ ( consulta.tipoConsulta != null ) ? consulta.tipoConsulta : '' }}</td>
-  </ng-container>
-  <ng-container matColumnDef="options">
-    <th mat-header-cell *matHeaderCellDef>
-      Opções
-      <button mat-button color="primary" (click)="getData()"><mat-icon>update</mat-icon></button>
-    </th>
-    <td mat-cell *matCellDef="let consulta">  
-      <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary" >
-        <mat-icon>visibility</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(consulta)" color="primary">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<mat-progress-bar *ngIf="waiting" mode="indeterminate"></mat-progress-bar>
+
+<table mat-table [dataSource]="consultas_listagem" class="mat-elevation-z8" *ngIf="consultas_listagem != null; else loading">
+    <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
+        <td mat-cell *matCellDef="let consulta">
+            {{ consulta.dataAgendada | appDate:'with-hour':'lean-view' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="nomeClinica">
+        <th mat-header-cell *matHeaderCellDef>Clínica</th>
+        <td mat-cell *matCellDef="let consulta">{{ ( consulta.clinica != null ) ? consulta.clinica.nome : '' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="nomeMedico">
+        <th mat-header-cell *matHeaderCellDef>Médico</th>
+        <td mat-cell *matCellDef="let consulta">{{ ( consulta.medico != null ) ? consulta.medico.nome : '' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="nomePaciente">
+        <th mat-header-cell *matHeaderCellDef>Paciente</th>
+        <td mat-cell *matCellDef="let consulta">{{ ( consulta.paciente != null ) ? consulta.paciente.nome : '' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="tipoConsulta">
+        <th mat-header-cell *matHeaderCellDef>Tipo de consulta</th>
+        <td mat-cell *matCellDef="let consulta">{{ ( consulta.tipo != null ) ? consulta.tipo.nome : '' }}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef>
+            Opções
+            <button mat-button color="primary" (click)="getData()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </th>
+        <td mat-cell *matCellDef="let consulta">
+            <button mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+                <mat-icon>forward</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
+                <mat-icon>visibility</mat-icon>
+            </button>
+            <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
+                <mat-icon>edit</mat-icon>
+            </button> -->
+            <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(consulta)" color="primary">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table> <br>

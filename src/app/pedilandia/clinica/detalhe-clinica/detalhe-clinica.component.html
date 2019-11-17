@@ -1,21 +1,64 @@
-<div class='content-div'>
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<div class='content-div' *ngIf="clinica != null; else loading">
 
     <button mat-mini-fab color="primary" (click)="navigate_back()">
         <mat-icon>keyboard_arrow_left</mat-icon>
-    </button> <br/> <br/>
-    
+    </button> <br /> <br />
+
     <mat-card class="content-card">
-        
+
         <mat-card-title>Detalhes da clínica {{ clinica.nome }}</mat-card-title> <br>
 
         <mat-card-content>
-            
-            <h3><i>Nome: </i></h3> {{ clinica.nome }}         <br><br>
+
+            <h3><i>Nome: </i></h3> {{ clinica.nome }} <br><br>
 
             <h3><i>Endereço: </i></h3> {{ clinica.endereco }} <br><br>
-            
+
         </mat-card-content>
-        
+
     </mat-card>
 
+    <mat-tab-group class="detail">
+        <mat-tab label="Consultas">
+            <ng-template matTabContent>
+                {{getContent(1)}}
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Clientes">
+            <ng-template matTabContent>
+                {{getContent(1)}}
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Gerentes">
+            <ng-template matTabContent>
+                {{getContent(1)}}
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Médicos">
+            <ng-template matTabContent>
+                {{getContent(1)}}
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Enfermeiros">
+            <ng-template matTabContent>
+                {{getContent(2) }}
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Secretários">
+            <ng-template matTabContent>
+                {{getContent(2) }}
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
 </div>

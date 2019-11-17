@@ -1,7 +1,14 @@
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
 <table
   mat-table
   [dataSource]="clinicas"
   class="mat-elevation-z8"
+  *ngIf="clinicas != null; else loading"
 >
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef>Nome</th>

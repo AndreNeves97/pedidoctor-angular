@@ -11,7 +11,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <h3>
-            Consulta agendada para dia <b>{{ data | date : 'dd/MM/yyyy' }}</b> às <b>{{ horario }}</b> horas.
+            Consulta agendada para dia <b>{{ _consulta.dataAgendada | appDate : 'lean-view' }}</b> às <b>{{ _consulta.dataAgendada | date : 'HH:mm'}}</b> horas.
         </h3>
     </mat-expansion-panel>
     <br>
@@ -33,7 +33,7 @@
             </h2>
         </mat-expansion-panel-header>
         <h3>
-            Tipo de consulta: <b>{{ ( tipoConsulta != null ) ? tipoConsulta.nome : '' }}</b>.
+            Tipo de _consulta: <b>{{ ( _consulta.tipo != null ) ? _consulta.tipo.nome : '' }}</b>.
         </h3>
         <h3 *ngIf="sintomasObservados != undefined && sintomasObservados.length > 0">
             Sintomas observados:
@@ -61,8 +61,11 @@
                 <li>{{ doenca.name }}</li>
             </ul>
         </h3>
-        <h3 *ngIf="informacoesAdicionais != ''">
-            Informações adicionais: <b>{{ informacoesAdicionais }}</b>.
+        <h3 *ngIf="_consulta.informacoesAdicionais.length > 0">
+            Informações adicionais: 
+            <ul *ngFor="let informacao of _consulta.informacoesAdicionais">
+                <li>{{ informacao }}</li>
+            </ul>
         </h3>
     </mat-expansion-panel>
 </div>

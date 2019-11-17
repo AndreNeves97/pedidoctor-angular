@@ -1,4 +1,10 @@
-<mat-horizontal-stepper linear #stepper>
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<mat-horizontal-stepper linear #stepper *ngIf="consulta != null; else loading">
     <mat-step [editable]="true">
         <app-detalhes-agendamento [consulta]="consulta"></app-detalhes-agendamento>
         <!-- <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button> -->

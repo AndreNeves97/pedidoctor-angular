@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,7 +51,7 @@ import { DoencasModule } from './pedilandia/doencas/doencas.module';
 import { ConsultaTipoModule } from './pedilandia/consulta-tipo/consulta-tipo.module';
 import { DiagnosticoTipoModule } from './pedilandia/diagnostico-tipo/diagnostico-tipo.module';
 import { ExameTipoModule } from './pedilandia/exame-tipo/exame-tipo.module';
-import { MatProgressSpinnerModule, MatFormFieldModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatFormFieldModule, MAT_DATE_LOCALE } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { GoogleLoginButtonModule } from './common/utils/components/google-login-button/google-login-button.module';
@@ -61,6 +61,10 @@ import { HomePageContentComponent } from './home-page/home-page-content/home-pag
 import { ChangePasswordDialogModule } from './common/utils/components/change-password-dialog/change-password-dialog.module';
 import { ReportagemConsultaModule } from './pedilandia/reportagem-consulta/reportagem-consulta.module';
 
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt);
 
 @NgModule({
     declarations: [
@@ -156,6 +160,8 @@ import { ReportagemConsultaModule } from './pedilandia/reportagem-consulta/repor
         DialogUserInfoComponent
     ],
     providers: [
+        { provide: LOCALE_ID, useValue: "pt-BR" },
+        { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
         FormBuilder
     ],
     bootstrap: [AppComponent]
