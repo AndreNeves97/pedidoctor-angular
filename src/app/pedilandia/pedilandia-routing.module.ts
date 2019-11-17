@@ -30,7 +30,7 @@ import { ListagemConsultaComponent } from './consulta/listagem-consulta/listagem
 import { MainConsultaComponent } from './consulta/main-consulta/main-consulta.component';
 import { UpdateConsultaComponent } from './consulta/update-consulta/update-consulta.component';
 import { DetalheConsultaComponent } from './consulta/detalhe-consulta/detalhe-consulta.component';
-
+import { RealizarReportagemComponent } from './reportagem-consulta/realizar-reportagem/realizar-reportagem.component';
 
 const routes: Routes = [
     {
@@ -40,6 +40,10 @@ const routes: Routes = [
     {
         path: 'usuario', 
         component: CadastroUsuarioComponent
+    },
+    {
+        path: 'realizar-consulta/:id', 
+        component: RealizarReportagemComponent
     },
     {
         path: 'agendar-consulta', 
