@@ -59,6 +59,7 @@ import { LoadingDialogModule } from './common/utils/components/loading-dialog/lo
 import { HomePageComponent } from './home-page/home-page.component';
 import { HomePageContentComponent } from './home-page/home-page-content/home-page-content.component';
 import { ChangePasswordDialogModule } from './common/utils/components/change-password-dialog/change-password-dialog.module';
+import { ReportagemConsultaModule } from './pedilandia/reportagem-consulta/reportagem-consulta.module';
 
 
 @NgModule({
@@ -99,7 +100,7 @@ import { ChangePasswordDialogModule } from './common/utils/components/change-pas
         ConsultaTipoModule,
         DiagnosticoTipoModule,
         ExameTipoModule,
-
+        ReportagemConsultaModule,
         BrowserAnimationsModule,
         MatAutocompleteModule,
 
