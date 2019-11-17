@@ -20,7 +20,9 @@ export class RealizarReportagemComponent implements OnInit {
   private segundo_form_group  : FormGroup;
   private terceiro_form_group : FormGroup;
 
+  // Propriedades para serem gerenciadas individualmente
   private descricao_consulta  : string;
+  private medicamentos        : any[];
 
   private consulta            : Consulta;
 
@@ -32,8 +34,6 @@ export class RealizarReportagemComponent implements OnInit {
     private snack_bar_service : SnackService
   ) {
     this.init_forms();
-
-    // console.log('http://localhost:4200/pedilandia/realizar-consulta/5dc846471cecf915ba77f0dd');
 
     this.consulta = null;
 
@@ -64,14 +64,18 @@ export class RealizarReportagemComponent implements OnInit {
   private init_forms() {
 
     this.primeiro_form_group = this.form_builder.group({
-        descricao : [
-          this.descricao_consulta,
+      descricao : [
+        this.descricao_consulta,
+        [
           Validators.required
         ]
+      ]
     });
 
     this.segundo_form_group = this.form_builder.group({
-
+      medicamentos: [
+        this.medicamentos
+      ],
     });
 
     this.terceiro_form_group = this.form_builder.group({
