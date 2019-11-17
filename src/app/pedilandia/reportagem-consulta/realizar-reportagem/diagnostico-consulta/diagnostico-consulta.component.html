@@ -1,1 +1,15 @@
-<p>diagnostico-consulta works!</p>
+<div class='main-container'>
+
+    <h2>
+        Paciente: {{ ( paciente != null ) ? paciente.nome : '' }}
+    </h2>
+    <form [formGroup]="form">
+        <h3>
+            Escreva sobre a consulta, sobre as condições do paciente etc.
+        </h3>
+        <mat-form-field class="input-class">
+            <textarea matInput placeholder="Descrição do diagnóstico" rows="15" formControlName="descricao"></textarea>
+        </mat-form-field>
+    </form>
+
+</div>
