@@ -137,11 +137,11 @@ export class ConsultaService {
                     }
                     sintomasObservados :[
                         ${
-            consulta
-                .sintomasObservados
-                .map(v => `{_id:"${v._id}"}`)
-                .join(',')
-            }
+                            consulta
+                                .sintomasObservados
+                                .map(v => `{_id:"${v._id}"}`)
+                                .join(',')
+                        }
 
                     ]
                     medicamentos : [
@@ -152,12 +152,13 @@ export class ConsultaService {
                     ]
                     informacoesAdicionais:[
                         ${
-            consulta
-                .informacoesAdicionais
-                .split('\n')
-                .map(v => `"${v}"`)
-                .join(',')
-            }
+                            consulta
+                                .informacoesAdicionais
+                                .split('\n')
+                                .map(v => `"${v}"`)
+                                .filter(v => v != '""')
+                                .join(',')
+                        }
                     ]
                     }) {
                     _id
