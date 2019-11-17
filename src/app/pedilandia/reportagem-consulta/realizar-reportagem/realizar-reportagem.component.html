@@ -1,0 +1,19 @@
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [editable]="true">
+        <app-detalhes-agendamento [consulta]="consulta"></app-detalhes-agendamento>
+        <!-- <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button> -->
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </mat-step>
+    <!-- <mat-step [stepControl]="primeiro_form_group"   [editable]="true">
+
+    </mat-step>
+    <mat-step [stepControl]="segundo_form_group"    [editable]="true">
+
+    </mat-step>
+    <mat-step [stepControl]="terceiro_form_group"   [editable]="true">
+
+    </mat-step>
+    <mat-step [stepControl]="quarto_form_group"     [editable]="true">
+
+    </mat-step> -->
+</mat-horizontal-stepper>
