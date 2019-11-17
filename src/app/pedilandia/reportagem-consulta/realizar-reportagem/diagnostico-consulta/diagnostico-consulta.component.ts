@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
+import { ReportagemConsulta } from '../reportagem-consulta.model';
+import { Diagnostico } from 'src/app/pedilandia/diagnostico/diagnostico.model';
 
 @Component({
   selector: 'app-diagnostico-consulta',
@@ -24,6 +26,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
   @Input()
   set consulta ( consulta: Consulta ) {
     this._consulta = consulta;
+    this._consulta.reportagemConsulta = new ReportagemConsulta();
+    this._consulta.reportagemConsulta.diagnostico = new Diagnostico();
     if ( this.form ) {
       let today = new Date();
       this.form.patchValue({
@@ -47,6 +51,10 @@ Descrição do diagnóstico:`
     if ( this._consulta )
       return this._consulta.paciente;
     return null
+  }
+
+  next () {
+    this._consulta.reportagemConsulta.diagnostico.descricao = this.descricao;
   }
 
 }
