@@ -5,12 +5,25 @@
 </ng-template>
 <mat-horizontal-stepper linear #stepper *ngIf="consulta != null; else loading">
     <mat-step [editable]="true">
+        <ng-template matStepLabel>Descrição da consulta</ng-template>
         <app-detalhes-agendamento [consulta]="consulta"></app-detalhes-agendamento>
         <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
     </mat-step>
-    <mat-step [editable]="true">
+    <mat-step [stepControl]="primeiro_form_group" [editable]="true">
+        <ng-template matStepLabel>Diagnóstico do paciente</ng-template>
         <app-diagnostico-consulta [form_group]="primeiro_form_group" [consulta]="consulta"></app-diagnostico-consulta>
         <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
         <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </mat-step>
+    <mat-step [stepControl]="segundo_form_group" [editable]="true">
+        <ng-template matStepLabel>Remédios e exames</ng-template>
+        <app-receita-consulta [form_group]="segundo_form_group" [consulta]="consulta"></app-receita-consulta>
+        <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
+    </mat-step>
+    <mat-step [editable]="true">
+        <ng-template matStepLabel>Confirmação</ng-template>
+        <app-confirmacao-consulta [form_group]="segundo_form_group" [consulta]="consulta"></app-confirmacao-consulta>
+        <button mat-raised-button isRoundButton color="accent"  class="ok-button">Voltar</button>
     </mat-step>
 </mat-horizontal-stepper>
