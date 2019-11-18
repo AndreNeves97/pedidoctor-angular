@@ -42,7 +42,7 @@ const TREE_DATA: FoodNode[] = [
     {
         name: 'Usuarios',
         id: '3A',
-        route: './usuario',
+        route: './usuarios',
         role: 'admin'
     },
     {
@@ -169,9 +169,9 @@ export class MainPedilandiaComponent implements OnInit {
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     click(component: any) {
-        this.router.navigate([component.route]);
+        // this.router.navigate([component.route]);
 
-        if(this.isHandset$.value == true)
+        if(component.route != undefined && this.isHandset$.value == true)
             this.drawerRef.toggle();
     }
 
