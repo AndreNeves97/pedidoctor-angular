@@ -612,7 +612,7 @@ export class CadastroConsultaComponent implements OnInit{
                 jwt         : null,
                 telefone    : user.telefone,
                 tipo        : 0,
-                qtConsultas : 0 }),
+                qtConsultas : 0, }),
             this.tipoConsulta,
             this.sintomas_selected,
             this.medicamentos_selected,
@@ -660,14 +660,14 @@ export class CadastroConsultaComponent implements OnInit{
 
     defineDefaultDate(consulta : Consulta) {
         
-        const currentDate = consulta.dataConsulta = new Date('2019-11-14 15:00:00');
+        const currentDate = consulta.dataConsulta = new Date();
  
         while(this.filter_date(currentDate) == false) {
+            
             // Próximo dia
             const newTime = currentDate.getTime() + 24 * 60 * 60 * 1000;
             currentDate.setTime(newTime);
 
-            console.log(currentDate)
         }
 
     }

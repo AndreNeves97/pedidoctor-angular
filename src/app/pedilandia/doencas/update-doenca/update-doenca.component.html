@@ -18,7 +18,7 @@
 
         <mat-form-field class="in-field">
 
-            <input matInput placeholder="nome da doença..." formControlName="nome"/>
+            <input matInput placeholder="Nome da doença" formControlName="nome"/>
             
             <mat-hint align="end">
 
@@ -36,7 +36,7 @@
 
         <mat-form-field class="in-field">
 
-            <textarea matInput placeholder="descrição da doença..." formControlName="descricao" rows="3"></textarea>
+            <textarea matInput placeholder="Descrição da doença" formControlName="descricao" rows="3"></textarea>
 
             <mat-hint align="end">
 
@@ -54,7 +54,7 @@
 
         <mat-form-field class="in-field">
 
-            <mat-select multiple formControlName="sintomas">
+            <mat-select placeholder="Sintomas da doença" multiple formControlName="sintomas">
             
                 <mat-option *ngFor="let sint of sintomas_select" [value]="sint.value" > 
                 

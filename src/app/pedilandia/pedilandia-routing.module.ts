@@ -31,6 +31,8 @@ import { MainConsultaComponent } from './consulta/main-consulta/main-consulta.co
 import { UpdateConsultaComponent } from './consulta/update-consulta/update-consulta.component';
 import { DetalheConsultaComponent } from './consulta/detalhe-consulta/detalhe-consulta.component';
 import { RealizarReportagemComponent } from './reportagem-consulta/realizar-reportagem/realizar-reportagem.component';
+import { MainUsuarioComponent } from './usuario/main-usuario/main-usuario.component';
+import { DetalheUsuarioComponent } from './usuario/detalhe-usuario/detalhe-usuario.component';
 
 const routes: Routes = [
     {
@@ -38,8 +40,16 @@ const routes: Routes = [
         component: DashboardComponent
     },
     {
-        path: 'usuario', 
+        path: 'usuarios', 
+        component: MainUsuarioComponent
+    },
+    {
+        path: 'usuarios/editar/:id', 
         component: CadastroUsuarioComponent
+    },
+    {
+        path: 'usuarios/:id', 
+        component: DetalheUsuarioComponent
     },
     {
         path: 'realizar-consulta/:id', 

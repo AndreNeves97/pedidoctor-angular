@@ -4,7 +4,7 @@
 
         <mat-form-field class="in-field">
 
-            <input matInput placeholder="nome da doença..." formControlName="nome"/>
+            <input matInput placeholder="Nome da doença" #nome autofocus formControlName="nome"/>
             
             <mat-hint align="end">
 
@@ -12,7 +12,7 @@
 
             </mat-hint>
 
-            <mat-error *ngIf="nome.invalid && nome.touched"> 
+            <mat-error> 
 
                 Nome inválido
 
@@ -22,7 +22,7 @@
 
         <mat-form-field class="in-field">
 
-            <textarea matInput placeholder="descrição da doença..." formControlName="descricao" rows="3"></textarea>
+            <textarea matInput placeholder="Descrição da doença" formControlName="descricao" rows="3"></textarea>
 
             <mat-hint align="end">
 
@@ -30,7 +30,7 @@
 
             </mat-hint>
 
-            <mat-error *ngIf="descricao.invalid && descricao.touched">
+            <mat-error >
 
                 Descrição inválida
 
@@ -40,7 +40,7 @@
 
         <mat-form-field class="in-field">
 
-            <mat-select multiple formControlName="sintomas">
+            <mat-select placeholder="Sintomas da doença" multiple formControlName="sintomas">
             
                 <mat-option *ngFor="let sint of sintomas_select" [value]="sint.value" > 
                 

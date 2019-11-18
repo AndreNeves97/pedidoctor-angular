@@ -17,7 +17,7 @@
 
         <mat-form-field class="in-field">
 
-            <input matInput placeholder="nome do medicamento..." formControlName="nome"/>
+            <input matInput placeholder="Nome do medicamento" formControlName="nome"/>
             
             <mat-hint align="end">
 
@@ -35,7 +35,7 @@
 
         <mat-form-field class="in-field">
 
-            <textarea matInput placeholder="descrição do medicamento..." formControlName="descricao" rows="3"></textarea>
+            <textarea matInput placeholder="Descrição do medicamento" formControlName="descricao" rows="3"></textarea>
 
             <mat-hint align="end">
 
@@ -53,7 +53,7 @@
 
         <mat-form-field class="in-field">
 
-            <mat-select multiple formControlName="indicadoPara">
+            <mat-select  placeholder="Doenças para as quais é receitado" multiple formControlName="indicadoPara">
             
                 <mat-option *ngFor="let doencas of doencas_select" [value]="doencas.value" > 
                 
