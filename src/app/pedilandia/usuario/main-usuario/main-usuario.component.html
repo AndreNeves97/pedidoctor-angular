@@ -1,11 +1,18 @@
 <mat-tab-group>
 
     <mat-tab label="Usuários cadastrados">
-
-        <app-listagem-usuario></app-listagem-usuario>
-
+        <ng-template matTabContent>
+            <app-listagem-usuario [group]="{tipo: 'user'}"></app-listagem-usuario>
+        </ng-template>
     </mat-tab>    
 
+
+    <mat-tab label="Administradores">
+        <ng-template matTabContent>
+            <app-listagem-usuario [group]="{tipo: 'admin'}"></app-listagem-usuario>
+        </ng-template>
+    </mat-tab>    
+    
     <mat-tab label="Novo usuário">
 
         <app-cadastro-usuario></app-cadastro-usuario>

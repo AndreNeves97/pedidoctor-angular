@@ -8,6 +8,10 @@
   {{ message_text }}
 </div>
 
+<button mat-mini-fab color="primary" (click)="add()" *ngIf="group.tipo != 'user'" class="add-button">
+    <mat-icon>add</mat-icon>
+</button>
+
 <table mat-table [dataSource]="usuarios_listagem" class="mat-elevation-z8" *ngIf="usuarios_listagem != null; else loading">
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -45,7 +49,7 @@
       </button>
       <button
         mat-icon-button
-        matTooltip="Excluir usuário"
+        matTooltip="Excluir usuário dos administradores"
         (click)="excluir(usuario)"
         color="primary"
         aria-label="Example icon-button with a heart icon"

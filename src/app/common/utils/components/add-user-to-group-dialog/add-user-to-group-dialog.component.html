@@ -1,0 +1,21 @@
+<h4>{{ title }}</h4>
+
+
+<mat-form-field class="example-full-width">
+    <input 
+        type="text" 
+        placeholder="Selecionar usuário" 
+        matInput 
+        [formControl]="inputControl" 
+        [matAutocomplete]="auto"
+    >
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option.nome}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+
+<div class="loading-input-class" *ngIf="loading">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+</div>

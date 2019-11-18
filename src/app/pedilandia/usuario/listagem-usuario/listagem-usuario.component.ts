@@ -1,9 +1,10 @@
 import { UsuarioService } from './../usuario.service';
-import { Usuario } from './../../../common/security/usuario.model';
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Usuario, UsuarioGrupo } from './../../../common/security/usuario.model';
+import { Component, OnInit, Inject, ChangeDetectorRef, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
+import { AddUserToGroupDialogService } from 'src/app/common/utils/components/add-user-to-group-dialog/add-user-to-group-dialog.service';
 
 @Component({
     selector: 'app-listagem-usuario',
@@ -22,12 +23,16 @@ export class ListagemUsuarioComponent implements OnInit {
     private message_show: boolean;
     private message_class: string;
 
+    @Input()
+    group  : UsuarioGrupo;
+
     displayedColumns: string[] = ['nome', 'email', 'options'];
 
     constructor(
         private usuarioService: UsuarioService,
         public dialog: MatDialog,
-        private router : Router
+        private router : Router,
+        private addUserToGroupDialog : AddUserToGroupDialogService
     ) { }
 
     ngOnInit() {
@@ -37,9 +42,17 @@ export class ListagemUsuarioComponent implements OnInit {
     private getData() {
         this.usuarios_listagem = null;
         
-        this.usuarioService.getResumoForListing().then((dado: Usuario[]) => {
+        this.usuarioService.getResumoForListing(this.group).then((dado: Usuario[]) => {
             this.usuarios_listagem = dado;
         });
+    }
+
+    async add() {
+        
+        const dialogRef = this.addUserToGroupDialog.show(this.group);
+        await dialogRef.afterClosed().toPromise();
+        this.getData();
+
     }
 
     private visualizar(id: string) {
@@ -90,8 +103,8 @@ export class ListagemUsuarioComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
             if (result) {
-                this.usuarioService.delete(usuario._id).then((dado) => {
-                    console.log(dado);
+
+                this.usuarioService.removeAdmin(usuario._id).then((dado) => {
                     this.getData();
                 });
             }

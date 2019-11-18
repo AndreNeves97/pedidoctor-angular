@@ -1,6 +1,6 @@
 import { ApiService } from 'src/app/common/api.service';
 import { Injectable } from '@angular/core';
-import { Usuario } from 'src/app/common/security/usuario.model';
+import { Usuario, UsuarioGrupo, GrupoUsuarioTipo } from 'src/app/common/security/usuario.model';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +32,27 @@ export class UsuarioService {
 
         return null;
     }
+
+
+    public async query(filter : string) {
+        const res = await this.api.graphqlQuery(`
+            query {
+                usuarios(query:"${filter}") {
+                _id, 
+                nome, 
+                email, 
+                telefone
+                }
+            }
+        ` );
+
+        if(res.data && res.data.usuarios) {
+          return res.data.usuarios;
+        }
+
+        return null;
+    }
+
 
     public async get() {
         const res = await this.api.graphqlQuery(`
@@ -72,23 +93,30 @@ export class UsuarioService {
         return res;
     }
 
-    public async getResumoForListing() {
-        const res = await this.api.graphqlQuery(`
-            query {
-                usuarios {
-                _id, 
-                nome, 
-                email, 
-                qtConsultas
-                }
-            }
-        `);
+    public async getResumoForListing(group : UsuarioGrupo) {
+        const { tipo, parent } = group;
 
-        if (res.data && res.data.usuarios) {
-            return res.data.usuarios;
+        if(tipo == GrupoUsuarioTipo.ADMIN || tipo == GrupoUsuarioTipo.USER) {
+
+            const res = await this.api.graphqlQuery(`
+                query {
+                    usuarios ${ tipo == GrupoUsuarioTipo.ADMIN ? "(onlyAdmins: true)" : ""} {
+                        _id, 
+                        nome, 
+                        email, 
+                        qtConsultas
+                    }
+                }
+            `);
+
+            if (res.data && res.data.usuarios) {
+                return res.data.usuarios;
+            }
+
         }
 
         return null;
+
     }
 
     public async updateUsuario(usuario: Usuario) {
@@ -167,4 +195,40 @@ export class UsuarioService {
         return null;
     }
 
+
+    async addAdmin(id : string) {
+        const response = await this.api.graphqlMutation(`
+            mutation {
+                adicionarAdmin(id:"${id}") {
+                    nome
+                    email
+                    roles
+                }
+            }
+        `);
+
+        if(response.data && response.data.adicionarAdmin)
+            return response.data.adicionarAdmin;
+
+        return null;
+
+    }
+
+    async removeAdmin(id : string) {
+        const response = await this.api.graphqlMutation(`
+            mutation {
+                removerAdmin(id:"${id}") {
+                    nome
+                    email
+                    roles
+                }
+            }
+        `);
+
+        if(response.data && response.data.removerAdmin)
+            return response.data.removerAdmin;
+
+        return null;
+
+    }
 }

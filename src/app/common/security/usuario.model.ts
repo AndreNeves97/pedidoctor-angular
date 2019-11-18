@@ -1,3 +1,17 @@
+export enum GrupoUsuarioTipo {
+    USER        = 'user',
+    ADMIN       = 'admin' ,
+    CLIENTE     = 'cliente' ,
+    GERENTE     = 'gerente',
+    MEDICO      = 'medico',
+    SECRETARIO  = 'secretario'  
+}
+
+export class UsuarioGrupo {
+    tipo : string;
+    parent?: string;
+}
+
 export class Usuario {
 
     _id: string;
