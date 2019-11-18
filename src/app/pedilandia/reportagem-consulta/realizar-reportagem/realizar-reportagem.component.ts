@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Consulta } from '../../consulta/consulta.model';
+import { Component, OnInit, ViewChild }                       from '@angular/core';
+import { FormBuilder, FormGroup, Validators }                 from '@angular/forms';
+import { Consulta }                                           from '../../consulta/consulta.model';
 import { Router, ActivatedRoute, ParamMap, RoutesRecognized } from '@angular/router';
-import { switchMap, filter, pairwise } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { ConsultaService } from '../../consulta/consulta.service';
-import { SnackService } from 'src/app/common/utils/snack/snack.service';
-import { ReportagemConsulta } from './reportagem-consulta.model';
-import { Diagnostico } from '../../diagnostico/diagnostico.model';
+import { switchMap, filter, pairwise }                        from 'rxjs/operators';
+import { of }                                                 from 'rxjs';
+import { ConsultaService }                                    from '../../consulta/consulta.service';
+import { SnackService }                                       from 'src/app/common/utils/snack/snack.service';
+import { DetalhesAgendamentoComponent }                       from './detalhes-agendamento/detalhes-agendamento.component';
+import { ReportagemConsultaService }                          from '../reportagem-consulta.service';
+import { DiagnosticoConsultaComponent }                       from './diagnostico-consulta/diagnostico-consulta.component';
+import { ReceitaConsultaComponent }                           from './receita-consulta/receita-consulta.component';
 
 @Component({
   selector: 'app-realizar-reportagem',
@@ -15,6 +17,15 @@ import { Diagnostico } from '../../diagnostico/diagnostico.model';
   styleUrls: ['./realizar-reportagem.component.scss']
 })
 export class RealizarReportagemComponent implements OnInit {
+
+  @ViewChild(DetalhesAgendamentoComponent, {static: false})
+  private detalhe_comp: DetalhesAgendamentoComponent;
+
+  @ViewChild(DiagnosticoConsultaComponent, {static: false})
+  private diagnostico_comp: DiagnosticoConsultaComponent;
+
+  @ViewChild(ReceitaConsultaComponent, {static: false})
+  private receita_comp: ReceitaConsultaComponent;
 
   private primeiro_form_group : FormGroup;
   private segundo_form_group  : FormGroup;
@@ -32,7 +43,8 @@ export class RealizarReportagemComponent implements OnInit {
     private router            : Router,
     private service           : ConsultaService,
     private route             : ActivatedRoute,
-    private snack_bar_service : SnackService
+    private snack_bar_service : SnackService,
+    private bloc_service      : ReportagemConsultaService
   ) {
     this.init_forms();
 
@@ -94,6 +106,28 @@ export class RealizarReportagemComponent implements OnInit {
     ).subscribe((events: RoutesRecognized[]) => {
       console.log(events[0].urlAfterRedirects);
     })
+  }
+
+  public onStepChange(event: any): void {
+    switch(event.selectedIndex) {
+      case 0: {
+        this.detalhe_comp.update_bloc_object();
+        break;
+      }
+      case 1: {
+        this.diagnostico_comp.update_bloc_object();
+        break;
+      }
+      case 2: {
+        this.receita_comp.update_bloc_object();
+        break;
+      }
+      case 3: {
+
+        break;
+      }
+    }
+
   }
 
 }
