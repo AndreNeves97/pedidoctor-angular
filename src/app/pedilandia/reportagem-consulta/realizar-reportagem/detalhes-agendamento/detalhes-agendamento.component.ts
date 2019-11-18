@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
+import { ReportagemConsultaService } from '../../reportagem-consulta.service';
 
 @Component({
   selector: 'app-detalhes-agendamento',
@@ -10,7 +11,9 @@ export class DetalhesAgendamentoComponent implements OnInit {
 
   private _consulta: Consulta;
 
-  constructor() { }
+  constructor(
+    private service: ReportagemConsultaService
+  ) { }
 
   ngOnInit() { }
 
@@ -66,6 +69,10 @@ export class DetalhesAgendamentoComponent implements OnInit {
 
   get tipoConsulta () {
     return this._consulta.tipoConsulta;
+  }
+
+  public update_bloc_object () {
+    this.service.update(this._consulta);    
   }
 
 }
