@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { ReportagemConsulta } from '../reportagem-consulta.model';
 import { Diagnostico } from 'src/app/pedilandia/diagnostico/diagnostico.model';
+import { ReportagemConsultaService } from '../../reportagem-consulta.service';
 
 @Component({
   selector: 'app-diagnostico-consulta',
@@ -14,7 +15,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
   private form: FormGroup;
   private _consulta: Consulta;
 
-  constructor() { }
+  constructor(
+    private service: ReportagemConsultaService
+  ) { }
 
   ngOnInit() { }
 
@@ -53,8 +56,9 @@ Descrição do diagnóstico:`
     return null
   }
 
-  next () {
+  update_bloc_object() {
     this._consulta.reportagemConsulta.diagnostico.descricao = this.descricao;
+    this.service.update(this._consulta);
   }
 
 }
