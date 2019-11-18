@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { FormGroup } from '@angular/forms';
 import { ReportagemConsultaService } from '../../reportagem-consulta.service';
-import { map, mergeAll } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-confirmacao-consulta',
