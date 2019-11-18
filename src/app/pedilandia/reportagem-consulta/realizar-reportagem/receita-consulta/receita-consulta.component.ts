@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ReportagemConsultaService } from '../../reportagem-consulta.service';
 
 @Component({
   selector: 'app-receita-consulta',
@@ -24,7 +25,9 @@ export class ReceitaConsultaComponent implements OnInit {
 
   private _consulta: Consulta;
 
-  constructor() { }
+  constructor(
+    private service: ReportagemConsultaService
+  ) { }
 
   ngOnInit() { 
     this.medicamentos_selected = [];
@@ -75,6 +78,11 @@ export class ReceitaConsultaComponent implements OnInit {
     this.form.patchValue({
       medicamentos : this.medicamentos_selected
     });
+  }
+
+  public update_bloc_object () {
+    this._consulta.medicamentosQueToma = this.medicamentos_selected;
+    this.service.update(this._consulta);
   }
 
 }
