@@ -43,6 +43,7 @@ Paciente: ${ this._consulta.paciente.nome }
 ------------------------------------------------
 Descrição do diagnóstico:`
       })
+      this._consulta.reportagemConsulta.diagnostico.descricao = this.form.get('descricao').value;
     }
   }
 
