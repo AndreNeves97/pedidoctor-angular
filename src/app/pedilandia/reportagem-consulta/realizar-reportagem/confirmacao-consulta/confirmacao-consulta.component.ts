@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { FormGroup } from '@angular/forms';
 import { ReportagemConsultaService } from '../../reportagem-consulta.service';
+import { map, mergeAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-confirmacao-consulta',
@@ -30,7 +31,39 @@ export class ConfirmacaoConsultaComponent implements OnInit {
     this._consulta = consulta;
   }
 
-  get agendamento () {
-    return this.service.get_consulta()
+  get nome_paciente () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.paciente.nome)
+    );
+  }
+
+  get paciente () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.paciente)
+    );
+  }
+
+  get data_consulta () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.dataConsulta)
+    );
+  }
+
+  get medico () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.medico)
+    );
+  }
+
+  get diagnostico () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.reportagemConsulta.diagnostico)
+    );
+  }
+
+  get medicamentos () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.medicamentosQueToma)
+    );
   }
 }

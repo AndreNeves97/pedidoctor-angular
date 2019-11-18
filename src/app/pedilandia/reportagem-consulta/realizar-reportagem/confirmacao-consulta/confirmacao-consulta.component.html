@@ -33,6 +33,10 @@
 
     </mat-expansion-panel> -->
 
-    {{ agendamento | async | json }}
+    <code>{{ nome_paciente | async | json }}</code> <br>
+    <code>{{ data_consulta | async | date : "dd/MM/yyyy" }}</code> <br>
+    <code>{{ medicamentos  | async | json }}</code> <br>
+    <code>{{ medico        | async | json }}</code> <br>
+    <code>{{ diagnostico   | async | json }}</code> <br>
 
 </div>

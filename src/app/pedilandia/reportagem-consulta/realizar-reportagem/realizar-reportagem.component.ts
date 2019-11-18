@@ -127,7 +127,6 @@ export class RealizarReportagemComponent implements OnInit {
         break;
       }
     }
-
   }
 
 }
