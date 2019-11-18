@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { FormGroup } from '@angular/forms';
+import { ReportagemConsultaService } from '../../reportagem-consulta.service';
 
 @Component({
   selector: 'app-confirmacao-consulta',
@@ -13,7 +14,9 @@ export class ConfirmacaoConsultaComponent implements OnInit {
 
   private _consulta: Consulta;
 
-  constructor() { }
+  constructor(
+    private service: ReportagemConsultaService
+  ) { }
 
   ngOnInit() { }
 
@@ -27,4 +30,7 @@ export class ConfirmacaoConsultaComponent implements OnInit {
     this._consulta = consulta;
   }
 
+  get agendamento () {
+    return this.service.get_consulta()
+  }
 }
