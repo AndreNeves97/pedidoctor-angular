@@ -9,6 +9,8 @@ export class Usuario {
     fotoUrl: string;
     telefone: string;
     roles: string[];
+    senha?: string;
+    isPaciente?: string;
 
     constructor(params : {
         _id : string,
@@ -19,7 +21,9 @@ export class Usuario {
         fotoUrl: string,
         telefone: string,
         roles?: string[],
-        tipo: number 
+        tipo: number,
+        senha?: string,
+        isPaciente?: boolean
     }) {
         Object.assign(this, params);
     }

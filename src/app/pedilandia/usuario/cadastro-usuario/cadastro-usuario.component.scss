@@ -28,3 +28,25 @@
 .right-button{
     float:right;
 }
+
+mat-form-field {
+    margin-bottom: 10px;
+}
+
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

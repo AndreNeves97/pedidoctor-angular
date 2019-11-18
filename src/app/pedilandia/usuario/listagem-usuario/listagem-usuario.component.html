@@ -1,8 +1,14 @@
+<ng-template #loading>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
 <div *ngIf="message_show" [class]="message_class">
   {{ message_text }}
 </div>
 
-<table mat-table [dataSource]="usuarios_listagem" class="mat-elevation-z8">
+<table mat-table [dataSource]="usuarios_listagem" class="mat-elevation-z8" *ngIf="usuarios_listagem != null; else loading">
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef>Nome</th>
     <td mat-cell *matCellDef="let usuario">{{ usuario.nome }}</td>
@@ -11,15 +17,11 @@
     <th mat-header-cell *matHeaderCellDef>Email</th>
     <td mat-cell *matCellDef="let usuario">{{ usuario.email }}</td>
   </ng-container>
-  <ng-container matColumnDef="qtConsultas">
-    <th mat-header-cell *matHeaderCellDef>Qtd. Consultas</th>
-    <td mat-cell *matCellDef="let usuario">{{ usuario.qtConsultas }} consultas</td>
-  </ng-container>
   <ng-container matColumnDef="options">
     <th mat-header-cell *matHeaderCellDef>
       Opções
       <button mat-button color="primary" (click)="getData()">
-        <mat-icon>update</mat-icon>
+        <mat-icon>refresh</mat-icon>
       </button>
     </th>
     <td mat-cell *matCellDef="let usuario">

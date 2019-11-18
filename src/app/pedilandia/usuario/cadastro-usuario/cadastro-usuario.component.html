@@ -1,30 +1,62 @@
-<mat-tab-group>
-  <mat-tab label="Cadastro"> 
-    <div class="user-cadastro-container">
-      <form class="user-form">
+<mat-progress-bar mode="indeterminate" *ngIf="waiting"></mat-progress-bar>
+
+<ng-template #loadingTemplate>
+    <div class="spinner-wrapper">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template> 
+
+<div class="user-cadastro-container main-container" *ngIf="!updating || (updating && !loading); else loadingTemplate">
+
+    <div *ngIf="updating">
+        <button mat-mini-fab color="primary" (click)="navigate_back()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button> <br /> <br />
+    </div>
+    
+    <form [formGroup]='cadastro_form' class="user-form">
         <mat-form-field class="usuario-full-width">
-          <input matInput placeholder="Nome" value="" [(ngModel)]="usuario.nome" [ngModelOptions]="{standalone: true}">
-        </mat-form-field> 
+            <input #nome matInput placeholder="Nome completo" required formControlName="nome">
+            <mat-error>Digite o nome</mat-error>
+        </mat-form-field>
 
         <mat-form-field class="email-full-width">
-          <input matInput placeholder="Email" type="email" value="" [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}">
+            <input matInput placeholder="Email" type="email" required formControlName="email">
+            <mat-error>Digite um email válido</mat-error>
         </mat-form-field> <br>
 
-        <!-- <mat-form-field class="senha-full-width">
-          <input matInput placeholder="Senha" value="" [(ngModel)]="usuario.senha" type="password" [ngModelOptions]="{standalone: true}">
-        </mat-form-field> 
-
         <mat-form-field class="telefone-full-width">
-          <input matInput placeholder="Telefone" value="" [textMask]="{ mask: telefone_mask }"  [(ngModel)]="usuario.telefone" [ngModelOptions]="{standalone: true}">
-        </mat-form-field><br> -->
+            <input matInput placeholder="Telefone" [textMask]="{ mask: telefone_mask }" formControlName="telefone">
+            <mat-error>Digite o telefone</mat-error>
+        </mat-form-field><br>
 
-        <button mat-raised-button isRoundButton color="warn" (click)="limpar()" class="left-button">Limpar</button>
+        <mat-form-field class="senha-full-width">
+            <input 
+                matInput 
+                [placeholder]="updating? 'Nova senha' : 'Senha temporária'" 
+                [required]="!updating" 
+                formControlName="senha" 
+                type="password"
+            >
+            <mat-hint align="end">
 
-        <button mat-raised-button isRoundButton color="primary" (click)="cadastrar()"  class="right-button">Cadastrar</button>
-      </form>
-    </div>
-  </mat-tab>
-  <mat-tab label="Listagem"> 
-      <app-listagem-usuario></app-listagem-usuario>
-  </mat-tab>
-</mat-tab-group>
+                No mínimo 6 caracteres.
+
+            </mat-hint>
+            <mat-error>Digite uma senha válida</mat-error>
+        </mat-form-field> <br>
+
+        <mat-checkbox class="checkbox-paciente" formControlName="telefone" formControlName="isPaciente">
+            É paciente
+        </mat-checkbox>
+
+
+        <div class="action-buttons">
+            <button mat-raised-button isRoundButton color="primary" (click)="salvar()"
+                class="right-button" [disabled]="waiting || cadastro_form.invalid">{{ updating ? 'Atualizar' : 'Cadastrar' }}</button>
+            
+            <div class="spacer"></div>
+            <button mat-raised-button isRoundButton color="warn" (click)="limpar()" class="left-button">Limpar</button>
+        </div>
+    </form>
+</div>
