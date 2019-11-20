@@ -13,7 +13,7 @@
     </mat-step>
     <mat-step [stepControl]="primeiro_form_group" [editable]="true">
         <ng-template matStepLabel>
-            Diagnóstico do paciente
+            Diagnóstico e prescrição
         </ng-template>
         <app-diagnostico-consulta [form_group]="primeiro_form_group" [consulta]="consulta"></app-diagnostico-consulta>
         <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
@@ -21,7 +21,7 @@
     </mat-step>
     <mat-step [stepControl]="segundo_form_group" [editable]="true">
         <ng-template matStepLabel>
-            Remédios e exames
+            Remédios
         </ng-template>
         <app-receita-consulta [form_group]="segundo_form_group" [consulta]="consulta"></app-receita-consulta>
         <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
@@ -32,6 +32,7 @@
             Confirmação
         </ng-template>
         <app-confirmacao-consulta [form_group]="segundo_form_group" [consulta]="consulta"></app-confirmacao-consulta>
-        <button mat-raised-button isRoundButton color="accent"  class="ok-button" (click)="next()">Voltar</button>
+        <button mat-raised-button isRoundButton color="accent"  class="left-button" matStepperPrevious>Voltar</button>
+        <button mat-raised-button isRoundButton color="primary"  class="right-button" (click)="next()">Confirmar</button>
     </mat-step>
 </mat-horizontal-stepper>

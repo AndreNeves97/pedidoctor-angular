@@ -21,6 +21,7 @@ export class Consulta {
     clinica: Clinica;
     medico: Medico;
     dataConsulta: Date;
+    dataAgendada: Date;
     dataRegistro: Date;
     paciente: Usuario;
     tipoConsulta: ConsultaTipo;
@@ -56,7 +57,8 @@ export class Consulta {
             jwt     : "",
             fotoUrl : "",
             telefone: ""
-        })
+        }),
+        dataAgendada: Date  = new Date(),
     ) {
         this.dataConsulta = dataConsulta;
         this.dataRegistro = dataRegistro;
@@ -69,6 +71,7 @@ export class Consulta {
         this.clinica = clinica;
         this.medico = medico;
         this.reportagemConsulta = new ReportagemConsulta();
+        this.dataAgendada = dataAgendada;
     }
 
 }

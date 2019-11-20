@@ -3,6 +3,7 @@ import { Consulta } from 'src/app/pedilandia/consulta/consulta.model';
 import { FormGroup } from '@angular/forms';
 import { ReportagemConsultaService } from '../../reportagem-consulta.service';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-confirmacao-consulta',
@@ -17,7 +18,11 @@ export class ConfirmacaoConsultaComponent implements OnInit {
 
   constructor(
     private service: ReportagemConsultaService
-  ) { }
+  ) { 
+
+    console.log(this.service.get_value())
+
+  }
 
   ngOnInit() { }
 
@@ -45,7 +50,7 @@ export class ConfirmacaoConsultaComponent implements OnInit {
 
   get data_consulta () {
     return this.service.get_consulta().pipe(
-      map((consulta) => consulta.dataConsulta)
+      map((consulta) => consulta.dataAgendada)
     );
   }
 
@@ -55,9 +60,27 @@ export class ConfirmacaoConsultaComponent implements OnInit {
     );
   }
 
+  get nome_medico () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.medico.nome)
+    );
+  }
+
+  get nome_clinica () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.clinica.nome)
+    );
+  }
+
   get diagnostico () {
     return this.service.get_consulta().pipe(
       map((consulta) => consulta.reportagemConsulta.diagnostico)
+    );
+  }
+
+  get descricao_diagnostico () {
+    return this.service.get_consulta().pipe(
+      map((consulta) => consulta.reportagemConsulta.diagnostico.descricao)
     );
   }
 

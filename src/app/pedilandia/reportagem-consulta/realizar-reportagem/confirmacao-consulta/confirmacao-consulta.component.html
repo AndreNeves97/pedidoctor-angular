@@ -1,42 +1,68 @@
 <div class='main-container'>
 
-    <!-- <mat-expansion-panel expanded>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <h2>
-                    
-                </h2>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-
-    </mat-expansion-panel>
-
     <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <h2>
-                    
+                    Dados do paciente: 
                 </h2>
             </mat-panel-title>
         </mat-expansion-panel-header>
-
+        <h3>
+            <b>Nome:</b> {{ nome_paciente | async }}
+        </h3>
     </mat-expansion-panel>
-
+    <br>
     <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <h2>
-                    
+                    Dados da consulta
                 </h2>
             </mat-panel-title>
         </mat-expansion-panel-header>
+        <h3>
+            <b>Nome do médico:</b> {{ nome_medico | async }}
+        </h3>
 
-    </mat-expansion-panel> -->
+        <h3>
+            <b>Clinica:</b> {{ nome_clinica | async }}
+        </h3>
+    </mat-expansion-panel>
+    <br>
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h2>
+                    Diagnóstico:
+                </h2>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>
+            <b>Descrição:</b>
+        </h3>
+        <code style="white-space: pre-line">
+            {{ descricao_diagnostico | async }}
+        </code>
+        <div *ngIf="(( medicamentos | async )?.length > 0); else sem_medicamento">
+            <h3>
+                <b>Medicamentos</b>
+            </h3>
+            <ul *ngFor="let medicamento of ( medicamentos | async )">
+                <li>{{ medicamento.name }}</li>
+            </ul>
+        </div>
+        <ng-template #sem_medicamento>
+            <h3>
+                <b>Não houve medicamentos</b>
+            </h3>
+        </ng-template>
+    </mat-expansion-panel>
 
-    <code>{{ nome_paciente | async | json }}</code> <br>
-    <code>{{ data_consulta | async | date : "dd/MM/yyyy" }}</code> <br>
+    <!-- <code>{{ nome_paciente | async | json }}</code> <br>
+    <code>{{ data_consulta | async | date: "dd/MM/yyyy"}}</code> <br>
     <code>{{ medicamentos  | async | json }}</code> <br>
     <code>{{ medico        | async | json }}</code> <br>
-    <code>{{ diagnostico   | async | json }}</code> <br>
+    <code>{{ diagnostico   | async | json }}</code> <br> -->
 
 </div>

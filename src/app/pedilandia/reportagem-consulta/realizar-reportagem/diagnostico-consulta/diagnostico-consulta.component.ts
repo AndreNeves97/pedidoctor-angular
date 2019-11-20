@@ -59,7 +59,7 @@ Descrição do diagnóstico:`
 
   update_bloc_object() {
     this._consulta.reportagemConsulta.diagnostico.descricao = this.descricao;
-    this.service.update(this._consulta);
+    this.service.set_descricao_diagnostico(this._consulta);
   }
 
 }

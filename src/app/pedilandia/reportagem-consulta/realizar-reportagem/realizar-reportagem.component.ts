@@ -6,7 +6,6 @@ import { switchMap, filter, pairwise }                        from 'rxjs/operato
 import { of }                                                 from 'rxjs';
 import { ConsultaService }                                    from '../../consulta/consulta.service';
 import { SnackService }                                       from 'src/app/common/utils/snack/snack.service';
-import { DetalhesAgendamentoComponent }                       from './detalhes-agendamento/detalhes-agendamento.component';
 import { ReportagemConsultaService }                          from '../reportagem-consulta.service';
 import { DiagnosticoConsultaComponent }                       from './diagnostico-consulta/diagnostico-consulta.component';
 import { ReceitaConsultaComponent }                           from './receita-consulta/receita-consulta.component';
@@ -18,8 +17,6 @@ import { ReceitaConsultaComponent }                           from './receita-co
 })
 export class RealizarReportagemComponent implements OnInit {
 
-  @ViewChild(DetalhesAgendamentoComponent, {static: false})
-  private detalhe_comp: DetalhesAgendamentoComponent;
 
   @ViewChild(DiagnosticoConsultaComponent, {static: false})
   private diagnostico_comp: DiagnosticoConsultaComponent;
@@ -58,8 +55,10 @@ export class RealizarReportagemComponent implements OnInit {
       this.consulta = null;
 
       this.service.find(id).then((consulta: Consulta) => {
-        if ( consulta ) this.consulta = consulta;
-        else {
+        if ( consulta ) {
+          this.consulta = consulta;
+          this.bloc_service.update(this.consulta);
+        } else {
           this.snack_bar_service.open_snack_bar(
             'Consulta não encontrada. Algo deu errado.',
             'warn', 5
@@ -109,9 +108,9 @@ export class RealizarReportagemComponent implements OnInit {
   }
 
   public onStepChange(event: any): void {
-    switch(event.selectedIndex) {
+    switch(event.previouslySelectedIndex) {
       case 0: {
-        this.detalhe_comp.update_bloc_object();
+
         break;
       }
       case 1: {

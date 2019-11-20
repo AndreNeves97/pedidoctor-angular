@@ -72,7 +72,7 @@ export class DetalhesAgendamentoComponent implements OnInit {
   }
 
   public update_bloc_object () {
-    this.service.update(this._consulta);    
+    // this.service.update(this._consulta);    
   }
 
 }

@@ -82,7 +82,7 @@ export class ReceitaConsultaComponent implements OnInit {
 
   public update_bloc_object () {
     this._consulta.medicamentosQueToma = this.medicamentos_selected;
-    this.service.update(this._consulta);
+    this.service.set_medicamento_diagnostico(this._consulta);
   }
 
 }

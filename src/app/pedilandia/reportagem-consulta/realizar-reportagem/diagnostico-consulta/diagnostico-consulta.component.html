@@ -4,9 +4,11 @@
         Paciente: {{ ( paciente != null ) ? paciente.nome : '' }}
     </h2>
     <form [formGroup]="form">
-        <h3>
+        <h4>
             Escreva sobre a consulta, sobre as condições do paciente etc.
-        </h3>
+
+            <b>Aqui também será feita a prescrição de exames e vacinas.</b>
+        </h4>
         <mat-form-field class="input-class">
             <textarea matInput placeholder="Descrição do diagnóstico" rows="15" formControlName="descricao"></textarea>
         </mat-form-field>
