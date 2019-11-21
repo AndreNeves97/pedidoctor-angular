@@ -119,8 +119,6 @@ export class RealizarReportagemComponent implements OnInit {
         this.diagnostico_comp.focusDescricaoInput();
     }
 
-
-
     switch(event.previouslySelectedIndex) {
       case 0: {
 
