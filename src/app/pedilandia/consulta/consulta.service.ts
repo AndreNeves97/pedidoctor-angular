@@ -72,6 +72,11 @@ export class ConsultaService {
                         nome
                         descricao
                     }
+                    
+                    realizacao {
+                        horarioInicio 
+                        horarioFinalizacao
+                    }
                 }
             }
         `);

@@ -38,7 +38,7 @@
             </button>
         </th>
         <td mat-cell *matCellDef="let consulta">
-            <button mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+            <button [disabled]="consulta.realizacao == null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
                 <mat-icon>forward</mat-icon>
             </button>
             <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
