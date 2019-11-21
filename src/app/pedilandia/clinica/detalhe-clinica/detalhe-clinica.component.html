@@ -24,35 +24,40 @@
 
     </mat-card>
 
-    <mat-tab-group class="detail">
-        <mat-tab label="Consultas">
-            <ng-template matTabContent>
-                {{getContent(1)}}
-            </ng-template>
-        </mat-tab>
 
-        <mat-tab label="Clientes">
-            <ng-template matTabContent>
-                {{getContent(1)}}
-            </ng-template>
-        </mat-tab>
-
-        <mat-tab label="Gerentes">
-            <ng-template matTabContent>
-                {{getContent(1)}}
-            </ng-template>
-        </mat-tab>
-
-        <mat-tab label="Médicos">
-            <ng-template matTabContent>
-                {{getContent(1)}}
-            </ng-template>
-        </mat-tab>
+    <div style="height: 100%" *ngIf="authService.usuarioLogado | async as usuario">
         
-        <mat-tab label="Secretários">
-            <ng-template matTabContent>
-                {{getContent(2) }}
-            </ng-template>
-        </mat-tab>
-    </mat-tab-group>
+        <mat-tab-group class="detail">
+            <mat-tab label="Consultas" *ngIf="haveAccess(usuario.usuario, 'consultas')">
+                <ng-template matTabContent>
+                    {{getContent(1)}}
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab label="Clientes" *ngIf="haveAccess(usuario.usuario, 'clientes')">
+                <ng-template matTabContent>
+                    {{getContent(1)}}
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab label="Gerentes" *ngIf="haveAccess(usuario.usuario, 'gerentes')">
+                <ng-template matTabContent>
+                    {{getContent(1)}}
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab label="Médicos">
+                <ng-template matTabContent>
+                    {{getContent(1)}}
+                </ng-template>
+            </mat-tab>
+            
+            <mat-tab label="Secretários" *ngIf="haveAccess(usuario.usuario, 'secretarios')">
+                <ng-template matTabContent>
+                    {{getContent(2) }}
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
 </div>

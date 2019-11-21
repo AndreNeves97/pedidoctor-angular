@@ -27,8 +27,6 @@ import { ReportagemConsultaModule } from './reportagem-consulta/reportagem-consu
 
 @NgModule({
     declarations: [ 
-        MainPedilandiaComponent,
-        DashboardComponent,
     ],
     imports: [
         UsuarioModule,

@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/common/utils/dialog/dialog.service';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
+import { AuthService } from 'src/app/common/security/auth.service';
+import { LoginUsuarioStatus } from 'src/app/common/security/usuario.model';
 
 
 @Component({
@@ -23,8 +25,18 @@ export class ListagemConsultaComponent implements OnInit {
         private service: ConsultaService,
         private router: Router,
         private dialog_service: DialogService,
-        private snack_bar_service: SnackService
-    ) { }
+        private snack_bar_service: SnackService,
+        private authService : AuthService
+    ) {
+
+        this.authService.usuarioLogado.subscribe(v => {
+            if(v.status == LoginUsuarioStatus.LOGADO && v.usuario.roles.includes('admin')) {
+                this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'nomePaciente', 'tipoConsulta', 'options'];
+            } else {
+                this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'tipoConsulta', 'user-options'];
+            }
+        })
+    }
 
     private getData() {
         this.consultas_listagem = null;

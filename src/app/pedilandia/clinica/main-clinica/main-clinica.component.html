@@ -1,19 +1,29 @@
 <div class="main-container">
-
-    <mat-tab-group>
-    
-        <mat-tab label="Listagem de clínicas">
-    
-            <app-listagem-clinica></app-listagem-clinica>
-    
-        </mat-tab>
-    
-        <mat-tab label="Cadastro de clínicas">
-    
-            <app-cadastro-clinica></app-cadastro-clinica>
-    
-        </mat-tab>
+    <div style="height: 100%" *ngIf="authService.usuarioLogado | async as usuario">
         
-    </mat-tab-group>
+        <mat-tab-group 
+            *ngIf="usuario.status == 'logado' && usuario.usuario.roles.includes('admin'); else lista"
+        >
+        
+            <mat-tab label="Listagem de clínicas">
+        
+                <app-listagem-clinica></app-listagem-clinica>
+        
+            </mat-tab>
+        
+            <mat-tab label="Cadastro de clínicas">
+        
+                <app-cadastro-clinica></app-cadastro-clinica>
+        
+            </mat-tab>
+            
+        </mat-tab-group>
+            
+    </div>
+    
 
 </div>
+
+<ng-template #lista>
+    <app-listagem-clinica></app-listagem-clinica>
+</ng-template>

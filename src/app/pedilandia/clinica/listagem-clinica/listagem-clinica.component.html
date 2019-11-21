@@ -57,6 +57,26 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="view-option">
+    <th mat-header-cell *matHeaderCellDef>
+        Opções
+        <button mat-button color="primary" (click)="getData()">
+        <mat-icon>update</mat-icon>
+        </button>
+    </th>
+    <td mat-cell *matCellDef="let clinica">
+        <button
+        mat-icon-button
+        matTooltip="Visualizar clinica"
+        (click)="visualizar(clinica._id)"
+        color="primary"
+        aria-label="Example icon-button with a heart icon"
+        >
+        <mat-icon>visibility</mat-icon>
+        </button>
+    </td>
+    </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="colunas_mostradas"></tr>
   <tr mat-row *matRowDef="let row; columns: colunas_mostradas"></tr>
 </table>

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ClinicaService } from '../clinica.service';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AuthService } from 'src/app/common/security/auth.service';
+import { Usuario } from 'src/app/common/security/usuario.model';
 
 @Component({
     selector: 'app-detalhe-clinica',
@@ -18,6 +20,7 @@ export class DetalheClinicaComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private service: ClinicaService,
+        private authService : AuthService
     ) {
         this.clinica = null;
 
@@ -49,5 +52,22 @@ export class DetalheClinicaComponent implements OnInit {
 
     getContent(index: number) {
         return `Conteúdo para a aba ${index}`;
+    }
+
+    haveAccess(usuario : Usuario, aba : string) {
+        let cond = usuario.roles.includes('admin');
+
+        if(['consultas', 'clientes', 'gerentes', 'secretarios'].includes(aba))
+            cond = 
+                usuario.atribuicoes.medico.includes(this.clinica._id) || 
+                usuario.atribuicoes.gerente.includes(this.clinica._id) || 
+                usuario.atribuicoes.secretario.includes(this.clinica._id);
+        
+        console.log(this.clinica._id, usuario.atribuicoes.medico);
+
+        if(aba == 'medicos')
+            cond = true;
+
+        return cond;
     }
 }

@@ -4,6 +4,8 @@ import { ClinicaService } from '../clinica.service';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/common/utils/dialog/dialog.service';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
+import { AuthService } from 'src/app/common/security/auth.service';
+import { LoginUsuarioStatus } from 'src/app/common/security/usuario.model';
 
 @Component({
     selector: 'app-listagem-clinica',
@@ -15,15 +17,24 @@ export class ListagemClinicaComponent implements OnInit {
     private clinicas: Clinica[];
 
     private colunas_mostradas: string[] = [
-        'nome', 'endereco', 'options'
+        'nome', 'endereco'
     ];
 
     constructor(
         private service: ClinicaService,
         private router: Router,
         private dialog_service: DialogService,
-        private snack_bar_service: SnackService
-    ) { }
+        private snack_bar_service: SnackService,
+        private authService : AuthService
+    ) {
+        this.authService.usuarioLogado.subscribe(v => {
+            if(v.status == LoginUsuarioStatus.LOGADO && v.usuario.roles.includes('admin')) {
+                this.colunas_mostradas = ['nome', 'endereco', 'options']
+            } else {
+                this.colunas_mostradas = ['nome', 'endereco', 'view-option']
+            }
+        })
+    }
 
     ngOnInit() {
         this.getData();

@@ -117,5 +117,12 @@
             </div>
         </div>
     </mat-expansion-panel>
+
+    <div *ngIf="consulta.realizacao != null">
+        Consulta realizada!! Detalhes:
+
+        <pre>{{ consulta.realizacao | json }}</pre>
+    </div>
+
     <button mat-raised-button class='ok-button' color="primary" (click)="navigate_back()">Voltar</button>
 </div>
