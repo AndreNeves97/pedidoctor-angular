@@ -38,6 +38,23 @@ export class ListagemConsultaComponent implements OnInit {
         })
     }
 
+    private check_if_today ( consulta: Consulta ) {
+        let today: Date = new Date();
+        let date: Date;
+        date = new Date(consulta.dataAgendada);
+        
+        today.setHours(0,0,0,0);
+        date.setHours(0,0,0,0);
+
+        if ( date.getTime() > today.getTime())
+            return 1
+        else if ( date.getTime() < today.getTime())
+            return -1
+        else
+            return 0;
+
+    }
+
     private getData() {
         this.consultas_listagem = null;
         
