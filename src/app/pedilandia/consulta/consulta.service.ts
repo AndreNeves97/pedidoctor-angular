@@ -219,7 +219,7 @@ export class ConsultaService {
                         horarioFinalizacao: "${ consulta.reportagemConsulta.horarioFinalizacao }",
                         diagnostico: {
                             tipo: {
-                                _id: "5dd160051400e904b55cf3e7"
+                                _id: "5db194b3a9c67e55b0539955"
                             }
                             descricao: "${ escape(consulta.reportagemConsulta.diagnostico.descricao) }"
                         }
