@@ -2,7 +2,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -25,8 +24,6 @@ import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
     declarations: [
-        HomeComponent, 
-        MainComponent
     ],
     imports: [
         CommonModule,
@@ -55,6 +52,6 @@ import { MatProgressSpinnerModule } from '@angular/material';
         MatTooltipModule,
 
     ],
-    exports: [HomeComponent]
+    exports: []
 })
 export class MainModule { }

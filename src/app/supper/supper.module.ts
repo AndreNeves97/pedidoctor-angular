@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-    declarations: [MainSupperComponent],
+    declarations: [],
     imports: [
         CommonModule,
 
@@ -68,7 +68,7 @@ import { MatInputModule } from '@angular/material/input';
         MatTooltipModule,
     ],
     exports: [
-        MainSupperComponent
+        
     ]
 })
 export class SupperModule {

@@ -64,6 +64,7 @@ import { ReportagemConsultaModule } from './pedilandia/reportagem-consulta/repor
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { AddUserToGroupDialogModule } from './common/utils/components/add-user-to-group-dialog/add-user-to-group-dialog.module';
+import { MessageDialogModule } from './common/utils/components/message-dialog/message-dialog.module';
 
 registerLocaleData(localePt);
 
@@ -151,7 +152,8 @@ registerLocaleData(localePt);
         GoogleLoginButtonModule,
         LoadingDialogModule,
         ChangePasswordDialogModule,
-        AddUserToGroupDialogModule
+        AddUserToGroupDialogModule,
+        MessageDialogModule
 
     ],
     exports: [
