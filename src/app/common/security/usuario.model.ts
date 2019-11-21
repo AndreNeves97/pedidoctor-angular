@@ -25,6 +25,7 @@ export class Usuario {
     roles: string[];
     senha?: string;
     isPaciente?: string;
+    atribuicoes : any;
 
     constructor(params : {
         _id : string,
@@ -35,6 +36,7 @@ export class Usuario {
         fotoUrl: string,
         telefone: string,
         roles?: string[],
+        atribuicoes?: any,
         tipo: number,
         senha?: string,
         isPaciente?: boolean

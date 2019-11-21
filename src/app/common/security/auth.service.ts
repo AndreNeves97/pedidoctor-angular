@@ -8,19 +8,19 @@ import { HttpClient } from '@angular/common/http';
 import { Router, Route } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root' 
+    providedIn: 'root'
 })
 export class AuthService {
 
-    apiUrl : string = 'http://localhost:3000';
+    apiUrl: string = 'http://localhost:3000';
 
-    usuarioLogado : BehaviorSubject<UsuarioLogadoModel>;
-    
+    usuarioLogado: BehaviorSubject<UsuarioLogadoModel>;
+
 
     constructor(
         private afAuth: AngularFireAuth,
         private http: HttpClient,
-        private router : Router
+        private router: Router
     ) {
         const usuarioLogadoDefault = {
             status: LoginUsuarioStatus.UNDEFINED,
@@ -29,11 +29,20 @@ export class AuthService {
         this.usuarioLogado = new BehaviorSubject<UsuarioLogadoModel>(usuarioLogadoDefault);
 
 
-        this.afAuth.user.subscribe( user => this.newFirebaseUser(user) );
+        this.afAuth.user.subscribe(user => this.newFirebaseUser(user));
+
+        this.usuarioLogado.subscribe(v => {
+            if (v.status === LoginUsuarioStatus.DESLOGADO) {
+                this.router.navigate(['login']);
+            }
+        });
     }
 
-    async newFirebaseUser(user : firebase.User) {
-        if(user == null) {
+    async newFirebaseUser(user: firebase.User) {
+
+        console.log(user);
+
+        if (user == null) {
             this.setUsuarioLogado(null);
             return;
         }
@@ -42,16 +51,17 @@ export class AuthService {
             status: LoginUsuarioStatus.VALIDANDO,
             usuario: null
         });
-        
+
         const idToken = await user.getIdToken();
         const usuarioLogado = await this.validateFirebaseLogin(idToken);
         this.setUsuarioLogado(usuarioLogado);
+
     }
 
-    private setUsuarioLogado(usuario : Usuario) {
-        let status : LoginUsuarioStatus = LoginUsuarioStatus.DESLOGADO;
+    private setUsuarioLogado(usuario: Usuario) {
+        let status: LoginUsuarioStatus = LoginUsuarioStatus.DESLOGADO;
 
-        if(usuario != null) {
+        if (usuario != null) {
             console.log('jwt', usuario.jwt);
             status = LoginUsuarioStatus.LOGADO;
         }
@@ -60,13 +70,6 @@ export class AuthService {
             status,
             usuario
         });
-
-        
-        if (status === LoginUsuarioStatus.LOGADO) {
-            // this.router.navigate(['pedilandia']);
-        } else if(status === LoginUsuarioStatus.DESLOGADO) {
-            this.router.navigate(['login']);
-        }
     }
 
     async signInWithGoogle() {
@@ -74,16 +77,25 @@ export class AuthService {
     }
 
     async signOut() {
-        this.afAuth.auth.signOut();
+        console.log(this.afAuth.auth.currentUser);
+
+        if(this.afAuth.auth.currentUser != null) {
+            this.afAuth.auth.signOut();
+        } else {
+            this.usuarioLogado.next({
+                status: LoginUsuarioStatus.DESLOGADO,
+                usuario: null
+            });
+        }
     }
 
-    getFirebaseUser() : Observable<firebase.User> {
+    getFirebaseUser(): Observable<firebase.User> {
         return this.afAuth.user;
     }
 
-    async validateFirebaseLogin(idToken : string) : Promise<Usuario> {
-        const res : any = await this.http.post(
-            `${this.apiUrl}/login`, 
+    async validateFirebaseLogin(idToken: string): Promise<Usuario> {
+        const res: any = await this.http.post(
+            `${this.apiUrl}/login`,
             {
                 'idToken': idToken
             }
@@ -95,6 +107,7 @@ export class AuthService {
             email: res.user.email,
             fotoUrl: res.user.fotoUrl,
             roles: res.user.roles,
+            atribuicoes: res.user.atribuicoes,
             jwt: res.jwt,
             telefone: null,
             tipo: 0,
@@ -102,6 +115,34 @@ export class AuthService {
         });
 
         return user;
-  }
+    }
+
+
+    async loginWithEmailAndPass(email: string, pass: string) {
+        const res: any = await this.http.post(
+            `${this.apiUrl}/login-email`,
+            {
+                'email': email,
+                'pass': pass,
+            }
+        ).toPromise();
+
+        const user = new Usuario({
+            _id: res.user._id,
+            nome: res.user.nome,
+            email: res.user.email,
+            fotoUrl: res.user.fotoUrl,
+            roles: res.user.roles,
+            atribuicoes: res.user.atribuicoes,
+            jwt: res.jwt,
+            telefone: null,
+            tipo: 0,
+            qtConsultas: 0,
+        });
+
+
+        this.setUsuarioLogado(user);
+    }
+
 
 }

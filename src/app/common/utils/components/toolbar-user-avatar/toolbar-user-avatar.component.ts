@@ -24,7 +24,6 @@ export class ToolbarUserAvatarComponent implements OnInit {
 
     openUserDialog() {
         const dialogRef = this.dialog.open(DialogUserInfoComponent, {
-            width: '400px',
             data: {}
         });
 

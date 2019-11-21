@@ -8,7 +8,7 @@
             </div>
         
             <mat-form-field>
-                <input matInput formControlName="email" placeholder="E-mail">
+                <input matInput formControlName="email" autofocus placeholder="E-mail">
                 <mat-error *ngIf="form.get('email').invalid">Digite um email válido</mat-error>
             </mat-form-field>
 
@@ -18,20 +18,22 @@
             </mat-form-field>
         
             <div class="submit-button-area">
-                <a 
+                <button 
                     *ngIf="!loading" 
+                    [disabled]="this.form.invalid"
                     mat-raised-button 
                     color="primary"
                     (click)="login()"
                 >
                     LOGIN
-                </a>
+                </button>
 
                 <mat-spinner *ngIf="loading"></mat-spinner>
             </div>
         
-            <app-google-login-button></app-google-login-button>
-        
+            <app-google-login-button *ngIf="!loading" (click)="googleLogin()"></app-google-login-button>
+
         </form>
+
     </div>
 </div>

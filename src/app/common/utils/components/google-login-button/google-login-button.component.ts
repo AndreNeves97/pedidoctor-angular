@@ -10,13 +10,9 @@ export class GoogleLoginButtonComponent implements OnInit {
 
   
     constructor(
-        private auth: AuthService,
     ) { }
 
     ngOnInit() {
     }
 
-    async login() {
-        this.auth.signInWithGoogle();
-    }
 }
