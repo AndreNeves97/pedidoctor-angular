@@ -34,4 +34,17 @@ export class ReportagemConsultaService {
     consulta.medicamentosQueToma = new_consulta.medicamentosQueToma;
     this.update(consulta);
   }
+
+  public set_horario_inicio_now () {
+    let consulta: Consulta = this.source.value;
+    consulta.reportagemConsulta.horarioInicio = new Date();
+    this.update(consulta);
+  }
+
+  public set_horario_final_now () {
+    let consulta: Consulta = this.source.value;
+    consulta.reportagemConsulta.horarioFinalizacao = new Date();
+    this.update(consulta);  
+  }
+
 }

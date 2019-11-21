@@ -9,6 +9,8 @@ import { SnackService }                                       from 'src/app/comm
 import { ReportagemConsultaService }                          from '../reportagem-consulta.service';
 import { DiagnosticoConsultaComponent }                       from './diagnostico-consulta/diagnostico-consulta.component';
 import { ReceitaConsultaComponent }                           from './receita-consulta/receita-consulta.component';
+import { ConfirmacaoConsultaComponent } from './confirmacao-consulta/confirmacao-consulta.component';
+import { ReportagemConsulta } from './reportagem-consulta.model';
 
 @Component({
   selector: 'app-realizar-reportagem',
@@ -18,11 +20,14 @@ import { ReceitaConsultaComponent }                           from './receita-co
 export class RealizarReportagemComponent implements OnInit {
 
 
-  @ViewChild(DiagnosticoConsultaComponent, {static: false})
+  @ViewChild(DiagnosticoConsultaComponent, { static: false })
   private diagnostico_comp: DiagnosticoConsultaComponent;
 
-  @ViewChild(ReceitaConsultaComponent, {static: false})
+  @ViewChild(ReceitaConsultaComponent, { static: false })
   private receita_comp: ReceitaConsultaComponent;
+
+  @ViewChild(ConfirmacaoConsultaComponent, { static: false })
+  private confirmacao_comp: ConfirmacaoConsultaComponent;
 
   private primeiro_form_group : FormGroup;
   private segundo_form_group  : FormGroup;
@@ -53,11 +58,13 @@ export class RealizarReportagemComponent implements OnInit {
       })
     ).subscribe((id: string) => {
       this.consulta = null;
-
       this.service.find(id).then((consulta: Consulta) => {
         if ( consulta ) {
           this.consulta = consulta;
+          if(!consulta.reportagemConsulta) 
+            consulta.reportagemConsulta = new ReportagemConsulta();
           this.bloc_service.update(this.consulta);
+          this.bloc_service.set_horario_inicio_now();
         } else {
           this.snack_bar_service.open_snack_bar(
             'Consulta não encontrada. Algo deu errado.',
@@ -70,8 +77,7 @@ export class RealizarReportagemComponent implements OnInit {
 
   }
 
-  ngOnInit() { 
-  }
+  ngOnInit() {}
 
   private init_forms() {
 
@@ -126,6 +132,11 @@ export class RealizarReportagemComponent implements OnInit {
         break;
       }
     }
+  }
+
+  public confirmacao () {
+    this.bloc_service.set_horario_final_now();
+    this.confirmacao_comp.salvar();
   }
 
 }

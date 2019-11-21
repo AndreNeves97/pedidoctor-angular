@@ -209,6 +209,37 @@ export class ConsultaService {
         return null;
     }
 
+    async reportar ( consulta: Consulta ): Promise<Consulta> {
+        const mut = `
+            mutation {
+                reportagemFinalizacaoAgendamento (
+                    id: "${ consulta._id }",
+                    informacoesRealizacao: {
+                        horarioInicio: "${ consulta.reportagemConsulta.horarioInicio }",
+                        horarioFinalizacao: "${ consulta.reportagemConsulta.horarioFinalizacao }",
+                        diagnostico: {
+                            tipo: {
+                                _id: "5dd160051400e904b55cf3e7"
+                            }
+                            descricao: "${ escape(consulta.reportagemConsulta.diagnostico.descricao) }"
+                        }
+                    }
+                ) {
+                    _id
+                }
+            }
+            
+        `;
+
+        const response = await this.api.graphqlMutation(mut);
+
+        if ( response.data && response.data.reportagemFinalizacaoAgendamento ) {
+            return response.data.reportagemFinalizacaoAgendamento;
+        }
+
+        return null;
+    }
+
 }
 
 const defaultFindSelect = `
