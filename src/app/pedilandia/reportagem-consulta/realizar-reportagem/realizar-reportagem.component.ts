@@ -114,6 +114,13 @@ export class RealizarReportagemComponent implements OnInit {
   }
 
   public onStepChange(event: any): void {
+
+    if(event.selectedIndex == 1) {
+        this.diagnostico_comp.focusDescricaoInput();
+    }
+
+
+
     switch(event.previouslySelectedIndex) {
       case 0: {
 

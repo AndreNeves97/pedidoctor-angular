@@ -9,8 +9,15 @@
 
             <b>Aqui também será feita a prescrição de exames e vacinas.</b>
         </h4>
+
+
         <mat-form-field class="input-class">
-            <textarea matInput placeholder="Descrição do diagnóstico" rows="15" formControlName="descricao"></textarea>
+            <textarea #descricao matInput placeholder="Descrição do diagnóstico" rows="15" formControlName="descricao"  [matAutocomplete]="auto"></textarea>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let option of options | async" [value]="option">
+                    {{option.value}}
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
     </form>
 </div>
