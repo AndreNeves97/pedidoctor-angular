@@ -94,7 +94,6 @@ registerLocaleData(localePt);
 
         BrowserModule,
         AppRoutingModule,
-
         UsuarioModule,
         ConsultaModule,
         ClinicaModule,
@@ -165,7 +164,7 @@ registerLocaleData(localePt);
     providers: [
         { provide: LOCALE_ID, useValue: "pt-BR" },
         { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-        FormBuilder
+        FormBuilder,
     ],
     bootstrap: [AppComponent]
 })
