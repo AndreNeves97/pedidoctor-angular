@@ -7,7 +7,7 @@
     <h1>Editar tipo de consulta</h1> <br/> <br/>
       <form [formGroup]="update_form">
         <mat-form-field class="in-field">
-          <input matInput placeholder="nome do tipo de consulta..." formControlName="nome" />
+          <input required  matInput placeholder="nome do tipo de consulta..." formControlName="nome" />
           <mat-hint align="end">No mínimo 4 caracteres</mat-hint>
           <mat-error *ngIf="nome.invalid && nome.touched">
             Nome inválido
@@ -17,7 +17,7 @@
         <br />
     
         <mat-form-field class="in-field">
-          <input
+          <input required 
             matInput
             placeholder="descrição do tipo de consulta..."
             formControlName="descricao"

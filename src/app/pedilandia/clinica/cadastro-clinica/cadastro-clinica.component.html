@@ -1,7 +1,7 @@
 <div class="cadastro-container">
   <form [formGroup]="cadastro_form">
     <mat-form-field class="in-field">
-      <input matInput placeholder="nome da clínica..." formControlName="nome" />
+      <input required matInput placeholder="nome da clínica..." formControlName="nome" />
       <mat-hint align="end">No mínimo 4 caracteres</mat-hint>
       <mat-error *ngIf="nome.invalid && nome.touched">
         Nome inválido
@@ -11,8 +11,8 @@
     <br />
 
     <mat-form-field class="in-field">
-      <input
-        matInput
+      <input required
+        matInput 
         placeholder="endereço da clínica..."
         formControlName="endereco"
       />

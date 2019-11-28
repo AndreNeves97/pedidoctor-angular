@@ -29,8 +29,7 @@ export class Consulta {
     medicamentosQueToma: string[];
     doencasRecentes: string[];
     informacoesAdicionais: string;
-    reportagemConsulta: ReportagemConsulta;
-    realizacao: any;
+    realizacao: ReportagemConsulta;
     
     constructor(
         dataConsulta: Date  = new Date(),
@@ -71,7 +70,7 @@ export class Consulta {
         this.informacoesAdicionais = informacoesAdicionais;
         this.clinica = clinica;
         this.medico = medico;
-        this.reportagemConsulta = new ReportagemConsulta();
+        this.realizacao = new ReportagemConsulta();
         this.dataAgendada = dataAgendada;
     }
 
