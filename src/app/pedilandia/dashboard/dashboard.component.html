@@ -1,23 +1,41 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
-      <mat-grid-tile>
-    <mat-card class="dashboard-card">
-      <mat-card-header>
-        <mat-card-title>
-          Consultas de {{ title }}
-        </mat-card-title>
-      </mat-card-header>
-      
-      <div *ngFor = "let consulta of consultas">
-        <mat-card class="consulta-card" *ngIf="consulta.realizacao == null || !consulta.realizacao">
-          Consulta de {{consulta.paciente.nome}} às {{consulta.dataAgendada | date: "hh:mm"}}
-          <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
-            <mat-icon>forward</mat-icon>
-          </button>
-        </mat-card>
-      </div>
-    </mat-card>
-  </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>
+                Consultas de {{ title }}
+                </mat-card-title>
+            </mat-card-header>
+            
+            <div *ngFor = "let consulta of consultas">
+                <mat-card class="consulta-card" *ngIf="consulta.realizacao == null || !consulta.realizacao">
+                Consulta de {{consulta.paciente.nome}} às {{consulta.dataAgendada | date: "hh:mm"}}
+                <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+                    <mat-icon>forward</mat-icon>
+                </button>
+                </mat-card>
+            </div>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>
+                Consultas de amanhã
+                </mat-card-title>
+            </mat-card-header>
+            
+            <div *ngFor = "let consulta of consultas">
+                <mat-card class="consulta-card" *ngIf="consulta.realizacao == null || !consulta.realizacao">
+                Consulta de {{consulta.paciente.nome}} às {{consulta.dataAgendada | date: "hh:mm"}}
+                <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+                    <mat-icon>forward</mat-icon>
+                </button>
+                </mat-card>
+            </div>
+            </mat-card>
+        </mat-grid-tile>
   <mat-grid-tile  [colspan]="2"  [rowspan] = "2">
     
     <mat-card class="dashboard-card">
