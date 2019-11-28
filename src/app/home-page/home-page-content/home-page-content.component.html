@@ -1,74 +1,262 @@
-<header class="docs-header-background"
-        [class.is-next-version]="isNextVersion">
-  <div class="docs-header-section">
-    <div class="docs-header-headline">
-      <h1 class="mat-h1">PediDoctor</h1>
-      <h2>A saúde do seu filho nas palmas das suas mãos</h2>
+<header class="docs-header-background" [class.is-next-version]="isNextVersion">
+    <div class="docs-header-section">
+        <div class="docs-header-headline">
+            <h1 class="mat-h1">PediDoctor</h1>
+            <h2>A saúde do seu filho nas palmas das suas mãos</h2>
+        </div>
+        <div class="docs-header-start">
+            <a mat-raised-button class="docs-button" routerLink="/pedilandia">Acessar sistema</a>
+        </div>
     </div>
-    <div class="docs-header-start">
-     <a mat-raised-button class="docs-button" routerLink="/pedilandia">Acessar sistema</a>
-    </div>
-  </div>
 </header>
 
 <div class="docs-homepage-promo">
-  <div class="docs-homepage-row">
-    <div class="docs-homepage-promo-img">
-            <img src="assets/landpage-img2.jpeg" alt="">
-      <!-- <docs-svg-viewer src="../assets/img/homepage/sprintzerotoapp.svg"
-                       [scaleToContainer]="true"></docs-svg-viewer> -->
-    </div>
-    <div class="docs-homepage-promo-space"></div>
-    <div class="docs-homepage-promo-desc">
-      <h2>Essa é Mariana, filha de Beatriz</h2>
-      <ul>
-          <li>Nascida em Belo Horizonte</li>
-          <li>Desde dois anos de idade enfrenta problemas com bronquite</li>
-      </ul>
-    </div>
-  </div>
-  <div class="docs-homepage-row docs-homepage-reverse-row">
-    <div class="docs-homepage-promo-img">
-            <img src="assets/landpage-img1.jpeg" alt="">
-      <!-- <docs-svg-viewer src="../assets/img/homepage/fastandconsistent.svg"
-                       [scaleToContainer]="true"></docs-svg-viewer> -->
-    </div>
-    <div class="docs-homepage-promo-space"></div>
-    <div class="docs-homepage-promo-desc">
-      <h2>Aos 4 anos, Beatriz e sua família se mudaram para Ipatinga</h2>
-      <p>A partir desse momento, os médicos tiveram dificuldades nas consultas, 
-            pois todo o histórico médico de Mariana permaneceu no hospital da sua antiga cidade.</p>
-    </div>
-  </div>
-  <div class="docs-homepage-row">
-    <div class="docs-homepage-promo-img">
-        <img src="assets/landpage-img3.jpeg" alt="">
-      <!-- <docs-svg-viewer src="../assets/img/homepage/versatile.svg"
-                       [scaleToContainer]="true"></docs-svg-viewer> -->
-    </div>
-    <div class="docs-homepage-promo-space"></div>
-    <div class="docs-homepage-promo-desc">
-      <h2>Solução: PediDoctor</h2>
-      <p>Software que tem o objetivo de centralizar as informações médicas que são importantes para a 
-          vida da criança, e permitir um diagnóstico compartilhado entre os diversos setores de saúde
-      </p>
-    </div>
-  </div>
-  <div class="docs-homepage-row docs-homepage-reverse-row">
-    <div class="docs-homepage-promo-img">
-        <img src="assets/landpage-img1.jpeg" alt="">
-      <!-- <docs-svg-viewer src="../assets/img/homepage/optimized.svg"
-                       [scaleToContainer]="true"></docs-svg-viewer> -->
-    </div>
-    <div class="docs-homepage-promo-space"></div>
-    <div class="docs-homepage-promo-desc">
-      <h2>Optimized for Angular</h2>
-      <p>Built by the Angular team to integrate seamlessly with Angular.</p>
-    </div>
-  </div>
-  <div class="docs-homepage-bottom-start">
-    <a mat-raised-button class="docs-button" routerLink="/pedilandia" color="accent">
-      Acessar sistema
+    <div class="anchor" id="slide-0"  #scrollSpy ></div>
+    <a href="#slide-1" [ngStyle]="{'opacity': show[0]? 1.0 : 0 }" class="docs-homepage-row" animateOnScroll animationName="animated fadeIn">
+    
+        <!-- Introdução -->
+        <h2 style="text-align: center; font-size: 35px; margin-bottom: 30px;">Contextualização</h2>
+    
+        <div class="content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img2.jpeg" alt="">
+
+            </div>
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Essa é Mariana, filha de Beatriz</h2>
+                <ul>
+                    <li >Nascida em Belo Horizonte</li>
+                    <li>Desde dois anos de idade enfrenta problemas com bronquite</li>
+                </ul>
+            </div>
+        </div>
     </a>
-  </div>
+
+    <div class="anchor" id="slide-1"  #scrollSpy></div>
+    <a href="#slide-2"  [ngStyle]="{'opacity': show[1]? 1 : 0}" class="docs-homepage-row docs-homepage-reverse-row" animateOnScroll animationName="animated fadeIn">
+        
+        
+        <div  class="content-container content-container-reverse">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img1.jpeg" alt="">
+
+            </div>
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Aos 4 anos, Beatriz e sua família se mudaram para Ipatinga</h2>
+                <p >A partir desse momento, os médicos tiveram dificuldades nas consultas,
+                    pois todo o histórico médico de Mariana permaneceu no hospital da sua antiga cidade.</p>
+            </div>
+        </div>
+    </a>
+
+    <div class="anchor" id="slide-2"  #scrollSpy></div>
+    <a href="#slide-3"  [ngStyle]="{'opacity': show[2]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+
+        <div  class="content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img3.jpeg" alt="">
+
+            </div>
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Solução: PediDoctor</h2>
+                <p>
+                    Software que tem o objetivo de centralizar as informações médicas que são importantes para a
+                    vida da criança, além de permitir um diagnóstico compartilhado entre os diversos setores de saúde.
+                </p>
+            </div>
+        </div>
+    </a>
+
+    <br><br><br>
+
+
+    <!-- Mètodo de desenvolvimento -->
+
+    <div class="anchor" id="slide-3"  #scrollSpy></div>
+    <div style="width: 100%; height: 1px; background: #a2a2a2; margin-top: 60px;"></div>
+    <a href="#slide-4"  style="padding-top: 60px;" [ngStyle]="{'opacity': show[3]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        
+        <h2 style="text-align: center; font-size: 35px; margin-bottom: 30px;">Método de Desenvolvimento</h2>
+        
+        <div class="content-container content-container-reverse">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img4.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Definição do escopo</h2>
+                <p>
+                    Verificação do processo básico de marcação e acompanhamento de consultas em clínicas médicas.
+                </p>
+                <p>
+                    Também foram levantadas hipóteses sobre quais informações são importantes para os pais e os médicos
+                </p>
+            </div>
+        </div>
+    </a>
+
+
+
+    <div class="anchor" id="slide-4"  #scrollSpy></div>
+    <a href="#slide-5" [ngStyle]="{'opacity': show[4]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        <div class="content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img5.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Ferramentas utilizadas</h2>
+                <ul>
+                    <li>Backend: Servidor em <b>Node.js</b>, com banco de dados <b>MongoDb</b> e uso da tecnologia <b>GraphQl</b>. </li>
+                    <li>Frontend: Framework Algular 2+, com Material Design</li>
+                    <li>Versionamento: Ferramenta Git, com servidor GitLab e cliente SmartGit/GitKraken</li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+    <div class="anchor" id="slide-5"  #scrollSpy></div>
+    <a href="#slide-6" [ngStyle]="{'opacity': show[5]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        <div class="content-container content-container-reverse">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img6.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Processo de Desenvolvimento</h2>
+                <ul>
+                    <li>Cronograma baseado no Scrum:  Foram realizadas iterações para entregas quinzenais, com priorização
+                        daquilo que mais agrega valor aos usuários.</li>
+                    <li>Também foram adotadas algumas práticas do <i>Extreme Programing</i>, como: Integração contínua,
+                    padrões de codificação e projeto simples</li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+    <!-- Divisão do trabalho -->
+
+    <div class="anchor" id="slide-6"  #scrollSpy></div>
+    <div style="width: 100%; height: 1px; background: #a2a2a2; margin-top: 60px;"></div>
+    <a href="#slide-7"  style="padding-top: 60px;" [ngStyle]="{'opacity': show[6]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        
+        <h2 style="text-align: center; font-size: 35px; margin-bottom: 30px;">Distribuição das atividades</h2>
+        
+        <div class="content-container content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img7.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <p>
+                    Todos participaram da implementação de todas as funções, em front-end e backend, 
+                    mas houve algumas distribuições:
+                </p>
+
+                <ul>
+                    <li>André: Aspectos mais específicos do backend:
+                        Modelo de dados e 
+                        API</li>
+
+                    <li>Leonam: Aspectos mais específicos do frontend: 
+                        Padrões de interface e
+                        Fluxos de usabilidade                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+
+    <!-- Cronograma -->
+
+    <div class="anchor" id="slide-6"  #scrollSpy></div>
+    <div style="width: 100%; height: 1px; background: #a2a2a2; margin-top: 60px;"></div>
+    <a href="#slide-7"  style="padding-top: 60px;" [ngStyle]="{'opacity': show[6]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        
+        <h2 style="text-align: center; font-size: 35px; margin-bottom: 30px;">Distribuição das atividades</h2>
+        
+        <div class="content-container content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img7.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <p>
+                    Todos participaram da implementação de todas as funções, em front-end e backend, 
+                    mas houve algumas distribuições:
+                </p>
+
+                <ul>
+                    <li>André: Aspectos mais específicos do backend:
+                        Modelo de dados e 
+                        API</li>
+
+                    <li>Leonam: Aspectos mais específicos do frontend: 
+                        Padrões de interface e
+                        Fluxos de usabilidade                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+    <div class="anchor" id="slide-7"  #scrollSpy></div>
+    <a href="#slide-8" [ngStyle]="{'opacity': show[7]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        <div class="content-container">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img5.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Ferramentas utilizadas</h2>
+                <ul>
+                    <li>Backend: Servidor em <b>Node.js</b>, com banco de dados <b>MongoDb</b> e uso da tecnologia <b>GraphQl</b>. </li>
+                    <li>Frontend: Framework Algular 2+, com Material Design</li>
+                    <li>Versionamento: Ferramenta Git, com servidor GitLab e cliente SmartGit/GitKraken</li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+    <div class="anchor" id="slide-8"  #scrollSpy></div>
+    <a href="#slide-9" [ngStyle]="{'opacity': show[8]? 1 : 0}" class="docs-homepage-row" data-aos="fade-up">
+        <div class="content-container content-container-reverse">
+            <div class="docs-homepage-promo-img">
+                <img src="assets/landpage-img6.jpeg" alt="">
+            </div>
+
+            <div class="docs-homepage-promo-space"></div>
+            <div class="docs-homepage-promo-desc">
+                <h2>Processo de Desenvolvimento</h2>
+                <ul>
+                    <li>Cronograma baseado no Scrum:  Foram realizadas iterações para entregas quinzenais, com priorização
+                        daquilo que mais agrega valor aos usuários.</li>
+                    <li>Também foram adotadas algumas práticas do <i>Extreme Programing</i>, como: Integração contínua,
+                    padrões de codificação e projeto simples</li>
+                </ul>
+            </div>
+        </div>
+    </a>
+
+
+    <div class="docs-homepage-bottom-start" style="margin-top: 150px;">
+        <a mat-raised-button class="docs-button" routerLink="/pedilandia" color="accent">
+            Acessar sistema
+        </a>
+    </div>
 </div>
