@@ -5,6 +5,7 @@ import * as canvas from './canvasjs.min';
 import { ConsultaService } from '../consulta/consulta.service';
 import { Consulta } from '../consulta/consulta.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/security/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,8 +42,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private consultaService: ConsultaService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authService : AuthService
+  ) {
+    this.getDados();
+  }
+
+  async getDados() {
+
+    console.log(await this.consultaService.getQtConsultasPorSintoma(this.authService.usuarioLogado.value.usuario));
+  }
 
   ngOnInit() {
 

@@ -7,7 +7,7 @@
 <mat-horizontal-stepper linear #stepper *ngIf="clinicasLoaded && tiposConsultasLoaded; else loading" (selectionChange)="stepChange($event)">
 
   <mat-step [stepControl]="primeiro_form_group" [editable]="true">
-    <ng-template matStepLabel>Clínica e Médico</ng-template>
+    <ng-template matStepLabel>Clínica e Médico/Paciente</ng-template>
     <div class="stepper-div">
       <h2>
         Escolha uma clínica e um médico para agendar um horário
@@ -19,7 +19,8 @@
               <mat-option *ngFor="let clinica of clinicas" [value]="clinica"> {{ clinica.nome }} </mat-option>
             </mat-select>
         </mat-form-field><br>
-        <mat-form-field class="input-class">
+        <mat-form-field class="input-class" 
+            *ngIf="authService.usuarioLogado.value.usuario.isPaciente || authService.usuarioLogado.value.usuario.roles.includes('admin')">
             <mat-label>Escolha um(a) médico(a) para a consulta</mat-label>
             <mat-select formControlName="medico" required>
               <mat-option *ngFor="let medico of medicos" [value]="medico" required> {{ medico.nome }} </mat-option>
@@ -27,7 +28,13 @@
         </mat-form-field>
         <div class="loading-input-class" *ngIf="medicosLoading">
             <mat-progress-bar mode="query"></mat-progress-bar>
-        </div>
+        </div><br>
+        <mat-form-field class="input-class" *ngIf="authService.usuarioLogado.value.usuario.roles.includes('admin') || !authService.usuarioLogado.value.usuario.isPaciente" >
+            <mat-label>Escolha um paciente para a consulta</mat-label>
+            <mat-select #clinicaInput formControlName="paciente" required>
+                <mat-option *ngFor="let paciente of pacientes" [value]="paciente"> {{ paciente.nome }} </mat-option>
+            </mat-select>
+        </mat-form-field><br>
       </form>
       <button mat-raised-button isRoundButton color="primary" class="right-button" matStepperNext>Próximo</button>
     </div>
@@ -193,11 +200,14 @@
       <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
           <h2>
-            Médico e clínica
+            Médico, clínica e paciente
           </h2>
         </mat-expansion-panel-header>
         <h3>
-          Médico: <b>{{ ( medico != null ) ? ( medico.nome )  : '' }}</b> na clínica <b>{{ ( clinica != null ) ? ( clinica.nome ) : '' }}</b>.
+          Médico: <b>{{ ( medico != null ) ? ( medico.nome )  : '' }}</b> na clínica <b>{{ ( clinica != null ) ? ( clinica.nome ) : '' }}</b>. 
+        </h3>
+        <h3>
+                Nome do paciente: <b>{{  ( paciente != null ) ? ( paciente.nome ) : '' }}</b>
         </h3>
       </mat-expansion-panel>
       <br>

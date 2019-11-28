@@ -63,9 +63,16 @@
                     </button>
                 </th>
                 <td mat-cell *matCellDef="let consulta">
-                    <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
-                        <mat-icon>visibility</mat-icon>
-                    </button>
+                    <div style="display: flex">
+                        <button [disabled]="consulta.realizacao != null"  *ngIf="authService.usuarioLogado | async as user"
+                            [ngStyle]="{'display': user.usuario._id === consulta.medico._id? 'block' : 'none'}"
+                            mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+                            <mat-icon>forward</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                    </div>
                     <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
                         <mat-icon>edit</mat-icon>
                     </button> -->

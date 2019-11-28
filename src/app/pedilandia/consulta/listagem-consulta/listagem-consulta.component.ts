@@ -30,12 +30,33 @@ export class ListagemConsultaComponent implements OnInit {
     ) {
 
         this.authService.usuarioLogado.subscribe(v => {
-            if(v.status == LoginUsuarioStatus.LOGADO && v.usuario.roles.includes('admin')) {
-                this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'nomePaciente', 'tipoConsulta', 'options'];
-            } else {
-                this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'tipoConsulta', 'user-options'];
-            }
+            this.setColumns()
         })
+    }
+
+    setColumns() {
+        const user  = this.authService.usuarioLogado.value;
+
+        if(user.status == LoginUsuarioStatus.LOGADO && user.usuario.roles.includes('admin')) {
+            this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'nomePaciente', 'tipoConsulta', 'options'];
+        } else {
+
+            this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'tipoConsulta', 'user-options'];
+
+            if(this.consultas_listagem != null) {
+                let isMedico = true;
+
+
+                this.consultas_listagem.forEach(v => {
+                    if(v.medico._id !== user.usuario._id)
+                        isMedico = false
+                })
+
+                if(isMedico) {
+                    this.displayedColumns = ['data', 'nomeClinica', 'tipoConsulta', 'user-options'];
+                }
+            }
+        }
     }
 
     private get_color( consulta : Consulta ) {
@@ -78,6 +99,8 @@ export class ListagemConsultaComponent implements OnInit {
         
         this.service.getResumoForListing().then((dado) => {
             this.consultas_listagem = dado;
+            
+            this.setColumns();
         });
     }
 

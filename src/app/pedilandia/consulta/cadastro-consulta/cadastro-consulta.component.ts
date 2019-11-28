@@ -15,6 +15,7 @@ import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { startWith, map, debounceTime, distinctUntilChanged, switchMap, filter, tap } from 'rxjs/operators';
 import { Sintoma } from '../../sintomas/sintoma.model';
 import { SintomaService } from '../../sintomas/sintoma.service';
+import { UsuarioService } from '../../usuario/usuario.service';
 
 @Component({
     selector: 'app-cadastro-consulta',
@@ -95,6 +96,7 @@ export class CadastroConsultaComponent implements OnInit{
     private horarios_disponiveis: string[];
     private options             : HorarioConsultaSelecao[];
     private clinicas            : any[];
+    private pacidentes          : any[];
     private medicos             : any[];
 
     private sintomas_selected       : Sintoma[];
@@ -103,6 +105,7 @@ export class CadastroConsultaComponent implements OnInit{
     private tipoConsultaOptions     : any[];
 
     private clinicasLoaded          : boolean;
+    private pacientesLoaded         : boolean;
     private tiposConsultasLoaded    : boolean;
 
     private medicosLoading          : boolean;
@@ -115,6 +118,7 @@ export class CadastroConsultaComponent implements OnInit{
         private authService         : AuthService,
         private service             : ConsultaService,
         private clinica_service     : ClinicaService,
+        private users_service       : UsuarioService,
         private consultaT_service   : ConsultaTipoService,
         private medico_service      : MedicoService,
         private sintoma_service     : SintomaService,
@@ -140,8 +144,24 @@ export class CadastroConsultaComponent implements OnInit{
         this.options = [];
 
         this.loadClinicas();
+        this.loadPacientes();
         this.loadTiposConsultas();
 
+        const user = this.authService.usuarioLogado.value.usuario;
+
+
+        if(!user.isPaciente && !user.roles.includes('admin') ) {
+            this.consulta.medico = user
+            // this.primeiro_form_group.setValue({'medico': user})
+        } else {
+            this.consulta.medico = null;
+        }
+
+        if(!user.roles.includes('admin') && user.isPaciente) {
+            this.consulta.paciente = user;
+        }  else {
+            this.consulta.paciente = null;
+        }
 
         this.quarto_form_group = this.form_builder.group({
             medicamentosQueToma: [
@@ -191,10 +211,15 @@ export class CadastroConsultaComponent implements OnInit{
                 ]
             ],
             medico: [
-                this.consulta.medico.nome,
+                this.consulta.medico,
                 [
-                    Validators.required,
-                    Validators.minLength(1)
+                    Validators.required
+                ]
+            ],
+            paciente: [
+                this.consulta.paciente,
+                [
+                    Validators.required
                 ]
             ]
         })
@@ -204,6 +229,7 @@ export class CadastroConsultaComponent implements OnInit{
         this.sintomas_selected = [];
         this.medicamentos_selected = [];
         this.doencas_selected = [];
+
 
 
         this.primeiro_form_group.get('clinica').valueChanges.subscribe(v => this.check_medico_clinica())
@@ -255,11 +281,33 @@ export class CadastroConsultaComponent implements OnInit{
         this.clinicas = [];
         this.clinicasLoaded = false;
 
+        const user = this.authService.usuarioLogado.value.usuario;
+
+
         this.clinica_service.findAll().then((clinicas: any[]) => {
-            this.clinicas = clinicas;
+    
+            if(user.roles.includes('admin') || user.isPaciente) {
+                this.clinicas = clinicas;
+            } else {
+                this.clinicas = clinicas.filter(v => {
+                    return user.atribuicoes.medico.includes(v._id)
+                })
+            }
+
             this.clinicasLoaded = true;
             this.changeDetectorRef.detectChanges();
         });
+    }
+
+    loadPacientes() {
+        this.users_service.getPacientes().then((usuarios: any[]) => {
+    
+            this.pacientes = usuarios;
+
+            this.pacientesLoaded = true;
+            this.changeDetectorRef.detectChanges();
+        });
+
     }
 
     loadMedicos() {
@@ -397,7 +445,13 @@ export class CadastroConsultaComponent implements OnInit{
 
     private check_medico_clinica() {
         if ( this.primeiro_form_group.get('clinica').valid ) {
-            this.loadMedicos();
+
+            const user = this.authService.usuarioLogado.value.usuario;
+
+            if(user.isPaciente || user.roles.includes('admin') ) {
+                this.loadMedicos();
+            }
+
         } else {
             this.medicos = [];
         }
@@ -546,6 +600,10 @@ export class CadastroConsultaComponent implements OnInit{
         //     return null
     }
 
+    get paciente () {
+        return this.primeiro_form_group.get('paciente').value;
+    }
+    
     get clinica () {
         return this.primeiro_form_group.get('clinica').value;
 
@@ -604,15 +662,7 @@ export class CadastroConsultaComponent implements OnInit{
         let consulta_cadastrada = new Consulta(
             this.data,
             new Date(),
-            new Usuario({
-                _id         : user._id,
-                nome        : user.nome,
-                email       : user.email,
-                fotoUrl     : user.fotoUrl,
-                jwt         : null,
-                telefone    : user.telefone,
-                tipo        : 0,
-                qtConsultas : 0, }),
+            this.paciente,
             this.tipoConsulta,
             this.sintomas_selected,
             this.medicamentos_selected,

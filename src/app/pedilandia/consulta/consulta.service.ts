@@ -1,6 +1,7 @@
 import { Consulta, HorarioConsultaSelecao } from './consulta.model';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/common/api.service';
+import { Usuario } from 'src/app/common/security/usuario.model';
 
 
 @Injectable({
@@ -87,6 +88,55 @@ export class ConsultaService {
         }
 
         return res.data;
+
+    }
+
+
+    async getQtConsultasPorSintoma(user : Usuario) {
+
+
+        const res = await this.api.graphqlQuery(`query {
+            agendamentos {
+                    _id
+                    medico {
+                    _id
+                    }
+                    sintomasObservados {
+                        nome
+                    }
+                }
+            }
+        `);
+
+        
+
+        let result = {};
+
+        if (res.data && res.data.agendamentos) {
+            let data : Consulta[] = res.data.agendamentos;
+
+            if(!user.roles.includes('admin')) {
+                data = data.filter(v => v.medico._id === user._id)
+            }
+
+            result = data.reduce((acc, value, i) => {
+                value.sintomasObservados.forEach(v => {
+                    
+                    const key = v['nome'];
+
+                    if(acc[key] == null) {
+                        acc[key] = 0;
+                    }
+
+                    acc[key]++;
+                });
+
+                return acc;
+            }, {});
+            
+        }
+
+        return result;
 
     }
 
