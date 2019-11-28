@@ -23,6 +23,7 @@ import { UpdateClinicaComponent } from './update-clinica/update-clinica.componen
 import { MainClinicaComponent } from './main-clinica/main-clinica.component';
 import { RouterModule } from '@angular/router';
 import { DialogComponent } from 'src/app/common/utils/dialog/dialog.component';
+import { UsuarioModule } from '../usuario/usuario.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DialogComponent } from 'src/app/common/utils/dialog/dialog.component';
     MatIconModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    RouterModule
+    RouterModule,
+    UsuarioModule
   ],
   exports: [
     ListagemClinicaComponent, 

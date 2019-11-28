@@ -220,13 +220,13 @@ export class ConsultaService {
                 reportagemFinalizacaoAgendamento (
                     id: "${ consulta._id }",
                     informacoesRealizacao: {
-                        horarioInicio: "${ consulta.reportagemConsulta.horarioInicio }",
-                        horarioFinalizacao: "${ consulta.reportagemConsulta.horarioFinalizacao }",
+                        horarioInicio: "${ consulta.realizacao.horarioInicio }",
+                        horarioFinalizacao: "${ consulta.realizacao.horarioFinalizacao }",
                         diagnostico: {
                             tipo: {
                                 _id: "5db194b3a9c67e55b0539955"
                             }
-                            descricao: "${ escape(consulta.reportagemConsulta.diagnostico.descricao) }"
+                            descricao: "${ escape(consulta.realizacao.diagnostico.descricao) }"
                         }
                     }
                 ) {

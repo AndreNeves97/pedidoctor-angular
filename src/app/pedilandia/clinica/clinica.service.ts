@@ -63,9 +63,30 @@ export class ClinicaService {
         clinica( 
           id: "${id}"	
         ) {
-          _id,
-          nome,
-          endereco
+            _id,
+            nome,
+            endereco
+
+            medicos {
+                _id,
+                nome
+                email
+            }
+
+            secretarios {
+                _id,
+                nome
+            }
+
+            gerentes {
+                _id,
+                nome
+            }
+
+            clientes {
+                _id,
+                nome
+            }
         }
       }
     `);
@@ -86,15 +107,6 @@ export class ClinicaService {
           obj: {
             nome: "${clinica.nome}",
             endereco:"${clinica.endereco}",
-            googleMapsLocalId:"",
-            coordGeo:{
-              latitude:"",
-              longitude:""
-            },
-            secretarios:[],
-            medicos:[],
-            enfermeiros:[],
-            clientes:[]
           }
         ) {
           _id,

@@ -175,8 +175,8 @@ export class UsuarioService {
                 obj:{
                     nome: "${usuario.nome}",
                     email: "${usuario.email}",
-                    telefone: "${usuario.telefone}",
-                    isPaciente: ${usuario.isPaciente},
+                    telefone: "${usuario.telefone? usuario.telefone : ''}",
+                    isPaciente: ${usuario.isPaciente? true : false},
                     senha: "${usuario.senha}"
                 }) {
                     _id,
@@ -227,6 +227,55 @@ export class UsuarioService {
 
         if(response.data && response.data.removerAdmin)
             return response.data.removerAdmin;
+
+        return null;
+
+    }
+
+
+    async addMedico(id : string, clinicaId: string) {
+        const response = await this.api.graphqlMutation(`
+
+            mutation {
+                atribuirUsuarioClinica(
+                    idUsuario:"${id}",
+                    idClinica:"${clinicaId}"
+                    grupo:"medicos"
+                ){
+                    _id
+                    nome
+                }
+                
+            }
+        
+        `);
+
+        if(response.data && response.data.atribuirUsuarioClinica)
+            return response.data.atribuirUsuarioClinica;
+
+        return null;
+
+    }
+
+    async removeMedico(id : string, clinicaId: string) {
+        const response = await this.api.graphqlMutation(`
+                
+            mutation {
+                removerUsuarioClinica(
+                    idUsuario:"${id}",
+                    idClinica:"${clinicaId}"
+                    grupo:"medicos"
+                ){
+                    _id
+                    nome
+                }
+                
+            }
+        
+        `);
+
+        if(response.data && response.data.removerUsuarioClinica)
+            return response.data.removerUsuarioClinica;
 
         return null;
 
