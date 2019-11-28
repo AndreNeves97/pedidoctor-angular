@@ -96,7 +96,7 @@ export class CadastroConsultaComponent implements OnInit{
     private horarios_disponiveis: string[];
     private options             : HorarioConsultaSelecao[];
     private clinicas            : any[];
-    private pacidentes          : any[];
+    private pacientes          : any[];
     private medicos             : any[];
 
     private sintomas_selected       : Sintoma[];
