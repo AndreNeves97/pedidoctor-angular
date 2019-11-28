@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   public title: string;
 
   private consultas: any[];
+  private consultasAmanha : any[];
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -117,7 +118,27 @@ export class DashboardComponent implements OnInit {
         return date_consulta.getDate() == date.getDate() &&
                date_consulta.getMonth() == date.getMonth() &&
                date_consulta.getFullYear() == date.getFullYear()
+
       });
+
+
+      this.consultasAmanha =  
+      dados.filter(consulta => { 
+          date_consulta = new Date(consulta.dataAgendada);
+            date_consulta.setHours(0,0,0,0);
+
+            let minDate : Date = new Date(date);
+            minDate.setHours(0,0,0,0);
+
+
+            
+            minDate = new Date(minDate.getTime() + 24 * 60 * 60 * 1000)
+            let maxDate = new Date(minDate.getTime() + 48 * 60 * 60 * 1000)
+            
+            return  minDate.getTime() <= date_consulta.getTime() &&  
+                    date_consulta.getTime() < maxDate.getTime();
+
+        });
 
     })
 

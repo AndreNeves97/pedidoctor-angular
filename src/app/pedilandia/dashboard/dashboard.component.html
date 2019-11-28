@@ -26,7 +26,7 @@
                 </mat-card-title>
             </mat-card-header>
             
-            <div *ngFor = "let consulta of consultas">
+            <div *ngFor = "let consulta of consultasAmanha">
                 <mat-card class="consulta-card" *ngIf="consulta.realizacao == null || !consulta.realizacao">
                 Consulta de {{consulta.paciente.nome}} às {{consulta.dataAgendada | date: "hh:mm"}}
                 <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">

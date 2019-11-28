@@ -37,7 +37,7 @@ export class ListagemConsultaComponent implements OnInit {
     setColumns() {
         const user  = this.authService.usuarioLogado.value;
 
-        if(user.status == LoginUsuarioStatus.LOGADO && user.usuario.roles.includes('admin')) {
+        if(user.status == LoginUsuarioStatus.LOGADO && user.usuario.roles.includes('admin') ) {
             this.displayedColumns = ['data', 'nomeClinica', 'nomeMedico', 'nomePaciente', 'tipoConsulta', 'options'];
         } else {
 
@@ -54,6 +54,9 @@ export class ListagemConsultaComponent implements OnInit {
 
                 if(isMedico) {
                     this.displayedColumns = ['data', 'nomeClinica', 'tipoConsulta', 'user-options'];
+                } else {
+                    this.displayedColumns = ['data', 'nomeClinica', 'nomePaciente', 'tipoConsulta', 'user-options'];
+
                 }
             }
         }
