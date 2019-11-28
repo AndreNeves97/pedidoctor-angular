@@ -115,7 +115,7 @@ export class UpdateClinicaComponent implements OnInit {
   }
 
   navigate_back () {
-    this.router.navigate(['/pedilandia/clinica']);
+      history.back();
   }
 
 }

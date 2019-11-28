@@ -42,7 +42,7 @@ export class DetalheUsuarioComponent implements OnInit {
     }
 
     navigate_back() {
-        this.router.navigate(['/pedilandia/usuarios']);
+        history.back();
     }
     
     editar() {

@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, startWith, switchMap, tap, filter } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/pedilandia/usuario/usuario.service';
 import { SnackService } from '../../snack/snack.service';
+import { Clinica } from 'src/app/pedilandia/clinica/clinica.model';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class AddUserToGroupDialogComponent implements OnInit {
 
     constructor(
         public dialog: MatDialogRef<AddUserToGroupDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { group: UsuarioGrupo },
+        @Inject(MAT_DIALOG_DATA) public data: { group: UsuarioGrupo, parentData : Clinica },
         private usuarioService : UsuarioService,
         private snackService    : SnackService
     ) { }
@@ -35,6 +36,8 @@ export class AddUserToGroupDialogComponent implements OnInit {
 
         if (tipo == GrupoUsuarioTipo.ADMIN) {
             this.title = 'Adicionar administrador'
+        } else if(tipo == GrupoUsuarioTipo.MEDICO) {
+            this.title = 'Adicionar médico';
         }
 
 
@@ -65,7 +68,12 @@ export class AddUserToGroupDialogComponent implements OnInit {
         
         this.inputControl.setValue('');
         const usuario : Usuario = $event.option.value;
-        await this.usuarioService.addAdmin(usuario._id);
+
+        if(this.data.group.tipo == GrupoUsuarioTipo.ADMIN) {
+            await this.usuarioService.addAdmin(usuario._id);
+        } else {
+            await this.usuarioService.addMedico(usuario._id, this.data.parentData._id)
+        }
 
         this.snackService.open_snack_bar(`${usuario.nome} adicionado!`)
     

@@ -25,7 +25,7 @@ export class ReportagemConsultaService {
 
   public set_descricao_diagnostico ( new_consulta: Consulta ) {
     let consulta: Consulta = this.source.value;
-    consulta.reportagemConsulta.diagnostico.descricao = new_consulta.reportagemConsulta.diagnostico.descricao;
+    consulta.realizacao.diagnostico.descricao = new_consulta.realizacao.diagnostico.descricao;
     this.update(consulta);
   }
 
@@ -37,13 +37,13 @@ export class ReportagemConsultaService {
 
   public set_horario_inicio_now () {
     let consulta: Consulta = this.source.value;
-    consulta.reportagemConsulta.horarioInicio = new Date();
+    consulta.realizacao.horarioInicio = new Date();
     this.update(consulta);
   }
 
   public set_horario_final_now () {
     let consulta: Consulta = this.source.value;
-    consulta.reportagemConsulta.horarioFinalizacao = new Date();
+    consulta.realizacao.horarioFinalizacao = new Date();
     this.update(consulta);  
   }
 

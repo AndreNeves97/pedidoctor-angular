@@ -41,7 +41,8 @@ import { DetalheUsuarioComponent } from './detalhe-usuario/detalhe-usuario.compo
     MatProgressSpinnerModule,
     MatProgressBarModule
   ], exports: [
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    ListagemUsuarioComponent
   ], entryComponents: [
     DialogContent
   ]

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Clinica } from '../clinica.model';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ClinicaService } from '../clinica.service';
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/common/security/auth.service';
 import { Usuario } from 'src/app/common/security/usuario.model';
 
@@ -20,7 +20,8 @@ export class DetalheClinicaComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private service: ClinicaService,
-        private authService : AuthService
+        private authService : AuthService,
+        private changeDetectorRef : ChangeDetectorRef
     ) {
         this.clinica = null;
 
@@ -31,12 +32,7 @@ export class DetalheClinicaComponent implements OnInit {
                 })
             )
             .subscribe((id: string) => {
-                this.clinica = null;
-
-                this.service.find(id).then((clinica: Clinica) => {
-                    if (!clinica) this.navigate_back();
-                    else this.clinica = clinica;
-                })
+                this.getClinica(id)
             });
 
     }
@@ -48,6 +44,25 @@ export class DetalheClinicaComponent implements OnInit {
         this.router.navigate(['/pedilandia/clinica']);
     }
 
+    update($event) {
+        this.getClinica($event);
+    }
+
+    getClinica(id) {
+        
+        this.clinica = null;
+
+
+        this.service.find(id).then((clinica: Clinica) => {
+            if (!clinica) this.navigate_back();
+            else  {
+                this.clinica = clinica;
+                this.changeDetectorRef.detectChanges();
+            }
+
+
+        })
+    }
 
 
     getContent(index: number) {
@@ -55,16 +70,16 @@ export class DetalheClinicaComponent implements OnInit {
     }
 
     haveAccess(usuario : Usuario, aba : string) {
+        
         let cond = usuario.roles.includes('admin');
 
         if(['consultas', 'clientes', 'gerentes', 'secretarios'].includes(aba))
             cond = 
                 usuario.atribuicoes.medico.includes(this.clinica._id) || 
                 usuario.atribuicoes.gerente.includes(this.clinica._id) || 
-                usuario.atribuicoes.secretario.includes(this.clinica._id);
+                usuario.atribuicoes.secretario.includes(this.clinica._id) ||
+                cond;
         
-        console.log(this.clinica._id, usuario.atribuicoes.medico);
-
         if(aba == 'medicos')
             cond = true;
 

@@ -192,8 +192,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
     @Input()
     set consulta(consulta: Consulta) {
         this._consulta = consulta;
-        this._consulta.reportagemConsulta = new ReportagemConsulta();
-        this._consulta.reportagemConsulta.diagnostico = new Diagnostico();
+        this._consulta.realizacao = new ReportagemConsulta();
+        this._consulta.realizacao.diagnostico = new Diagnostico();
         if (this.form) {
             let today = new Date();
 
@@ -219,7 +219,7 @@ Paciente: ${ this._consulta.paciente.nome}
 Descrição do diagnóstico:
 
 `            })
-            this._consulta.reportagemConsulta.diagnostico.descricao = this.form.get('descricao').value;
+            this._consulta.realizacao.diagnostico.descricao = this.form.get('descricao').value;
         }
     }
 
@@ -234,7 +234,7 @@ Descrição do diagnóstico:
   }
 
   update_bloc_object() {
-    this._consulta.reportagemConsulta.diagnostico.descricao = this.descricao;
+    this._consulta.realizacao.diagnostico.descricao = this.descricao;
     this.service.set_descricao_diagnostico(this._consulta);
   }
 

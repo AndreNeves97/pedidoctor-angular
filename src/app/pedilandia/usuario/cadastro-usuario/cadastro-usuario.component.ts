@@ -54,13 +54,13 @@ export class CadastroUsuarioComponent implements OnInit {
                 "", [ Validators.required ]
             ],
             email: [
-                "", [ Validators.email, Validators.required ]
+                "", [ Validators.email, Validators.required]
             ],
             telefone: [
-                "", [ ]
+                "", []
             ],
             senha: [
-                "", [ Validators.minLength(6) ]
+                "", [Validators.required, Validators.minLength(6)]
             ],
             isPaciente: [
                 true, [ Validators.required ]
@@ -87,10 +87,11 @@ export class CadastroUsuarioComponent implements OnInit {
                     this.usuarioService.getUser(id).then((obj: Usuario) => {
                         this.loading = false;
                         console.log(obj)
-                        this.cadastro_form.patchValue(obj)
+                        this.cadastro_form.patchValue(obj);
+                        this.cadastro_form.get('senha').setValidators([Validators.minLength(6)])
                     })
                 } else {
-                    this.cadastro_form.get('senha').setValidators([Validators.required])
+                    this.cadastro_form.get('senha').setValidators([Validators.required, Validators.minLength(6)])
                     this.updating = false;
                     this.loading = false;
                 }
@@ -151,7 +152,7 @@ export class CadastroUsuarioComponent implements OnInit {
                 this.snack_bar_service
                     .open_snack_bar('Usuario salvo!', 'success');
 
-                this.router.navigate(['/pedilandia/usuarios', usuario._id])
+                this.navigate_back();
             } else {
                 this.snack_bar_service
                 .open_snack_bar('Falha ao salvar usuário. Algum erro ocorreu.', 'error');
@@ -171,6 +172,6 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     navigate_back() {
-        this.router.navigate(['/pedilandia/usuarios']);
+        history.back();
     }
 }

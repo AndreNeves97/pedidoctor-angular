@@ -1,10 +1,10 @@
 export enum GrupoUsuarioTipo {
     USER        = 'user',
     ADMIN       = 'admin' ,
-    CLIENTE     = 'cliente' ,
-    GERENTE     = 'gerente',
-    MEDICO      = 'medico',
-    SECRETARIO  = 'secretario'  
+    CLIENTE     = 'clientes' ,
+    GERENTE     = 'gerentes',
+    MEDICO      = 'medicos',
+    SECRETARIO  = 'secretarios'  
 }
 
 export class UsuarioGrupo {

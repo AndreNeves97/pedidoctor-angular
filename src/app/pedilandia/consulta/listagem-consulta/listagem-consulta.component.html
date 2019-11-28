@@ -4,103 +4,109 @@
     </div>
 </ng-template>
 
-<mat-progress-bar *ngIf="waiting" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="waiting" mode="indeterminate" ></mat-progress-bar>
 
-<table mat-table [dataSource]="consultas_listagem" class="mat-elevation-z8" *ngIf="consultas_listagem != null; else loading">
-    <ng-container matColumnDef="data">
-        <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
-        <td mat-cell *matCellDef="let consulta" [style.color]="(check_if_today(consulta) == 0) ? 'red' : (check_if_today(consulta) == -1) ? 'green' : 'black'" >
-            {{ consulta.dataAgendada | appDate:'with-hour':'lean-view' }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nomeClinica">
-        <th mat-header-cell *matHeaderCellDef>Clínica</th>
-        <td mat-cell *matCellDef="let consulta" [style.color]="(check_if_today(consulta) == 0) ? 'red' : (check_if_today(consulta) == -1) ? 'green' : 'black'">{{ ( consulta.clinica != null ) ? consulta.clinica.nome : '' }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nomeMedico">
-        <th mat-header-cell *matHeaderCellDef>Médico</th>
-        <td mat-cell *matCellDef="let consulta" [style.color]="(check_if_today(consulta) == 0) ? 'red' : (check_if_today(consulta) == -1) ? 'green' : 'black'">{{ ( consulta.medico != null ) ? consulta.medico.nome : '' }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nomePaciente">
-        <th mat-header-cell *matHeaderCellDef>Paciente</th>
-        <td mat-cell *matCellDef="let consulta" [style.color]="(check_if_today(consulta) == 0) ? 'red' : (check_if_today(consulta) == -1) ? 'green' : 'black'">{{ ( consulta.paciente != null ) ? consulta.paciente.nome : '' }}</td>
-    </ng-container>
-    <ng-container matColumnDef="tipoConsulta">
-        <th mat-header-cell *matHeaderCellDef>Tipo de consulta</th>
-        <td mat-cell *matCellDef="let consulta" [style.color]="(check_if_today(consulta) == 0) ? 'red' : (check_if_today(consulta) == -1) ? 'green' : 'black'">{{ ( consulta.tipo != null ) ? consulta.tipo.nome : '' }}
-        </td>
-    </ng-container>
+<div *ngIf="consultas_listagem != null; else loading">
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="consultas_listagem" >
+            <ng-container matColumnDef="data" sticky>
+                <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
+                <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)" >
+                    {{ consulta.dataAgendada | appDate:'with-hour':'lean-view' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="nomeClinica">
+                <th mat-header-cell *matHeaderCellDef>Clínica</th>
+                <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)">{{ ( consulta.clinica != null ) ? consulta.clinica.nome : '' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="nomeMedico">
+                <th mat-header-cell *matHeaderCellDef>Médico</th>
+                <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)">{{ ( consulta.medico != null ) ? consulta.medico.nome : '' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="nomePaciente">
+                <th mat-header-cell *matHeaderCellDef>Paciente</th>
+                <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)">{{ ( consulta.paciente != null ) ? consulta.paciente.nome : '' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="tipoConsulta">
+                <th mat-header-cell *matHeaderCellDef>Tipo de consulta</th>
+                <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)">{{ ( consulta.tipo != null ) ? consulta.tipo.nome : '' }}
+                </td>
+            </ng-container>
 
-    <ng-container matColumnDef="options">
-        <th mat-header-cell *matHeaderCellDef>
-            Opções
-            <button mat-button color="primary" (click)="getData()">
-                <mat-icon>refresh</mat-icon>
-            </button>
-        </th>
-        <td mat-cell *matCellDef="let consulta">
-            <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
-                <mat-icon>forward</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
-                <mat-icon>visibility</mat-icon>
-            </button>
-            <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
-                <mat-icon>edit</mat-icon>
-            </button> -->
-            <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(consulta)" color="primary">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="user-options">
-        <th mat-header-cell *matHeaderCellDef>
-            Opções
-            <button mat-button color="primary" (click)="getData()">
-                <mat-icon>refresh</mat-icon>
-            </button>
-        </th>
-        <td mat-cell *matCellDef="let consulta">
-            <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
-                <mat-icon>visibility</mat-icon>
-            </button>
-            <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
-                <mat-icon>edit</mat-icon>
-            </button> -->
-        </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> <br>
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef>
+                    Opções
+                    <button mat-button color="primary" (click)="getData()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </th>
+                <td mat-cell *matCellDef="let consulta">
+                    <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+                        <mat-icon>forward</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button> -->
+                    <button mat-icon-button matTooltip="Excluir consulta" (click)="excluir(consulta)" color="primary">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="user-options">
+                <th mat-header-cell *matHeaderCellDef>
+                    Opções
+                    <button mat-button color="primary" (click)="getData()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </th>
+                <td mat-cell *matCellDef="let consulta">
+                    <button mat-icon-button matTooltip="Visualizar consulta" (click)="visualizar(consulta._id)" color="primary">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <!-- <button mat-icon-button matTooltip="Editar consulta" (click)="editar(consulta._id)" color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button> -->
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> 
+    </div>
 
-<table class="legenda">
-    <tr colspan=2>
-        <th>
-            Legenda de cores
-        </th>
-    </tr>
-    <tr>
-        <td [style.color]="'red'">
-            Vermelho
-        </td>
-        <td>
-            Consultas para hoje
-        </td>
-    </tr>
-    <tr>
-        <td [style.color]="'green'">
-            Verde
-        </td>
-        <td>
-            Consultas passadas
-        </td>
-    </tr>
-    <tr>
-        <td [style.color]="'black'">
-            Preto
-        </td>
-        <td>
-            Consultas futuras
-        </td>
-    </tr>
-</table>
+    <br>
+
+    <table class="legenda" cellpadding="5">
+        <tr colspan=2>
+            <th colspan="2">
+                Legenda de cores
+            </th>
+        </tr>
+        <tr>
+            <td [style.color]="'red'">
+                Vermelho
+            </td>
+            <td>
+                Consultas em atraso
+            </td>
+        </tr>
+        <tr>
+            <td [style.color]="'green'">
+                Verde
+            </td>
+            <td>
+                Consultas para hoje
+            </td>
+        </tr>
+        <tr>
+            <td [style.color]="'black'">
+                Preto
+            </td>
+            <td>
+                Consultas futuras e passadas
+            </td>
+        </tr>
+    </table>
+</div>

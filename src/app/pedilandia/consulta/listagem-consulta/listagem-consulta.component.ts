@@ -38,7 +38,25 @@ export class ListagemConsultaComponent implements OnInit {
         })
     }
 
-    private check_if_today ( consulta: Consulta ) {
+    private get_color( consulta : Consulta ) {
+        const diff = this.diff_time(consulta);
+
+        if(diff == 0) {
+
+            return 'green';
+
+        } else if(diff == -1 && consulta.realizacao == null) {
+            
+            return 'red';
+
+        } else {
+
+            return 'black';
+
+        }
+    }
+
+    private diff_time ( consulta: Consulta ) {
         let today: Date = new Date();
         let date: Date;
         date = new Date(consulta.dataAgendada);

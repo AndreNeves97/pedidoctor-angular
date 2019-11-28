@@ -76,13 +76,13 @@ export class ConfirmacaoConsultaComponent implements OnInit {
 
   get diagnostico () {
     return this.service.get_consulta().pipe(
-      map((consulta) => consulta.reportagemConsulta.diagnostico)
+      map((consulta) => consulta.realizacao.diagnostico)
     );
   }
 
   get descricao_diagnostico () {
     return this.service.get_consulta().pipe(
-      map((consulta) => consulta.reportagemConsulta.diagnostico.descricao)
+      map((consulta) => consulta.realizacao.diagnostico.descricao)
     );
   }
 

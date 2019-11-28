@@ -1,17 +1,19 @@
 import { UsuarioService } from './../usuario.service';
-import { Usuario, UsuarioGrupo } from './../../../common/security/usuario.model';
-import { Component, OnInit, Inject, ChangeDetectorRef, Input } from '@angular/core';
+import { Usuario, UsuarioGrupo, GrupoUsuarioTipo, UsuarioLogadoModel, LoginUsuarioStatus } from './../../../common/security/usuario.model';
+import { Component, OnInit, Inject, ChangeDetectorRef, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { AddUserToGroupDialogService } from 'src/app/common/utils/components/add-user-to-group-dialog/add-user-to-group-dialog.service';
+import { Clinica } from '../../clinica/clinica.model';
+import { AuthService } from 'src/app/common/security/auth.service';
 
 @Component({
     selector: 'app-listagem-usuario',
     templateUrl: './listagem-usuario.component.html',
     styleUrls: ['./listagem-usuario.component.scss']
 })
-export class ListagemUsuarioComponent implements OnInit {
+export class ListagemUsuarioComponent implements OnInit, OnChanges {
 
     private usuarios_listagem: Usuario[];
     private usuario_edit: Usuario;
@@ -26,33 +28,87 @@ export class ListagemUsuarioComponent implements OnInit {
     @Input()
     group  : UsuarioGrupo;
 
+    @Input()
+    dataDefault : Usuario[];
+
+    @Input()
+    parentData: Clinica;
+
+    @Output()
+    updated : EventEmitter<string> = new EventEmitter();
+
+    @Input()
+    addButton = true;
+
     displayedColumns: string[] = ['nome', 'email', 'options'];
 
     constructor(
         private usuarioService: UsuarioService,
         public dialog: MatDialog,
         private router : Router,
-        private addUserToGroupDialog : AddUserToGroupDialogService
+        private addUserToGroupDialog : AddUserToGroupDialogService,
+        private authService : AuthService,
     ) { }
 
     ngOnInit() {
+        console.log(this.dataDefault);
+        this.usuarios_listagem = this.dataDefault;
+
         this.getData();
+
+        this.authService.usuarioLogado.subscribe(v => {
+            if(v.status === LoginUsuarioStatus.LOGADO && v.usuario.roles.includes('admin')) {
+                this.displayedColumns =  ['nome', 'email', 'admin-options']
+            } else {
+                this.displayedColumns =  ['nome', 'email', 'options'];
+            }
+        })
+    }
+
+    ngOnChanges() {
+        this.usuarios_listagem = this.dataDefault;
+        this.getData();
+
     }
 
     private getData() {
-        this.usuarios_listagem = null;
+        if(this.dataDefault == null) {
+
+            this.usuarios_listagem = null;
         
-        this.usuarioService.getResumoForListing(this.group).then((dado: Usuario[]) => {
-            this.usuarios_listagem = dado;
-        });
+            this.usuarioService.getResumoForListing(this.group).then((dado: Usuario[]) => {
+                this.usuarios_listagem = dado;
+            });
+
+        }
     }
 
     async add() {
         
-        const dialogRef = this.addUserToGroupDialog.show(this.group);
+        const dialogRef = this.addUserToGroupDialog.show(this.group, this.parentData);
         await dialogRef.afterClosed().toPromise();
-        this.getData();
 
+        if(this.dataDefault == null)
+            this.getData();
+        else
+            this.updated.emit(this.parentData._id);
+
+    }
+
+    get deleteMsg() {
+        if(this.group.tipo == GrupoUsuarioTipo.ADMIN) {
+
+            return 'Excluir usuário dos administradores';
+
+        } else if(this.group.tipo == GrupoUsuarioTipo.MEDICO) {
+            
+            return 'Excluir usuário da lista de médicos'; 
+
+        } else {
+
+            return 'Excluir usuário';
+
+        }
     }
 
     private visualizar(id: string) {
@@ -104,9 +160,26 @@ export class ListagemUsuarioComponent implements OnInit {
             console.log(`Dialog result: ${result}`);
             if (result) {
 
-                this.usuarioService.removeAdmin(usuario._id).then((dado) => {
-                    this.getData();
-                });
+                if(this.group.tipo == GrupoUsuarioTipo.ADMIN) {
+                    this.usuarioService.removeAdmin(usuario._id).then((dado) => {
+                        this.getData();
+                    });
+                } else if(this.group.tipo == GrupoUsuarioTipo.MEDICO) {
+
+                    this.usuarioService.removeMedico(usuario._id, this.parentData._id).then((dado) => {
+                        
+                        if(this.dataDefault == null)
+                            this.getData();
+                        else
+                            this.updated.emit(this.parentData._id);
+                    });
+
+                } else {
+                    this.usuarioService.delete(usuario._id).then((dado) => {
+                        this.getData();
+                    });
+                }
+                
             }
         });
     }

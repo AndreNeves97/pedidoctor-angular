@@ -61,8 +61,8 @@ export class RealizarReportagemComponent implements OnInit {
       this.service.find(id).then((consulta: Consulta) => {
         if ( consulta ) {
           this.consulta = consulta;
-          if(!consulta.reportagemConsulta) 
-            consulta.reportagemConsulta = new ReportagemConsulta();
+          if(!consulta.realizacao) 
+            consulta.realizacao = new ReportagemConsulta();
           this.bloc_service.update(this.consulta);
           this.bloc_service.set_horario_inicio_now();
         } else {
