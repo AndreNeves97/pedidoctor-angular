@@ -18,15 +18,6 @@ export class ClinicaService {
           obj:{
             nome:"${clinica.nome}",
             endereco:"${clinica.endereco}",
-            googleMapsLocalId:"",
-            coordGeo:{
-              latitude:"",
-              longitude:""
-            },
-            secretarios:[],
-            medicos:[],
-            enfermeiros:[],
-            clientes:[]
           }
         ) {
           _id,
