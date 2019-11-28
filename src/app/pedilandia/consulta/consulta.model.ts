@@ -30,6 +30,7 @@ export class Consulta {
     doencasRecentes: string[];
     informacoesAdicionais: string;
     reportagemConsulta: ReportagemConsulta;
+    realizacao: any;
     
     constructor(
         dataConsulta: Date  = new Date(),

@@ -1,7 +1,40 @@
 <div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          Consultas de {{ title }}
+        </mat-card-title>
+      </mat-card-header>
+      
+      <div *ngFor = "let consulta of consultas">
+        <mat-card class="consulta-card" *ngIf="consulta.realizacao == null || !consulta.realizacao">
+          Consulta de {{consulta.paciente.nome}} às {{consulta.dataAgendada | date: "hh:mm"}}
+          <button [disabled]="consulta.realizacao != null" mat-icon-button matTooltip="Iniciar consulta" (click)="iniciar(consulta._id)" color="primary">
+            <mat-icon>forward</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile  [colspan]="2"  [rowspan] = "2">
+    
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          Consultas por sintoma
+        </mat-card-title>
+      </mat-card-header>
+      <div id="chartContainer" style="height: 80%; width: 90%;"></div>
+    </mat-card>
+  </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<!-- <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+     *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -16,9 +49,10 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
-</div>
+  </mat-grid-list> 
+</div>-->
+<!-- <div id="chartContainer" style="height: 370px; width: 80%;"></div> -->
+<!-- <div id="chartContainerB" style="height: 370px; width: 70%; margin-left:auto;margin-right:auto;"></div> -->

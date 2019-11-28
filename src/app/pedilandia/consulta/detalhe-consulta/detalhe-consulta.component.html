@@ -17,6 +17,16 @@
     <h2>
         Detalhes da consulta
     </h2>
+
+    <mat-expansion-panel expanded *ngIf="consulta.realizacao != null" >
+        <h2 style ="color:green; margin-bottom: 1.5%;">
+            Esta consulta já foi realizada!! Detalhes:
+        </h2>
+        <p><b>Horário início: </b></p>{{ consulta.realizacao.horarioInicio | date: "dd/MM/yyyy hh:mm:ss" }} <br>
+        <p><b>Horário fim: </b></p>{{ consulta.realizacao.horarioFinalizacao | date: "dd/MM/yyyy hh:mm:ss" }} <br>
+        <p><b>Descrição do diagnóstico: </b></p> <code style="white-space: pre-line;">{{ consulta.realizacao.diagnostico.descricao | json }}</code>
+    </mat-expansion-panel>
+    <br>
     <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -118,11 +128,7 @@
         </div>
     </mat-expansion-panel>
 
-    <div *ngIf="consulta.realizacao != null">
-        Consulta realizada!! Detalhes:
-
-        <pre>{{ consulta.realizacao | json }}</pre>
-    </div>
+    
 
     <button mat-raised-button class='ok-button' color="primary" (click)="navigate_back()">Voltar</button>
 </div>
