@@ -6,6 +6,9 @@ import { DialogService } from 'src/app/common/utils/dialog/dialog.service';
 import { SnackService } from 'src/app/common/utils/snack/snack.service';
 import { AuthService } from 'src/app/common/security/auth.service';
 import { LoginUsuarioStatus } from 'src/app/common/security/usuario.model';
+import { FormControl } from '@angular/forms';
+import { tap, map } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -18,8 +21,12 @@ export class ListagemConsultaComponent implements OnInit {
     waiting : boolean
 
     private consultas_listagem: Consulta[];
+    private consultas_listagem_filtered: BehaviorSubject<Consulta[]> = new BehaviorSubject<Consulta[]>(null);
 
     displayedColumns: string[] = ['data', 'nomeClinica', 'nomeMedico', 'nomePaciente', 'tipoConsulta', 'options'];
+
+    pesquisaCtrl = new FormControl();
+
 
     constructor(
         private service: ConsultaService,
@@ -31,7 +38,28 @@ export class ListagemConsultaComponent implements OnInit {
 
         this.authService.usuarioLogado.subscribe(v => {
             this.setColumns()
+        });
+
+        
+        
+        this.pesquisaCtrl.valueChanges.subscribe(v => {
+            this.filter(v);
         })
+    }
+
+    filter(text) {
+        console.log(text)
+        this.consultas_listagem_filtered.next(
+            this.consultas_listagem.filter(v => {
+                if(text == null)
+                    return true;
+
+                return  v.paciente.nome.toLowerCase().includes(text) ||
+                        v.clinica.nome.toLowerCase().includes(text) ||
+                        v.tipo.nome.toLowerCase().includes(text) ||
+                        v.medico.nome.toLowerCase().includes(text) 
+            })
+        )
     }
 
     setColumns() {
@@ -102,6 +130,8 @@ export class ListagemConsultaComponent implements OnInit {
         
         this.service.getResumoForListing().then((dado) => {
             this.consultas_listagem = dado;
+
+            this.filter(this.pesquisaCtrl.value);
             
             this.setColumns();
         });

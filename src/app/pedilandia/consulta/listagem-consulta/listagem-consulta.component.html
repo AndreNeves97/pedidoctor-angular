@@ -6,9 +6,14 @@
 
 <mat-progress-bar *ngIf="waiting" mode="indeterminate" ></mat-progress-bar>
 
-<div *ngIf="consultas_listagem != null; else loading">
+<div *ngIf="consultas_listagem_filtered | async as lista; else loading">
+    <mat-form-field class="example-full-width" style="margin: 20px;">
+        <input 
+        [formControl]="pesquisaCtrl" matInput placeholder="Pesquisar..." >
+    </mat-form-field>
+        
     <div class="table-container mat-elevation-z8">
-        <table mat-table [dataSource]="consultas_listagem" >
+        <table mat-table [dataSource]="lista" >
             <ng-container matColumnDef="data" sticky>
                 <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
                 <td mat-cell *matCellDef="let consulta" [style.color]="get_color(consulta)" >

@@ -25,6 +25,7 @@ export class Consulta {
     dataRegistro: Date;
     paciente: Usuario;
     tipoConsulta: ConsultaTipo;
+    tipo: ConsultaTipo;
     sintomasObservados: Sintoma[];
     medicamentosQueToma: string[];
     doencasRecentes: string[];

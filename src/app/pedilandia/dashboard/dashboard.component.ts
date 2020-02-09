@@ -50,8 +50,10 @@ export class DashboardComponent implements OnInit {
   }
 
   async getDados() {
+    
+    const dados = await this.consultaService.getQtConsultasPorSintoma(this.authService.usuarioLogado.value.usuario);
+    console.log(dados);
 
-    console.log(await this.consultaService.getQtConsultasPorSintoma(this.authService.usuarioLogado.value.usuario));
   }
 
   ngOnInit() {
