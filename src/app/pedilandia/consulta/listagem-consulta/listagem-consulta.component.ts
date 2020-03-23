@@ -48,7 +48,7 @@ export class ListagemConsultaComponent implements OnInit {
     }
 
     filter(text) {
-        console.log(text)
+    
         this.consultas_listagem_filtered.next(
             this.consultas_listagem.filter(v => {
                 if(text == null)

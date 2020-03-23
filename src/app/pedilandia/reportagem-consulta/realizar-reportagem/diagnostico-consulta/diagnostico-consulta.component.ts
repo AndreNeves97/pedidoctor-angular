@@ -177,7 +177,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.form.setValue({descricao: textValue});
 
 
-        console.log(option);
     }
 
     public focusDescricaoInput() {

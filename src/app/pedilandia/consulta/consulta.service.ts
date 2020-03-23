@@ -161,7 +161,7 @@ export class ConsultaService {
                 return `${hours}:${minutes}`
             });
 
-            console.log(horariosIndisponiveis, this.defaultHorarios)
+            
 
             return this.defaultHorarios.map(v => {
                 return new HorarioConsultaSelecao(v, !horariosIndisponiveis.includes(v))
@@ -173,7 +173,7 @@ export class ConsultaService {
     }
 
     async insert(consulta: Consulta) {
-        console.log(consulta);
+        
         const response = await this.api.graphqlMutation(`
             mutation {
                 createAgendamento (obj: {

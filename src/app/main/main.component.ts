@@ -21,16 +21,6 @@ const TREE_DATA: FoodNode[] = [
         route: '',
         children: [ ]
     }, {
-        name: 'Feast',
-        id: '1',
-        route: '',
-        children: []
-    }, {
-        name: 'Supper',
-        id: '2',
-        route: 'supper',
-        children: []
-    },{
         name: 'Pedilandia',
         id: '3',
         route: 'pedilandia',

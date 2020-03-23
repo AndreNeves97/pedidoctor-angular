@@ -44,7 +44,7 @@ export class CadastroMedicoComponent implements OnInit {
   private cadastrar() {
     this.medicoService.insert(this.medico).then((dado)=>{
       if ( dado ) {
-        // console.log(dado);
+        
         setTimeout(() => {
           this.medico = new Medico({
             _id: "",

@@ -62,7 +62,6 @@ export class HomePageContentComponent implements OnInit {
             this.changeDetectorRef.detectChanges()
         })
 
-        console.log(offsetHeight);
         
 
     }

@@ -51,7 +51,7 @@ export class ListagemUsuarioComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnInit() {
-        console.log(this.dataDefault);
+        
         this.usuarios_listagem = this.dataDefault;
 
         this.getData();
@@ -157,7 +157,7 @@ export class ListagemUsuarioComponent implements OnInit, OnChanges {
         const dialogRef = this.dialog.open(DialogContent);
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
+            
             if (result) {
 
                 if(this.group.tipo == GrupoUsuarioTipo.ADMIN) {
@@ -187,9 +187,6 @@ export class ListagemUsuarioComponent implements OnInit, OnChanges {
     private openDialog() {
         const dialogRef = this.dialog.open(DialogContent);
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-        });
     }
 }
 

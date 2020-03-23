@@ -66,7 +66,6 @@ export class UsuarioService {
             }
         ` );
 
-        console.log(res);
 
         // if(res.data && res.data.usuarios) {
         //   return res.data.usuarios;

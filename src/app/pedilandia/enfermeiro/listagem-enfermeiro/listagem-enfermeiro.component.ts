@@ -41,7 +41,6 @@ export class ListagemEnfermeiroComponent implements OnInit {
   }
 
   private visualizar ( id: string ) {
-    console.log(id);
     this.enfermeiroService.find( id ).then((dado: Enfermeiro)=>{
       this.enfermeiro_visualizing = dado;
       this.visualizing = true;
@@ -78,25 +77,14 @@ export class ListagemEnfermeiroComponent implements OnInit {
   }
  
   private excluir( enfermeiro: Enfermeiro ) {
-    // const dialogRef = this.dialog.open(DialogContent);
-
-    // dialogRef.afterClosed().subscribe(result => {
-      // console.log(`Dialog result: ${result}`);
-      // if (result ) {
-        this.enfermeiroService.deleteEnfermeiro( enfermeiro._id ).then((dado)=>{
-            console.log(dado);
-            this.getData();
-        });
-      // }
-    // });
+    this.enfermeiroService.deleteEnfermeiro( enfermeiro._id ).then((dado)=>{
+        this.getData();
+    });
   }
 
   private openDialog () {
     const dialogRef = this.dialog.open(DialogContent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 }
 

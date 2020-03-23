@@ -57,7 +57,6 @@ export class AddUserToGroupDialogComponent implements OnInit {
 
 
     private async _filter(value: string): Promise<Usuario[]> {
-        console.log(value)
         const filterValue = value.toLowerCase();
 
 

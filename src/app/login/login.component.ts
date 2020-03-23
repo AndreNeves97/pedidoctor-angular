@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
 
 
         } catch (e) {
-            console.log(e);
 
             if (e.status == 401) {
                 msg = 'E-mail ou senha incorreta.'

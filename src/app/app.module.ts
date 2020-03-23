@@ -31,13 +31,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardComponent as PedilandiaDashBoardComponent, DashboardComponent } from './pedilandia/dashboard/dashboard.component';
-import { MainSupperComponent } from './supper/main.component';
+
 import { DialogUserInfoComponent } from './common/utils/components/dialog-user-info/dialog-user-info.component';
 import { ToolbarUserAvatarComponent } from './common/utils/components/toolbar-user-avatar/toolbar-user-avatar.component';
 
-import { PedilandiaModule } from './pedilandia/pedilandia.module';
-import { SupperModule } from './supper/supper.module';
-import { FeastModule } from './feast/feast.module';
 import { MainComponent } from './main/main.component';
 import { HomeComponent } from './main/home/home.component';
 import { ClinicaModule } from './pedilandia/clinica/clinica.module';
@@ -74,7 +71,6 @@ registerLocaleData(localePt);
         MainComponent,
         MainPedilandiaComponent,
         DashboardComponent,
-        MainSupperComponent,
 
         AppComponent,
         DialogUserInfoComponent,
@@ -87,11 +83,6 @@ registerLocaleData(localePt);
         HomePageContentComponent
     ],
     imports: [
-        // PedilandiaModule,
-        // SupperModule,
-        // MainModule,
-        // FeastModule,
-
         BrowserModule,
         AppRoutingModule,
         UsuarioModule,

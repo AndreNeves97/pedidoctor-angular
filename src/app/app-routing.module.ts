@@ -5,7 +5,6 @@ import { MainComponent } from './main/main.component';
 import { mainRoutes } from './main/main-routing.module';
 import { MainPedilandiaComponent } from './pedilandia/main.component';
 import { pedilandiaRoutes } from './pedilandia/pedilandia-routing.module';
-import { MainSupperComponent } from './supper/main.component';
 import { AuthGuard } from './common/security/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -22,11 +21,6 @@ const routes: Routes = [
         children: pedilandiaRoutes,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'supper',
-        component: MainSupperComponent,
-        canActivate: [AuthGuard]
-    }, 
     {
         path: 'login',
         component: LoginComponent

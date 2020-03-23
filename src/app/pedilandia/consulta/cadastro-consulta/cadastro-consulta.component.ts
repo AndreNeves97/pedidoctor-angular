@@ -513,7 +513,6 @@ export class CadastroConsultaComponent implements OnInit{
         let subscription : Subscription;
         
         subscription = this.filteredSintomas.subscribe(v => {
-            console.log(v)
             if(v != null) {
                 this.sintomasInputAutoCmpTrigger.openPanel();
                 subscription.unsubscribe()

@@ -85,7 +85,6 @@ export class MedicoService {
         }
   `);
 
-    // console.log(response);
 
     return response.data.clinica.medicos;
   }
@@ -103,7 +102,6 @@ export class MedicoService {
       }
     `);
 
-    console.log(response);
 
     return response.data.usuario;
   }

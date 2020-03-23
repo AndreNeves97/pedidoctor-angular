@@ -40,8 +40,6 @@ export class AuthService {
 
     async newFirebaseUser(user: firebase.User) {
 
-        console.log(user);
-
         if (user == null) {
             this.setUsuarioLogado(null);
             return;
@@ -62,7 +60,6 @@ export class AuthService {
         let status: LoginUsuarioStatus = LoginUsuarioStatus.DESLOGADO;
 
         if (usuario != null) {
-            console.log('jwt', usuario.jwt);
             status = LoginUsuarioStatus.LOGADO;
         }
 
@@ -77,7 +74,6 @@ export class AuthService {
     }
 
     async signOut() {
-        console.log(this.afAuth.auth.currentUser);
 
         if(this.afAuth.auth.currentUser != null) {
             this.afAuth.auth.signOut();

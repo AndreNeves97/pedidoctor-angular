@@ -81,8 +81,6 @@ export class EnfermeiroService {
       }
     `);
 
-    console.log(response);
-
     return response.data.usuario;
   }
 

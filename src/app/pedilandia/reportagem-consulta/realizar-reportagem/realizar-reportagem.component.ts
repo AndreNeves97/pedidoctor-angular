@@ -109,7 +109,6 @@ export class RealizarReportagemComponent implements OnInit {
     this.router.events.pipe(
       filter((event: any) => event instanceof RoutesRecognized), pairwise()
     ).subscribe((events: RoutesRecognized[]) => {
-      console.log(events[0].urlAfterRedirects);
     })
   }
 

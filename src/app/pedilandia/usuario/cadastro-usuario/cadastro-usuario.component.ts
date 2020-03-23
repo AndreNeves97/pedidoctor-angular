@@ -79,14 +79,14 @@ export class CadastroUsuarioComponent implements OnInit {
                 })
             )
             .subscribe((id: string) => {
-                console.log(id)
+                
                 if(id != null) {
                     this.updating = true;
                     this.loading = true;
 
                     this.usuarioService.getUser(id).then((obj: Usuario) => {
                         this.loading = false;
-                        console.log(obj)
+                        
                         this.cadastro_form.patchValue(obj);
                         this.cadastro_form.get('senha').setValidators([Validators.minLength(6)])
                     })
@@ -109,7 +109,6 @@ export class CadastroUsuarioComponent implements OnInit {
 
         this.waiting = true;
 
-        console.log(usuario);
 
         if(this.updating) {
             this.alterar(usuario)
@@ -132,7 +131,7 @@ export class CadastroUsuarioComponent implements OnInit {
                 .open_snack_bar('Falha ao cadastrar usuário. Algum erro ocorreu.', 'error');
             }
         }).catch((e) => {
-            console.log(e);
+            
             let msg = 'Falha ao cadastrar usuário. Algum erro ocorreu.';
 
             if(e == 'email-existente') {
@@ -158,7 +157,7 @@ export class CadastroUsuarioComponent implements OnInit {
                 .open_snack_bar('Falha ao salvar usuário. Algum erro ocorreu.', 'error');
             }
         }).catch((e) => {
-            console.log(e);
+            
             let msg = 'Falha ao salvar usuário. Algum erro ocorreu.';
 
             if(e == 'email-existente') {

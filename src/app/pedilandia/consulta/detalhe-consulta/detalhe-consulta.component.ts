@@ -30,7 +30,7 @@ export class DetalheConsultaComponent implements OnInit {
                 this.consulta = null;
 
                 this.service.find(id).then((consulta: Consulta) => {
-                    console.log(consulta)
+                    
                     if (consulta)
                         this.consulta = consulta;
                     else

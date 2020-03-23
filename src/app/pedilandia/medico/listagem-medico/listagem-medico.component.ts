@@ -78,24 +78,15 @@ export class ListagemMedicoComponent implements OnInit {
   }
  
   private excluir( medico: Medico ) {
-    // const dialogRef = this.dialog.open(DialogContent);
-
-    // dialogRef.afterClosed().subscribe(result => {
-      // console.log(`Dialog result: ${result}`);
-      // if (result ) {
-        this.medicoService.deleteEnfermeiro( medico._id ).then((dado)=>{
-            this.getData();
-        });
-      // }
-    // });
+    this.medicoService.deleteEnfermeiro( medico._id ).then((dado)=>{
+        this.getData();
+    });
   }
 
   private openDialog () {
     const dialogRef = this.dialog.open(DialogContent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    
   }
 }
 

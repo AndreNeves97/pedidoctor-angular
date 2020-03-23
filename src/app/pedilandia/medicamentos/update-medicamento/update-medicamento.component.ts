@@ -95,7 +95,6 @@ export class UpdateMedicamentoComponent implements OnInit {
   set_values ( ) {
     let doencas: any[] = [];
     this.medicamento.indicadoPara.forEach((d) => doencas.push(d._id));
-    console.log(doencas);
     this.update_form.patchValue({
       _id: this.medicamento._id ? this.medicamento._id : "",
       nome : this.medicamento.nome ? this.medicamento.nome : "",
