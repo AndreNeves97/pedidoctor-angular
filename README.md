@@ -1,27 +1,46 @@
-# AngularTeste
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+# Pedidoctor
 
-## Development server
+Sistema que tem como objetivo centralizar a marcação de consultas para diferentes clínicas médicas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Imagens
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Marcação de consultas
+![Marcação de consultas](img/pedidoctor-1.png)
 
-## Build
+![Marcação de consultas](img/pedidoctor-2.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+<br>
 
-## Running unit tests
+### Dashboard
+![Marcação de consultas](img/pedidoctor-3.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<br>
 
-## Running end-to-end tests
+### Cadastros gerais
+![Marcação de consultas](img/pedidoctor-4.png)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+<br>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Cadastro de clínicas
+![Marcação de consultas](img/pedidoctor-5.png)
+
+
+## Instalação de dependências
+
+```bash
+$ npm install
+```
+
+
+## Execução em desenvolvimento
+
+
+```bash
+# Sem debug
+$ ng serve
+```
+
+Abrir o endereço http://localhost:4200/
