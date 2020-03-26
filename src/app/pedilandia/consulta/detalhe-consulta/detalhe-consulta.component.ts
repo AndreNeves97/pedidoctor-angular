@@ -30,9 +30,18 @@ export class DetalheConsultaComponent implements OnInit {
                 this.consulta = null;
 
                 this.service.find(id).then((consulta: Consulta) => {
-                    
+                    console.log(consulta)
                     if (consulta)
-                        this.consulta = consulta;
+                        this.consulta = {
+                            ...consulta,
+                            realizacao: {
+                                ...consulta.realizacao,
+                                diagnostico: {
+                                    ...consulta.realizacao.diagnostico,
+                                    descricao: unescape(consulta.realizacao.diagnostico.descricao)
+                                }
+                            }
+                        }
                     else
                         this.navigate_back();
                 })

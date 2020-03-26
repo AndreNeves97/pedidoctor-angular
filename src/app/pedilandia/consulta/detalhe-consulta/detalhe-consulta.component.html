@@ -24,7 +24,7 @@
         </h2>
         <p><b>Horário início: </b></p>{{ consulta.realizacao.horarioInicio | date: "dd/MM/yyyy hh:mm:ss" }} <br>
         <p><b>Horário fim: </b></p>{{ consulta.realizacao.horarioFinalizacao | date: "dd/MM/yyyy hh:mm:ss" }} <br>
-        <p><b>Descrição do diagnóstico: </b></p> <code style="white-space: pre-line;">{{ consulta.realizacao.diagnostico.descricao | json }}</code>
+        <p><b>Descrição do diagnóstico: </b></p> <code style="white-space: pre-line;">{{ consulta.realizacao.diagnostico.descricao  }}</code>
     </mat-expansion-panel>
     <br>
     <mat-expansion-panel expanded>
